@@ -33,7 +33,7 @@ local btnMapWater
 local btnMapMountain
 local btnMapForest
 
-local function onMapRelease(event)--
+local function onMapRelease(event)
     if event.target.id == "battle" then
 
         print( "event: "..event.target.id)          
@@ -100,13 +100,12 @@ function scene:createScene( event)
 
     btnMapWater=display.newImageRect( "img/background/water_dark.png",display.contentWidth*.26, display.contentHeight*.187 )
     btnMapWater.id='water'
-   -- btnMapWater:setReferencePoint( display.TopLeftReferencePoint )
     btnMapWater.x = display.contentWidth - (display.contentWidth*.63)
     btnMapWater.y = display.contentHeight - (display.contentHeight*.323)
 
     btnBattle = widget.newButton{			
-            default="img/background/battle_light.png",
-            over="img/background/battle_dark.png",
+            default="img/menu/battle_light.png",
+            over="img/menu/battle_dark.png",
             width=sizemenu, height=sizemenu,
             onRelease = onMapRelease	-- event listener function
     }
@@ -116,8 +115,8 @@ function scene:createScene( event)
     btnBattle.y =  display.contentHeight-(display.contentHeight*.112)
 
     btnTeam = widget.newButton{			
-            default="img/background/team_light.png",
-            over="img/background/team_dark.png",
+            default="img/menu/team_light.png",
+            over="img/menu/team_dark.png",
             width=sizemenu, height=sizemenu,
             onRelease = onMapRelease	-- event listener function
     }
@@ -127,8 +126,8 @@ function scene:createScene( event)
     btnTeam.y = display.contentHeight-(display.contentHeight*.112)
     
     btnShop = widget.newButton{			
-            default="img/background/store_light.png",
-            over="img/background/store_dark.png",
+            default="img/menu/store_light.png",
+            over="img/menu/store_dark.png",
             width=sizemenu, height=sizemenu,
             onRelease = onMapRelease	-- event listener function
     }
@@ -138,8 +137,8 @@ function scene:createScene( event)
     btnShop.y = display.contentHeight-(display.contentHeight*.112)
     
     btnGacha = widget.newButton{			
-            default="img/background/gacha_light.png",
-            over="img/background/gacha_dark.png",
+            default="img/menu/gacha_light.png",
+            over="img/menu/gacha_dark.png",
             width=sizemenu, height=sizemenu,
             onRelease = onMapRelease	-- event listener function
     }
@@ -149,8 +148,8 @@ function scene:createScene( event)
     btnGacha.y = display.contentHeight-(display.contentHeight*.112)
     
     btnCommu = widget.newButton{			
-            default="img/background/commu_light.png",
-            over="img/background/commu_dark.png",
+            default="img/menu/commu_light.png",
+            over="img/menu/commu_dark.png",
             width=sizemenu, height=sizemenu,
             onRelease = onMapRelease	-- event listener function
     }

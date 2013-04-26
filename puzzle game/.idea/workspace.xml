@@ -4,15 +4,21 @@
     <list default="true" id="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" name="Default" comment="" />
     <ignored path="puzzle game.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/map.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1366879100118" ignored="false" />
+    <file path="/map.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1366971113053" ignored="false" />
     <file path="/guscha.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1366278172723" ignored="false" />
     <file path="/scrollView.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1366267382963" ignored="false" />
     <file path="/game-scene.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1366247758862" ignored="false" />
     <file path="/util.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1366247811944" ignored="false" />
-    <file path="/main.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1366884150113" ignored="false" />
-    <file path="/gacha.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1366882100215" ignored="false" />
-    <file path="/team_main.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1366889037021" ignored="false" />
-    <file path="/title_page.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1366938745143" ignored="false" />
+    <file path="/main.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1366967937934" ignored="false" />
+    <file path="/gacha.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1366970924960" ignored="false" />
+    <file path="/team_main.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1366956660681" ignored="false" />
+    <file path="/title_page.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1366941364432" ignored="false" />
+    <file path="/map_substate.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1366967333669" ignored="false" />
+    <file path="/misstion.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1366956339534" ignored="false" />
+    <file path="/guest.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1366956332463" ignored="false" />
+    <file path="/team_item.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1366966981746" ignored="false" />
+    <file path="/character.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1366965373461" ignored="false" />
+    <file path="/characterprofile.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1366967189861" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,53 +80,44 @@
       <file leaf-file-name="main.lua" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.lua">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="54" selection-start="224" selection-end="224" vertical-scroll-proportion="0.0">
+            <state line="26" column="30" selection-start="609" selection-end="609" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="title_page.lua" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/title_page.lua">
+      <file leaf-file-name="map_substate.lua" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/map_substate.lua">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="33" column="79" selection-start="1164" selection-end="1164" vertical-scroll-proportion="0.7066869">
-              <folding />
+            <state line="35" column="26" selection-start="940" selection-end="940" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="n#createMENU#0" expanded="false" />
+                <element signature="n#createBackButton#0" expanded="false" />
+                <element signature="n#scrollViewList#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="map.lua" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="map.lua" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/map.lua">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="205" column="12" selection-start="8125" selection-end="8174" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="159" column="69" selection-start="5972" selection-end="5972" vertical-scroll-proportion="0.6976048">
+              <folding>
+                <element signature="n#onMapRelease#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main_page.lua" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main_page.lua">
+      <file leaf-file-name="misstion.lua" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/misstion.lua">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="41" selection-start="120" selection-end="120" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="team_main.lua" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/team_main.lua">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="200" column="60" selection-start="7095" selection-end="7115" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="team_item.lua" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/team_item.lua">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="194" column="66" selection-start="6762" selection-end="6762" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="48" column="4" selection-start="1396" selection-end="1551" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="n#createMENU#0" expanded="false" />
+                <element signature="n#createBackButton#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -128,35 +125,13 @@
       <file leaf-file-name="gacha.lua" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/gacha.lua">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="179" column="0" selection-start="6151" selection-end="8281" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="gacha_main.lua" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gacha_main.lua">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="50" selection-start="772" selection-end="772" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="game-scene.lua" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/game-scene.lua">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="43" column="16" selection-start="986" selection-end="996" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="util.lua" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/util.lua">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="180" column="59" selection-start="5182" selection-end="5182" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="92" column="50" selection-start="2908" selection-end="2908" vertical-scroll-proportion="-14.423077">
+              <folding>
+                <element signature="n#onBtnRelease#0" expanded="false" />
+                <element signature="n#moveScrollBar#0" expanded="false" />
+                <element signature="n#addScrollBar#0" expanded="false" />
+                <element signature="n#createBackButton#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -171,17 +146,21 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/map_substate.lua" />
         <option value="$PROJECT_DIR$/util.lua" />
         <option value="$PROJECT_DIR$/scrollView.lua" />
         <option value="$PROJECT_DIR$/guscha.lua" />
         <option value="$PROJECT_DIR$/game-scene.lua" />
-        <option value="$PROJECT_DIR$/map.lua" />
-        <option value="$PROJECT_DIR$/gacha.lua" />
-        <option value="$PROJECT_DIR$/team_item.lua" />
-        <option value="$PROJECT_DIR$/team_main.lua" />
-        <option value="$PROJECT_DIR$/main.lua" />
         <option value="$PROJECT_DIR$/title_page.lua" />
+        <option value="$PROJECT_DIR$/misstion.lua" />
+        <option value="$PROJECT_DIR$/guest.lua" />
+        <option value="$PROJECT_DIR$/character.lua" />
+        <option value="$PROJECT_DIR$/team_item.lua" />
+        <option value="$PROJECT_DIR$/characterprofile.lua" />
+        <option value="$PROJECT_DIR$/map_substate.lua" />
+        <option value="$PROJECT_DIR$/team_main.lua" />
+        <option value="$PROJECT_DIR$/gacha.lua" />
+        <option value="$PROJECT_DIR$/main.lua" />
+        <option value="$PROJECT_DIR$/map.lua" />
       </list>
     </option>
   </component>
@@ -189,9 +168,9 @@
     <treeState />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-68" />
-    <option name="y" value="69" />
-    <option name="width" value="1256" />
+    <option name="x" value="51" />
+    <option name="y" value="76" />
+    <option name="width" value="1097" />
     <option name="height" value="829" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -373,7 +352,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-68" y="69" width="1256" height="829" extended-state="0" />
+    <frame x="51" y="76" width="1097" height="829" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -389,7 +368,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32998455" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.10330579" sideWeight="0.9985896" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.11893435" sideWeight="0.9985896" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -452,68 +431,14 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="1" />
+      <option name="time" value="3" />
     </breakpoint-manager>
   </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/map_substate.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="45" selection-start="450" selection-end="450" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scrollView.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="23" selection-start="1629" selection-end="1629" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../gamecode CORONA/ListView1/main.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gacha_main.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="50" selection-start="772" selection-end="772" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scrollView.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="32" selection-start="839" selection-end="849" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/util.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="180" column="59" selection-start="5182" selection-end="5182" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/guscha.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="133" column="62" selection-start="4401" selection-end="4401" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gacha.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="179" column="0" selection-start="6151" selection-end="8281" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/map_substate.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="66" selection-start="2351" selection-end="2351" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/map.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="205" column="12" selection-start="8125" selection-end="8174" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/game-scene.lua">
       <provider selected="true" editor-type-id="text-editor">
         <state line="43" column="16" selection-start="986" selection-end="996" vertical-scroll-proportion="0.0">
@@ -521,38 +446,138 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/team_item.lua">
+    <entry file="file://$PROJECT_DIR$/util.lua">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="194" column="66" selection-start="6762" selection-end="6762" vertical-scroll-proportion="0.0">
+        <state line="195" column="106" selection-start="5578" selection-end="5578" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.lua">
+    <entry file="file://$PROJECT_DIR$/gacha_main.lua">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="54" selection-start="224" selection-end="224" vertical-scroll-proportion="0.0">
+        <state line="48" column="98" selection-start="1553" selection-end="1553" vertical-scroll-proportion="-1.162614">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main_page.lua">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="41" selection-start="120" selection-end="120" vertical-scroll-proportion="0.0">
+        <state line="5" column="41" selection-start="120" selection-end="120" vertical-scroll-proportion="0.11013216">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/team_main.lua">
+    <entry file="file://$PROJECT_DIR$/guscha.lua">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="200" column="60" selection-start="7095" selection-end="7115" vertical-scroll-proportion="0.0">
+        <state line="150" column="53" selection-start="4881" selection-end="4881" vertical-scroll-proportion="3.1661677">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/title_page.lua">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="79" selection-start="1164" selection-end="1164" vertical-scroll-proportion="0.7066869">
+        <state line="16" column="40" selection-start="476" selection-end="476" vertical-scroll-proportion="-0.20820668">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/team_main.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="248" column="26" selection-start="9073" selection-end="9073" vertical-scroll-proportion="0.648062">
+          <folding>
+            <element signature="n#createLEADER#0" expanded="false" />
+            <element signature="n#createMENU#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/guest.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="4" selection-start="1394" selection-end="1549" vertical-scroll-proportion="0.35193798">
+          <folding>
+            <element signature="n#createMENU#0" expanded="false" />
+            <element signature="n#createBackButton#0" expanded="false" />
+            <element signature="n#scrollViewList#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/team_item.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="240" column="91" selection-start="8646" selection-end="8646" vertical-scroll-proportion="0.4620155">
+          <folding>
+            <element signature="n#checkMemory#0" expanded="false" />
+            <element signature="n#createMENU#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/characterprofile.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="173" column="70" selection-start="6667" selection-end="6667" vertical-scroll-proportion="0.5613772">
+          <folding>
+            <element signature="n#checkMemory#0" expanded="false" />
+            <element signature="n#createMENU#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/character.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="60" column="28" selection-start="2182" selection-end="2182" vertical-scroll-proportion="-0.2245509">
+          <folding>
+            <element signature="n#checkMemory#0" expanded="false" />
+            <element signature="n#createMENU#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/misstion.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="4" selection-start="1396" selection-end="1551" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="n#createMENU#0" expanded="false" />
+            <element signature="n#createBackButton#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gacha.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="92" column="50" selection-start="2908" selection-end="2908" vertical-scroll-proportion="-14.423077">
+          <folding>
+            <element signature="n#onBtnRelease#0" expanded="false" />
+            <element signature="n#moveScrollBar#0" expanded="false" />
+            <element signature="n#addScrollBar#0" expanded="false" />
+            <element signature="n#createBackButton#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/map_substate.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="26" selection-start="940" selection-end="940" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="n#createMENU#0" expanded="false" />
+            <element signature="n#createBackButton#0" expanded="false" />
+            <element signature="n#scrollViewList#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="30" selection-start="609" selection-end="609" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/map.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="159" column="69" selection-start="5972" selection-end="5972" vertical-scroll-proportion="0.6976048">
+          <folding>
+            <element signature="n#onMapRelease#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

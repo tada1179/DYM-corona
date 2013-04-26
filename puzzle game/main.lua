@@ -16,17 +16,19 @@ local options =
 {
     effect = "fade",
     time = 100,
-    params = { 
-        var1 = "custom", 
+    params = {
+        var1 = "custom",
         myVar = "another"
     }
 }
 
 -- load menu screen
-storyboard.gotoScene( "title_page")
---storyboard.gotoScene( "map")
+--storyboard.gotoScene( "title_page")
+storyboard.gotoScene( "map")
+--storyboard.gotoScene( "map_substate")
 
 --storyboard.gotoScene( "team_main")
+--storyboard.gotoScene( "gacha")
 
 
 

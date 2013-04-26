@@ -7,7 +7,7 @@
 --
 -- Map
 -----------------------------------------------------------------------------------------
-print("team_main.lua")
+print("team_item.lua")
 local storyboard = require( "storyboard" )
 local scene = storyboard.newScene()
 local widget = require "widget"
@@ -24,6 +24,7 @@ local leader2
 local leader3
 local leader4
 local leader5
+local backButton
 
 local function onBtnRelease(event)
     if event.target.id == "battle" then
@@ -41,6 +42,10 @@ local function onBtnRelease(event)
     elseif  event.target.id == "commu" then
         print( "event: "..event.target.id)
         storyboard.gotoScene( "commu_main", "fade", 100 )
+
+    elseif event.target.id == "back" then -- back button
+        print( "event: "..event.target.id)
+        storyboard.gotoScene( "team_main" ,"fade", 100 )
     end
     --    storyboard.gotoScene( "title_page", "fade", 100 )
     return true	-- indicates successful touch
@@ -54,7 +59,7 @@ end
 local function selectLeader(event)
     if event.target.id == "leader1" then
         print("event: "..event.target.id)
-
+        storyboard.gotoScene( "character", "fade", 100 )
     elseif event.target.id == "leader2" then
 
         print("event: "..event.target.id)
@@ -72,9 +77,8 @@ local function selectLeader(event)
 end
 
 local function createLEADER()
-    print("---createLEADER----")
-    local sizeleaderW = display.contentWidth*.13
-    local sizeleaderH = display.contentHeight*.09
+    local sizeleaderW = display.contentWidth*.135
+    local sizeleaderH = display.contentWidth*.135
     --960*.1 = 96 size image = 96*96
     leader1 = widget.newButton{
         default = "img/background/FRAME_LAYOUT_13.png",
@@ -85,8 +89,8 @@ local function createLEADER()
     }
     leader1.id="leader1"
     leader1:setReferencePoint( display.CenterReferencePoint )
-    leader1.x =display.contentWidth-(display.contentWidth*.825)
-    leader1.y =  display.contentHeight-(display.contentHeight*.532)
+    leader1.x = display.contentWidth *.2
+    leader1.y =  display.contentHeight-(display.contentHeight*.6)
 
     leader2 = widget.newButton{
         default = "img/background/FRAME_LAYOUT_13.png",
@@ -97,8 +101,8 @@ local function createLEADER()
     }
     leader2.id="leader2"
     leader2:setReferencePoint( display.CenterReferencePoint )
-    leader2.x =display.contentWidth-(display.contentWidth*.61)
-    leader2.y =  display.contentHeight-(display.contentHeight*.532)
+    leader2.x = display.contentWidth *.35
+    leader2.y =  display.contentHeight-(display.contentHeight*.6)
 
     leader3 = widget.newButton{
         default = "img/background/FRAME_LAYOUT_13.png",
@@ -109,8 +113,8 @@ local function createLEADER()
     }
     leader3.id="leader3"
     leader3:setReferencePoint( display.CenterReferencePoint )
-    leader3.x =display.contentWidth-(display.contentWidth*.465)
-    leader3.y =  display.contentHeight-(display.contentHeight*.532)
+    leader3.x =display.contentWidth * .5
+    leader3.y =  display.contentHeight-(display.contentHeight*.6)
 
     leader4 = widget.newButton{
         default = "img/background/FRAME_LAYOUT_13.png",
@@ -121,8 +125,8 @@ local function createLEADER()
     }
     leader4.id="leader4"
     leader4:setReferencePoint( display.CenterReferencePoint )
-    leader4.x =display.contentWidth-(display.contentWidth*.32)
-    leader4.y =  display.contentHeight-(display.contentHeight*.532)
+    leader4.x =display.contentWidth * .65
+    leader4.y =  display.contentHeight-(display.contentHeight*.6)
 
     leader5 = widget.newButton{
         default = "img/background/FRAME_LAYOUT_13.png",
@@ -133,8 +137,8 @@ local function createLEADER()
     }
     leader5.id="leader5"
     leader5:setReferencePoint( display.CenterReferencePoint )
-    leader5.x =display.contentWidth-(display.contentWidth*.175)
-    leader5.y =  display.contentHeight-(display.contentHeight*.532)
+    leader5.x =display.contentWidth * .8
+    leader5.y =  display.contentHeight-(display.contentHeight*.6)
 
 end
 
@@ -199,18 +203,53 @@ local function createMENU()
 
 end
 
+
+local function createBackButton()
+    backButton = widget.newButton{
+        default="img/background/button/Button_BACK.png",
+        over="img/background/button/Button_BACK.png",
+        width=display.contentWidth/10, height=display.contentHeight/21,
+        onRelease = onBtnRelease	-- event listener function
+    }
+    backButton.id="back"
+    backButton:setReferencePoint( display.TopLeftReferencePoint )
+    backButton.x = display.contentWidth - (display.contentWidth *.845)
+    backButton.y = display.contentHeight - (display.contentHeight *.7)
+end
+
 function scene:createScene( event )
     print("--------------map_sub----------------")
     local group = self.view
     checkMemory()
 
 
-    local background = display.newImageRect( "img/background/team/TEMPLATE_unit.jpg", display.contentWidth, display.contentHeight )
+--    local background = display.newImageRect( "img/background/team/TEMPLATE_unit.jpg", display.contentWidth, display.contentHeight )
+    local background = display.newImageRect( "img/background/background_1.png", display.contentWidth, display.contentHeight )
     background:setReferencePoint( display.TopLeftReferencePoint )
     background.x, background.y = 0, 0
-    --createLEADER()
+
+    local background2 = display.newImageRect( "img/background/background_2.png", display.contentWidth, display.contentHeight )
+    background2:setReferencePoint( display.TopLeftReferencePoint )
+    background2.x, background2.y = 0, 0
+
+    local titleText = display.newImageRect( "img/text/UNIT_BOX.png", display.contentWidth/4.5, display.contentHeight/34 )
+    titleText:setReferencePoint( display.CenterReferencePoint )
+    titleText.x = display.contentWidth /2
+    titleText.y = display.contentHeight /3.14
+
+    createLEADER()
     createMENU()
+    createBackButton()
     group:insert(background)
+
+    group:insert(backButton)
+    group:insert(titleText)
+    group:insert(leader5)
+    group:insert(leader4)
+    group:insert(leader3)
+    group:insert(leader2)
+    group:insert(leader1)
+    group:insert(background2)
 
 
     group:insert(btnBattle)

@@ -19,8 +19,8 @@ function scene:createScene( event )
 --    local background = display.newImageRect( "img/background/bgtest.jpg", display.contentWidth, display.contentHeight )
 --    background:setReferencePoint( display.TopLeftReferencePoint ) CenterReferencePoint
 --    background.x, background.y = 0, 0
-    positX=display.contentWidth/4
-    positY=display.contentHeight/8
+    local positX = display.contentWidth/4
+    local positY=display.contentHeight/8
 
     local txtNameGame = display.newText( "- game name -", positX, positY-positY, native.systemFont, 36 )
     txtNameGame:setTextColor(255,255,255)

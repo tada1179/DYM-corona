@@ -23,6 +23,8 @@ local leader2
 local leader3
 local leader4
 local leader5
+local backButton
+local character
 
 local function onBtnRelease(event)
     if event.target.id == "battle" then
@@ -40,6 +42,11 @@ local function onBtnRelease(event)
     elseif  event.target.id == "commu" then
         print( "event: "..event.target.id)
         storyboard.gotoScene( "commu_main", "fade", 100 )
+
+
+    elseif event.target.id == "back" then -- back button
+        print( "event: "..event.target.id)
+        storyboard.gotoScene( "guest" ,"fade", 100 )
     end
 --    storyboard.gotoScene( "title_page", "fade", 100 )	    
     return true	-- indicates successful touch
@@ -204,17 +211,42 @@ local function createMENU()
 
 end
 
+local function createBackButton()
+    backButton = widget.newButton{
+        default="img/background/button/Button_BACK.png",
+        over="img/background/button/Button_BACK.png",
+        width=display.contentWidth/10, height=display.contentHeight/21,
+        onRelease = onBtnRelease	-- event listener function
+    }
+    backButton.id="back"
+    backButton:setReferencePoint( display.TopLeftReferencePoint )
+    backButton.x = display.contentWidth - (display.contentWidth *.845)
+    backButton.y = display.contentHeight - (display.contentHeight *.7)
+end
+
+
+
 function scene:createScene( event )  
     print("--------------map_sub11111----------------")
     local group = self.view
     checkMemory()
-
-
-    local background = display.newImageRect( "img/background/team/TEMPLATE.jpg", display.contentWidth, display.contentHeight )
+--    local background = display.newImageRect( "img/background//team/TEMPLATE.jpg", display.contentWidth, display.contentHeight )
+    local background = display.newImageRect( "img/background/background_1.png", display.contentWidth, display.contentHeight )
     background:setReferencePoint( display.TopLeftReferencePoint )
     background.x, background.y = 0, 0
+
+    local background2 = display.newImageRect( "img/background/background_2.png", display.contentWidth, display.contentHeight )
+    background2:setReferencePoint( display.TopLeftReferencePoint )
+    background2.x, background2.y = 0, 0
+
+    local titleText = display.newImageRect( "img/text/TEAM_SELECT.png", display.contentWidth/3, display.contentHeight/35 )
+    titleText:setReferencePoint( display.CenterReferencePoint )
+    titleText.x = display.contentWidth /2
+    titleText.y = display.contentHeight /3.1
+
     createLEADER()
     createMENU()
+    createBackButton()
 
     group:insert(background)
     group:insert(leader5)
@@ -222,6 +254,10 @@ function scene:createScene( event )
     group:insert(leader3)
     group:insert(leader2)
     group:insert(leader1)
+    group:insert(backButton)
+    group:insert(titleText)
+    group:insert(background2)
+
 
     group:insert(btnBattle)
     group:insert(btnCommu)

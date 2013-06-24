@@ -1,0 +1,314 @@
+print("PAGE setting")
+module(..., package.seeall)
+local storyboard = require( "storyboard" )
+local alertMSN = require( "alertMassage" )
+local scene = storyboard.newScene()
+local widget = require "widget"
+local previous_scene_name = storyboard.getPrevious()
+------------------------------
+local screenW, screenH = display.contentWidth, display.contentHeight
+
+--function new(option)
+--    local gameOption = option.params
+--    local mission =  gameOption.mission
+--    local battle =  gameOption.battle
+--
+--    local BGM =  gameOption.BGM
+--    local SFX =  gameOption.SFX
+--    local BTN =  gameOption.BTN
+--    local SKL =  gameOption.SKL
+--
+--    print("setting mission",mission,"battle",battle, "BGM",BGM,"SFX",SFX,"SKL",SKL,"BTN",BTN)
+--
+--    local groupView = display.newGroup()
+--    local typeFont = native.systemFontBold
+--    local sizetext = 25
+--
+--    local backgroundCaution
+--    local btnGameop
+--    local btnBGM_ON
+--    local btnSFX_ON
+--    local btnSKL_ON
+--    local btnBTN_ON
+--
+--    -- 1: on
+--    -- 2: off
+----    local BGM = nil
+----    local SFX = nil
+----    local SKL = nil
+----    local BTN = nil
+--    local function ButtouON_Off(event)
+--        local img_off = "img/background/button/OFF.png"
+--        local img_on = "img/background/button/ON.png"
+--
+--        if event.target.id == "BGM1" then
+--            BGM = 2
+--            btnBGM_ON.alpha = 0
+--            btnBGM_ON = widget.newButton{
+--                default = img_off,
+--                over = img_off,
+--                width=screenW*.2, height= screenH*.05,
+--                onRelease = ButtouON_Off	-- event listener function
+--            }
+--            btnBGM_ON.id = "BGM2"
+--            btnBGM_ON:setReferencePoint( display.CenterReferencePoint )
+--            btnBGM_ON.alpha = 1
+--            btnBGM_ON.x = screenW*.7
+--            btnBGM_ON.y = screenH*.42
+--            groupView:insert(btnBGM_ON)
+--
+--        elseif event.target.id == "BGM2" then
+--            BGM = 1
+--            btnBGM_ON.alpha = 0
+--            btnBGM_ON = widget.newButton{
+--                default = img_on,
+--                over = img_on,
+--                width=screenW*.2, height= screenH*.05,
+--                onRelease = ButtouON_Off	-- event listener function
+--            }
+--            btnBGM_ON.id = "BGM1"
+--            btnBGM_ON:setReferencePoint( display.CenterReferencePoint )
+--            btnBGM_ON.alpha = 1
+--            btnBGM_ON.x = screenW*.7
+--            btnBGM_ON.y = screenH*.42
+--            groupView:insert(btnBGM_ON)
+--
+--        elseif event.target.id == "SFX1" then
+--            SFX = 2
+--            btnSFX_ON.alpha = 0
+--            btnSFX_ON = widget.newButton{
+--                default = img_off,
+--                over = img_off,
+--                width=screenW*.2, height= screenH*.05,
+--                onRelease = ButtouON_Off	-- event listener function
+--            }
+--            btnSFX_ON.id = "SFX2"
+--            btnSFX_ON:setReferencePoint( display.CenterReferencePoint )
+--            btnSFX_ON.alpha = 1
+--            btnSFX_ON.x = screenW*.7
+--            btnSFX_ON.y = screenH*.5
+--            groupView:insert(btnSFX_ON)
+--
+--        elseif event.target.id == "SFX2" then
+--            SFX = 1
+--            btnSFX_ON.alpha = 0
+--            btnSFX_ON = widget.newButton{
+--                default = img_on,
+--                over = img_on,
+--                width=screenW*.2, height= screenH*.05,
+--                onRelease = ButtouON_Off	-- event listener function
+--            }
+--            btnSFX_ON.id = "SFX1"
+--            btnSFX_ON:setReferencePoint( display.CenterReferencePoint )
+--            btnSFX_ON.alpha = 1
+--            btnSFX_ON.x = screenW*.7
+--            btnSFX_ON.y = screenH*.5
+--            groupView:insert(btnSFX_ON)
+--
+--        elseif event.target.id == "SKL1" then
+--            SKL = 2
+--            btnSKL_ON.alpha = 0
+--            btnSKL_ON = widget.newButton{
+--                default = img_off,
+--                over = img_off,
+--                width=screenW*.2, height= screenH*.05,
+--                onRelease = ButtouON_Off	-- event listener function
+--            }
+--            btnSKL_ON.id = "SKL2"
+--            btnSKL_ON:setReferencePoint( display.CenterReferencePoint )
+--            btnSKL_ON.alpha = 1
+--            btnSKL_ON.x = screenW*.7
+--            btnSKL_ON.y = screenH*.58
+--            groupView:insert(btnSKL_ON)
+--
+--        elseif event.target.id == "SKL2" then
+--            SKL = 1
+--            btnSKL_ON.alpha = 0
+--            btnSKL_ON = widget.newButton{
+--                default = img_on,
+--                over = img_on,
+--                width=screenW*.2, height= screenH*.05,
+--                onRelease = ButtouON_Off	-- event listener function
+--            }
+--            btnSKL_ON.id = "SKL1"
+--            btnSKL_ON:setReferencePoint( display.CenterReferencePoint )
+--            btnSKL_ON.alpha = 1
+--            btnSKL_ON.x = screenW*.7
+--            btnSKL_ON.y = screenH*.58
+--            groupView:insert(btnSKL_ON)
+--
+--        elseif event.target.id == "BTN1" then
+--            BTN = 2
+--            btnBTN_ON.alpha = 0
+--            btnBTN_ON = widget.newButton{
+--                default = img_off,
+--                over = img_off,
+--                width=screenW*.2, height= screenH*.05,
+--                onRelease = ButtouON_Off	-- event listener function
+--            }
+--            btnBTN_ON.id = "BTN2"
+--            btnBTN_ON:setReferencePoint( display.CenterReferencePoint )
+--            btnBTN_ON.alpha = 1
+--            btnBTN_ON.x = screenW*.7
+--            btnBTN_ON.y = screenH*.66
+--            groupView:insert(btnBTN_ON)
+--        elseif event.target.id == "BTN2" then
+--            BTN = 1
+--            btnBTN_ON.alpha = 0
+--            btnBTN_ON = widget.newButton{
+--                default = img_on,
+--                over = img_on,
+--                width=screenW*.2, height= screenH*.05,
+--                onRelease = ButtouON_Off	-- event listener function
+--            }
+--            btnBTN_ON.id = "BTN1"
+--            btnBTN_ON:setReferencePoint( display.CenterReferencePoint )
+--            btnBTN_ON.alpha = 1
+--            btnBTN_ON.x = screenW*.7
+--            btnBTN_ON.y = screenH*.66
+--            groupView:insert(btnBTN_ON)
+--
+--        elseif event.target.id == "OK" then
+--
+--        end
+--
+--    end
+--    local function ButtouRelease(event)
+--        local option = {
+--            params = {
+--                BGM = BGM,
+--                SFX = SFX,
+--                SKL = SKL,
+--                BTN = BTN,
+--                battle = battle,
+--                mission = mission
+--
+--            }
+--        }
+--        groupView.alpha = 0
+--        alertMSN.MenuInPuzzle(option)
+--        return true
+--
+--    end
+--    local myRectangle = display.newRoundedRect(0, 0, screenW, screenH,0)
+--    myRectangle.strokeWidth = 2
+--    myRectangle.alpha = .8
+--    myRectangle:setFillColor(0, 0, 0)
+--    groupView:insert(myRectangle)
+--
+--    local image_Caution = "img/background/sellBattle_Item/CAUTION_BACKGROUND_LAYOT.png"
+--    backgroundCaution = display.newImageRect( image_Caution, screenW*.95,screenH*.8 )
+--    backgroundCaution:setReferencePoint( display.CenterReferencePoint )
+--    backgroundCaution.x = screenW *.5
+--    backgroundCaution.y = screenH*.5
+--    backgroundCaution.alpha = .8
+--    groupView:insert(backgroundCaution)
+--
+--    local image_GAME_OPTION = "img/background/button/GAME_OPTION.png"
+--    btnGameop = display.newImageRect( image_GAME_OPTION, screenW*.4,screenH*.08 )
+--    btnGameop:setReferencePoint( display.CenterReferencePoint )
+--    btnGameop.x = screenW *.5
+--    btnGameop.y = screenH*.31
+--    btnGameop.alpha = 1
+--    groupView:insert(btnGameop)
+--
+--    local image_ON = "img/background/button/ON.png"
+--    btnBGM_ON = widget.newButton{
+--        default = image_ON,
+--        over = image_ON,
+--        width=screenW*.2, height= screenH*.05,
+--        onRelease = ButtouON_Off	-- event listener function
+--    }
+--    btnBGM_ON.id = "BGM1"
+--    btnBGM_ON:setReferencePoint( display.CenterReferencePoint )
+--    btnBGM_ON.alpha = 1
+--    btnBGM_ON.x = screenW*.7
+--    btnBGM_ON.y = screenH*.42
+--    groupView:insert(btnBGM_ON)
+--
+--    btnSFX_ON = widget.newButton{
+--        default = image_ON,
+--        over = image_ON,
+--        width=screenW*.2, height= screenH*.05,
+--        onRelease = ButtouON_Off	-- event listener function
+--    }
+--    btnSFX_ON.id = "SFX1"
+--    btnSFX_ON:setReferencePoint( display.CenterReferencePoint )
+--    btnSFX_ON.alpha = 1
+--    btnSFX_ON.x = screenW*.7
+--    btnSFX_ON.y = screenH*.5
+--    groupView:insert(btnSFX_ON)
+--
+--    btnSKL_ON = widget.newButton{
+--        default = image_ON,
+--        over = image_ON,
+--        width=screenW*.2, height= screenH*.05,
+--        onRelease = ButtouON_Off	-- event listener function
+--    }
+--    btnSKL_ON.id = "SKL1"
+--    btnSKL_ON:setReferencePoint( display.CenterReferencePoint )
+--    btnSKL_ON.alpha = 1
+--    btnSKL_ON.x = screenW*.7
+--    btnSKL_ON.y = screenH*.58
+--    groupView:insert(btnSKL_ON)
+--
+--    btnBTN_ON = widget.newButton{
+--        default = image_ON,
+--        over = image_ON,
+--        width=screenW*.2, height= screenH*.05,
+--        onRelease = ButtouON_Off	-- event listener function
+--    }
+--    btnBTN_ON.id = "BTN1"
+--    btnBTN_ON:setReferencePoint( display.CenterReferencePoint )
+--    btnBTN_ON.alpha = 1
+--    btnBTN_ON.x = screenW*.7
+--    btnBTN_ON.y = screenH*.66
+--    groupView:insert(btnBTN_ON)
+--
+--
+--
+--    local pointtxt = screenH*.12
+--    local txtBGM = display.newText("BGM", pointtxt, screenH*.4, typeFont, sizetext)
+--    txtBGM:setTextColor(0, 200, 0)
+--    txtBGM.text =  string.format("BGM")
+--    txtBGM.alpha = 1
+--    groupView:insert(txtBGM)
+--
+--    local txtSFx = display.newText("SFx", pointtxt, screenH*.48, typeFont, sizetext)
+--    txtSFx:setTextColor(0, 200, 0)
+--    txtSFx.text =  string.format("SFx")
+--    txtSFx.alpha = 1
+--    groupView:insert(txtSFx)
+--
+--    local txtSkill = display.newText("Skill Confirmation", pointtxt, screenH*.56, typeFont, sizetext)
+--    txtSkill:setTextColor(0, 200, 0)
+--    txtSkill.text =  string.format("Skill Confirmation")
+--    txtSkill.alpha = 1
+--    groupView:insert(txtSkill)
+--
+--    local txtBattle = display.newText("Battle Notification", pointtxt, screenH*.64, typeFont, sizetext)
+--    txtBattle:setTextColor(0, 200, 0)
+--    txtBattle.text =  string.format("Battle Notification")
+--    txtBattle.alpha = 1
+--    groupView:insert(txtBattle)
+--
+--
+--    local img_OK = "img/background/button/OK_button.png"
+--    local btnOK = widget.newButton{
+--        default = img_OK,
+--        over = img_OK,
+--        width=screenW*.3, height= screenH*.07,
+--        onRelease = ButtouRelease	-- event listener function
+--    }
+--    btnOK.id = "cancel"
+--    btnOK:setReferencePoint( display.CenterReferencePoint )
+--    btnOK.alpha = 1
+--    btnOK.x = screenW*.5
+--    btnOK.y = screenH*.75
+--    groupView:insert(btnOK)
+--
+--    return   true
+--
+--end
+
+

@@ -1,0 +1,30 @@
+-- Project: HorseSprite
+--
+-- Date: September 27, 2010
+--
+-- Version: 1.0
+--
+-- File name: main.lua
+--
+-- Code type: Game Edition Sample Code
+--
+-- Author: Japan Corona Group
+--
+-- Demonstrates: Use of optimized sprite sheets, loaded using newSpriteSheetFromData
+--
+-- File dependencies: none
+--
+-- Target devices: Simulator (results in Console)
+--
+-- Limitations:
+--
+-- Update History:
+--
+-- Comments: 
+--
+-- Sample code is MIT licensed, see http://developer.anscamobile.com/code/license
+-- Copyright (C) 2010 ANSCA Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------
+
+
+--Runtime:addEventListener("enterFrame",move)

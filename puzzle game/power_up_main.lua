@@ -7,6 +7,7 @@ local previous_scene_name = storyboard.getPrevious()
 local widget = require "widget"
 local menu_barLight = require ("menu_barLight")
 local http = require("socket.http")
+local alertMSN = require("alertMassage")
 local json = require("json")
 -------------------------------------------------
 local character_id
@@ -36,7 +37,7 @@ local leader_LV ={}
 local Frameleader={}
 local Imageleader={}
 -- --------------------------------------------------------
-local strcoin = "0000"
+local NumCoin = 0
 local strsmash = "SMASH ATTACK"
 local sizetextname = 24
 local sizetxtHPLV = 18
@@ -55,12 +56,29 @@ local characterChoose = {}
 local characterCHooseLV = {}
 local pointCharacY = {}
 local pointCharacX = {}
-local countCHNo
+local SUMformula =0
+local charac_lvmax ={}
+local charac_sac ={}
+local charac_hpStart ={}
+local LevelStart
+
+
+local countCHNo = 0
 local LinkURL = "http://localhost/DYM/Onecharacter.php"
 local gdisplay = display.newGroup()
+
+local characterLEVELUP ={}
+local ExpforChoose = 3
+local ExpforUser = 2
+local ExpLvNext = 1
+
+local HPNext = 0
+local DefNext = 0
+local AtkNext = 0
 -------------------------------------------
 local function onBtnonclick(event)
     local options
+    print("countCHNo ====== ",countCHNo)
    if countCHNo then
        options =
        {
@@ -70,10 +88,22 @@ local function onBtnonclick(event)
                character_id =character_id ,
                user_id = user_id  ,
                countCHNo = countCHNo,
-               characterChoose = characterChoose   ,
+               characterChoose = characterChoose ,
                pointCharacY = pointCharacY  ,
                pointCharacX = pointCharacX ,
-               characterCHooseLV = characterCHooseLV
+               characterCHooseLV = characterCHooseLV ,
+               character_LV = LevelStart,
+
+
+               LVNext =characterLEVELUP.LV ,
+               ExpNext = ExpforUser ,
+               HPNext = HPNext ,
+               DefNext = DefNext ,
+               AtkNext = AtkNext ,
+               Imageleader = Imageleader ,
+               ImageCharacter = characterLEVELUP.ImageCharacter ,
+               elementMain = characterLEVELUP.FrameCharacter ,
+               element = Frameleader,
            }
        }
 
@@ -84,6 +114,7 @@ local function onBtnonclick(event)
            time = 100,
            params = {
                character_id =character_id ,
+               character_LV =characterLEVELUP.LV ,
                user_id = user_id
            }
        }
@@ -93,36 +124,6 @@ local function onBtnonclick(event)
     display.remove(gdisplay)
     gdisplay = nil
 
-    characterChoose = nil
-    characterCHooseLV = nil
-    pointCharacY = nil
-    pointCharacX = nil
-    countCHNo = nil
-
-    character = nil
-    framCharac = nil
-    leaderSelect = nil
-    leader_type = nil
-    leader_name= nil
-    leader_DEF= nil
-    leader_ATK = nil
-    leader_HP = nil
-    leader_LV = nil
-    Frameleader= nil
-    Imageleader = nil
-
-    character_name = nil
-    character_type = nil
-    character_LV = nil
-    character_HP = nil
-    character_DEF = nil
-    character_ATK = nil
-    ImageCharacter = nil
-    FrameCharacter = nil
-    characterSelect = nil
-
-    character_id = nil
-    user_id = nil
     if event.target.id == "back" then
         storyboard.gotoScene( "characterAll" )
 
@@ -132,8 +133,17 @@ local function onBtnonclick(event)
 
 
     elseif event.target.id == "enchant" then
-        storyboard.gotoScene( "unit_main" ,"fade", 100 )
+            local LinkURL = "http://localhost/DYM/power_up.php"
+            local numberHold_character =  LinkURL.."?user_id="..user_id.."&character_id="..character_id.."&LVNext="..characterLEVELUP.LV.."&ExpNext="..ExpforUser.."&HPNext="..HPNext.."&DefNext="..DefNext.."&AtkNext="..AtkNext
+            local numberHold = http.request(numberHold_character)
+            local allRow = {}
+            if numberHold == nil then
+                print("No Dice")
+            else
+                allRow  = json.decode(numberHold)
+            end
 
+            storyboard.gotoScene( "power_up_save" ,options )
 
     elseif event.target.id == "leader" then
         storyboard.gotoScene( "characterprofile" ,options )
@@ -154,32 +164,32 @@ local function loadCharacter(id,USER_id)
         print("No Dice")
     else
         characterSelect  = json.decode(characterImg)
-        character_type = "smach"
-        character_name = characterSelect.chracter[1].charac_name
-        character_DEF = characterSelect.chracter[1].charac_def
-        character_ATK = characterSelect.chracter[1].charac_atk
-        character_HP = characterSelect.chracter[1].charac_hp
-        character_LV = characterSelect.chracter[1].charac_lv
-        ImageCharacter = characterSelect.chracter[1].charac_img_mini
-        FrameCharacter = tonumber(characterSelect.chracter[1].charac_element)
+        characterLEVELUP.type = "smach"
+        characterLEVELUP.name = characterSelect.chracter[1].charac_name
+        characterLEVELUP.DEF = characterSelect.chracter[1].charac_def
+        characterLEVELUP.ATK = characterSelect.chracter[1].charac_atk
+        characterLEVELUP.HP = characterSelect.chracter[1].charac_hp
+        characterLEVELUP.LV = characterSelect.chracter[1].charac_lv
+        characterLEVELUP.charac_exp = tonumber(characterSelect.chracter[1].charac_exp)
+        characterLEVELUP.ImageCharacter = characterSelect.chracter[1].charac_img_mini
+        characterLEVELUP.FrameCharacter = tonumber(characterSelect.chracter[1].charac_element)
+        characterLEVELUP.expstart = tonumber(characterSelect.chracter[1].charac_expstart)
+        characterLEVELUP.charac_lvmax = tonumber(characterSelect.chracter[1].charac_lvmax)
+        characterLEVELUP.charac_hpStart = tonumber(characterSelect.chracter[1].charac_hpStart)
+        LevelStart =  characterLEVELUP.LV
     end
     return true
 
 end
 local function createButton()
     local image_btnback = "img/background/button/Button_BACK.png"
-
-    local frame = {
-        "img/characterIcon/as_cha_frm01.png",
-        "img/characterIcon/as_cha_frm02.png",
-        "img/characterIcon/as_cha_frm03.png",
-        "img/characterIcon/as_cha_frm04.png",
-        "img/characterIcon/as_cha_frm05.png"
-    }
+    local frame = {}
+    frame = alertMSN.loadFramElement()
     local frame0 = "img/characterIcon/as_cha_frm00.png"
+
     local backButton = widget.newButton{
-        default= image_btnback,
-        over= image_btnback,
+        defaultFile= image_btnback,
+        overFile= image_btnback,
         width=display.contentWidth/10, height=display.contentHeight/21,
         onRelease = onBtnonclick
     }
@@ -192,8 +202,8 @@ local function createButton()
     -- choose card
     local image_btnCHOOSE_CARD = "img/background/button/CHOOSE_CARD.png"
     local btnchoose = widget.newButton{
-        default= image_btnCHOOSE_CARD,
-        over= image_btnCHOOSE_CARD,
+        defaultFile= image_btnCHOOSE_CARD,
+        overFile= image_btnCHOOSE_CARD,
         width=screenW*.26, height=screenH*.055,
         onRelease = onBtnonclick
     }
@@ -204,10 +214,19 @@ local function createButton()
     gdisplay:insert(btnchoose)
 
     -- enchant
+    local function onTouchenchant (self, event )
+
+        if event.phase == "began" then
+
+
+            return true
+        end
+
+    end
     local image_btnenchant = "img/background/button/ENCHANT.png"
     local btnenchant = widget.newButton{
-        default= image_btnenchant,
-        over= image_btnenchant,
+        defaultFile= image_btnenchant,
+        overFile= image_btnenchant,
         width=screenW*.21, height=screenH*.05,
         onRelease = onBtnonclick
     }
@@ -217,10 +236,25 @@ local function createButton()
     btnenchant.y = screenH *.77
     gdisplay:insert(btnenchant)
 
+    local BGdrop
+    local groupView = display.newGroup()
+   -- countCHNo= 0
+    if countCHNo == 0 then
+        BGdrop = display.newRoundedRect(screenW*.62, screenH*.77, screenW*.25, screenH*.05,5)
+        BGdrop.strokeWidth = 0
+        BGdrop.alpha = .8
+        BGdrop:setFillColor(0 ,0 ,0)
+        groupView:insert(BGdrop)
+        groupView.touch = onTouchenchant
+        groupView:addEventListener( "touch", groupView )
+        gdisplay:insert(groupView)
+    end
+
+
     -- charecter leader power up ------------------------------------------------------
     local btnleader = widget.newButton{
-        default= ImageCharacter,
-        over= ImageCharacter,
+        defaultFile= characterLEVELUP.ImageCharacter,
+        overFile= characterLEVELUP.ImageCharacter,
         width=screenW*.165, height=screenH*.115,
         onRelease = onBtnonclick
     }
@@ -230,7 +264,7 @@ local function createButton()
     btnleader.y = screenH *.395
     gdisplay:insert(btnleader)
 
-    local framImage = display.newImageRect(frame[FrameCharacter] ,screenW*.165, screenH*.115)
+    local framImage = display.newImageRect(frame[characterLEVELUP.FrameCharacter] ,screenW*.165, screenH*.115)
     framImage:setReferencePoint( display.TopLeftReferencePoint )
     framImage.x = screenW *.185
     framImage.y = screenH *.395
@@ -247,8 +281,8 @@ local function createButton()
                 framCharac.y = screenH *.672
 
                 character[i] = widget.newButton{
-                    default= Imageleader[i],
-                    over= Imageleader[i],
+                    defaultFile= Imageleader[i],
+                    overFile= Imageleader[i],
                     width=screenW*.115, height=screenH*.08,
                     --onRelease = onBtnonclick
                 }
@@ -262,8 +296,8 @@ local function createButton()
 
             else
                 character[i] = widget.newButton{
-                    default= frame0,
-                    over= frame0,
+                    defaultFile= frame0,
+                    overFile= frame0,
                     width=screenW*.115, height=screenH*.08,
                     --onRelease = onBtnonclick
                 }
@@ -276,8 +310,8 @@ local function createButton()
 
         else
             character[i] = widget.newButton{
-                default= frame0,
-                over= frame0,
+                defaultFile= frame0,
+                overFile= frame0,
                 width=screenW*.115, height=screenH*.08,
                 --onRelease = onBtnonclick
             }
@@ -294,8 +328,8 @@ local function createButton()
     local image_LSKL = "img/background/button/LSKL.png"
     -- button SKL
     local btnSKL = widget.newButton{
-        default= image_SKL,
-        over= image_SKL,
+        defaultFile= image_SKL,
+        overFile= image_SKL,
         width=screenW*.087, height=screenH*.033,
         onRelease = onBtnonclick
     }
@@ -307,8 +341,8 @@ local function createButton()
 
     -- button LSKL
     local btnLSKL = widget.newButton{
-        default= image_LSKL,
-        over= image_LSKL,
+        defaultFile= image_LSKL,
+        overFile= image_LSKL,
         width=screenW*.087, height=screenH*.033,
         onRelease = onBtnonclick
     }
@@ -336,8 +370,11 @@ function scene:createScene( event )
         countCHNo = paramsCharac.countCHNo
         character_id = paramsCharac.character_id
         user_id = paramsCharac.user_id
-
+        print("countCHNo == ",countCHNo)
         if countCHNo then
+
+            SUMformula = paramsCharac.SUMformula
+            print("SUMformula === ",SUMformula)
             for k = 1,countCHNo, 1  do
                 characterChoose[k] = paramsCharac.characterChoose[k]
                 pointCharacX[k] = paramsCharac.pointCharacX[k]
@@ -357,17 +394,25 @@ function scene:createScene( event )
                     leader_DEF[k] = leaderSelect.chracter[1].charac_def
                     leader_ATK[k] = leaderSelect.chracter[1].charac_atk
                     leader_HP[k] = leaderSelect.chracter[1].charac_hp
-                    leader_LV[k] = leaderSelect.chracter[1].charac_lv
+                    leader_LV[k] = tonumber(leaderSelect.chracter[1].charac_lv)
+                    charac_sac[k] = tonumber(leaderSelect.chracter[1].charac_expstart)
                     Imageleader[k] = leaderSelect.chracter[1].charac_img_mini
                     Frameleader[k] = tonumber(leaderSelect.chracter[1].charac_element)
+                    charac_lvmax[k] = tonumber(leaderSelect.chracter[1].charac_lvmax)
+--                    charac_hpStart[k] = tonumber(leaderSelect.chracter[1].charac_hpStart)
+
+
                 end
             end
+        else
+            countCHNo = 0
         end
 
     end
 
     loadCharacter(character_id,user_id)
 
+    NumCoin = countCHNo *(characterLEVELUP.LV*100)
 
     local background = display.newImageRect(image_background1,screenW,screenH)--contentWidth contentHeight
     background:setReferencePoint(display.TopLeftReferencePoint)-- setReferencePoint( display.TopLeftReferencePoint )
@@ -399,14 +444,14 @@ function scene:createScene( event )
     local txtLVNEXT = display.newImageRect(image_txtLV_NEXT,screenW*.08,screenH*.036)--contentWidth contentHeight
     txtLVNEXT:setReferencePoint(display.CenterReferencePoint)-- setReferencePoint( display.TopLeftReferencePoint )
     txtLVNEXT.x = screenW*.23
-    txtLVNEXT.y = screenH*.575
+    txtLVNEXT.y = screenH*.59
     gdisplay:insert(txtLVNEXT)
 
     local image_txtEXPGAIN = "img/text/EXPGAIN.png"
-    local txtEXPGAIN = display.newImageRect(image_txtEXPGAIN,screenW*.14,screenH*.014)--contentWidth contentHeight
+    local txtEXPGAIN = display.newImageRect(image_txtEXPGAIN,screenW*.14,screenH*.015)--contentWidth contentHeight
     txtEXPGAIN:setReferencePoint(display.CenterReferencePoint)-- setReferencePoint( display.TopLeftReferencePoint )
     txtEXPGAIN.x = screenW*.53
-    txtEXPGAIN.y = screenH*.585
+    txtEXPGAIN.y = screenH*.6
     gdisplay:insert(txtEXPGAIN)
     --*****************
 
@@ -417,56 +462,141 @@ function scene:createScene( event )
     titleEnchant.y = screenH*.642
     gdisplay:insert(titleEnchant)
 
+-----***** ------
+    ExpforChoose = SUMformula
+    ExpLvNext = characterLEVELUP.charac_exp + math.ceil( characterLEVELUP.expstart+ (characterLEVELUP.expstart* ( (characterLEVELUP.LV-1)/characterLEVELUP.charac_lvmax) )*characterLEVELUP.LV )
+    ExpforUser = characterLEVELUP.charac_exp
+    ExpforUser = ExpforUser + ExpforChoose
+    local ExpLvNext1 = math.ceil(ExpLvNext - ExpforUser)
+    print("ExpLvNext want = ",ExpLvNext1)
+    if ExpLvNext1 <= 0 then
+        characterLEVELUP.LV =characterLEVELUP.LV+1 --nex level set new
+        local nextLV = characterLEVELUP.LV --nex level check
+        local ExpLvNext2 = math.ceil(ExpLvNext )
+        local j = characterLEVELUP.LV
+
+        repeat
+            ExpLvNext = math.ceil(ExpLvNext +(characterLEVELUP.expstart+ (characterLEVELUP.expstart*(((j-1)/characterLEVELUP.charac_lvmax)*j) )) )
+            ExpLvNext2 =  math.ceil(ExpLvNext - ExpforUser)
+            if ExpLvNext2 <= 0 then
+                nextLV = nextLV+ 1
+                j = j + 1
+            else
+                characterLEVELUP.LV = j
+                ExpLvNext = ExpLvNext2
+                j = j + nextLV
+            end
+        until j > nextLV  or nextLV >= characterLEVELUP.charac_lvmax
+
+    else
+        ExpLvNext =  ExpLvNext1
+    end
+
+    print("LV NEXT = ",characterLEVELUP.LV)
+
+
+
+
+
+    local R = math.ceil(( characterLEVELUP.charac_lvmax/30)*1.5)
+    HPNext = math.ceil(characterLEVELUP.charac_hpStart +(characterLEVELUP.charac_hpStart*((LevelStart-1)/characterLEVELUP.charac_lvmax)+((LevelStart-1)*R)))
+    AtkNext = math.ceil(characterLEVELUP.ATK +(characterLEVELUP.ATK *((LevelStart-1)/characterLEVELUP.charac_lvmax)+((LevelStart-1)*R)))
+    DefNext = math.ceil(characterLEVELUP.DEF +(characterLEVELUP.DEF *((LevelStart-1)/characterLEVELUP.charac_lvmax)+((LevelStart-1)*R)))
+
+    local txtNumExpforChoose = display.newText("+"..ExpforChoose, screenW*.45, screenH*.625, typeFont, 30)
+    txtNumExpforChoose:setTextColor(255, 0, 0)
+    gdisplay:insert(txtNumExpforChoose)
+
+    local txtNumUseExp = display.newText(ExpLvNext, screenW*.30, screenH*.58, typeFont, 30)
+    txtNumUseExp:setTextColor(255, 0, 255)
+    gdisplay:insert(txtNumUseExp)
+
+
+    local txtNumHaveExp = display.newText(ExpforUser, screenW*.63, screenH*.58, typeFont, 30)
+    txtNumHaveExp:setTextColor(255, 0, 100)
+    gdisplay:insert(txtNumHaveExp)
+
+ -----
+
+
     local image_tappower = "img/background/powerup/line_transparent.png"
     local powerLine = display.newImageRect(image_tappower ,screenW*.65,screenH*.012)--contentWidth contentHeight
     powerLine:setReferencePoint(display.CenterReferencePoint)-- setReferencePoint( display.TopLeftReferencePoint )
     powerLine.x = screenW*.51
-    powerLine.y = screenH*.61
+    powerLine.y = screenH*.56
     gdisplay:insert(powerLine)
 
     local image_tapred = "img/background/powerup/line_red.png"
     local powerred = display.newImageRect(image_tapred,tapPowerredW,0)--contentWidth contentHeight
     powerred:setReferencePoint(display.CenterReferencePoint)-- setReferencePoint( display.TopLeftReferencePoint )
     powerred.x = screenW*.51
-    powerred.y = screenH*.61
+    powerred.y = screenH*.56
     gdisplay:insert(powerred)
 
     local image_tapyellow = "img/background/powerup/line_yellow.png"
     local poweryellow = display.newImageRect(image_tapyellow,tapPoweryellow,0)--contentWidth contentHeight
     poweryellow:setReferencePoint(display.CenterReferencePoint)-- setReferencePoint( display.TopLeftReferencePoint )
     poweryellow.x = screenW*.51
-    poweryellow.y = screenH*.61
+    poweryellow.y = screenH*.56
     gdisplay:insert(poweryellow)
 
-    local txtcoin = display.newText(strcoin, screenW*.74, screenH*.628, native.systemFontBold, 18)
+    local txtcoin = display.newText(NumCoin, screenW*.74, screenH*.628, native.systemFontBold, 20)
     txtcoin:setTextColor(255, 0, 255)
     gdisplay:insert(txtcoin)
 
     --text name character
-    local txtNamecharacter = display.newText(character_name, screenW*.385, screenH*.385, typeFont, sizetextname)
+    local txtNamecharacter = display.newText(characterLEVELUP.name, screenW*.385, screenH*.385, typeFont, sizetextname)
     txtNamecharacter:setTextColor(0, 0, 255)
     gdisplay:insert(txtNamecharacter)
 
-    local txtsmash = display.newText(strsmash, screenW*.385,  screenH*.415, typeFont, sizetxtHPLV)
+    local txtsmash = display.newText(characterLEVELUP.type, screenW*.385,  screenH*.415, typeFont, sizetxtHPLV)
     txtsmash:setTextColor(0, 150, 0)
     gdisplay:insert(txtsmash)
 
 
-    local txtLV = display.newText(character_LV, screenW*.47, screenH*.438, typeFont, sizetxtHPLV)
+    local txtLV = display.newText(LevelStart.."/"..characterLEVELUP.charac_lvmax.."    =>        / "..characterLEVELUP.charac_lvmax, 0, screenH*.438, typeFont, sizetxtHPLV)
+    txtLV.x = screenW*.61
     txtLV:setTextColor(255, 255, 255)
     gdisplay:insert(txtLV)
 
-    local txtHP = display.newText(character_HP, screenW*.47, screenH*.46, typeFont, sizetxtHPLV)
+
+    local txtLV_Next = display.newText((characterLEVELUP.LV), 0, screenH*.43, typeFont, 30)
+    txtLV_Next.x = txtLV.x + 36
+    txtLV_Next:setTextColor(255, 0, 255)
+    gdisplay:insert(txtLV_Next)
+
+    local txtHP = display.newText(characterLEVELUP.HP, 0, screenH*.46, typeFont, sizetxtHPLV)
+    txtHP:setReferencePoint(display.TopLeftReferencePoint)
+    txtHP.x = screenW*.47
     txtHP:setTextColor(255, 255, 255)
     gdisplay:insert(txtHP)
+    local txtHPNext = display.newText("=> "..HPNext.."  (+"..   math.ceil(HPNext-characterLEVELUP.HP)..")", 0, screenH*.46, typeFont, sizetxtHPLV)
+    txtHPNext:setReferencePoint(display.TopLeftReferencePoint)
+    txtHPNext.x = screenW*.57
+    txtHPNext:setTextColor(255, 255, 255)
+    gdisplay:insert(txtHPNext)
 
-    local txtATK = display.newText(character_ATK, screenW*.47, screenH*.482, typeFont, sizetxtHPLV)
+    local txtATK = display.newText(characterLEVELUP.ATK, 0, screenH*.482, typeFont, sizetxtHPLV)
+    txtATK:setReferencePoint(display.TopLeftReferencePoint)
     txtATK:setTextColor(255, 255, 255)
+    txtATK.x =  screenW*.47
     gdisplay:insert(txtATK)
+    local txtATKnext = display.newText("=> "..AtkNext.."  (+"..   math.ceil(AtkNext-characterLEVELUP.ATK)..")", 0, screenH*.482, typeFont, sizetxtHPLV)
+    txtATKnext:setReferencePoint(display.TopLeftReferencePoint)
+    txtATKnext.x =  screenW*.57
+    txtATKnext:setTextColor(255, 255, 255)
+    gdisplay:insert(txtATKnext)
 
-    local txtDEF = display.newText(character_DEF, screenW*.47, screenH*.504, typeFont, sizetxtHPLV)
+    local txtDEF = display.newText(characterLEVELUP.DEF, 0, screenH*.504, typeFont, sizetxtHPLV)
+    txtDEF:setReferencePoint(display.TopLeftReferencePoint)
+    txtDEF.x =  screenW*.47
     txtDEF:setTextColor(255, 255, 255)
     gdisplay:insert(txtDEF)
+    local txtDEFnext = display.newText("=> "..DefNext.."  (+"..   math.ceil(DefNext-characterLEVELUP.DEF)..")", 0, screenH*.504, typeFont, sizetxtHPLV)
+    txtDEFnext:setReferencePoint(display.TopLeftReferencePoint)
+    txtDEFnext.x =  screenW*.57
+    txtDEFnext:setTextColor(255, 255, 255)
+    gdisplay:insert(txtDEFnext)
 
     createButton()
     menu_barLight = menu_barLight.newMenubutton()

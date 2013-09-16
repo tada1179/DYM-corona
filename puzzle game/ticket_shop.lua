@@ -5,6 +5,7 @@ local scene = storyboard.newScene()
 local json = require("json")
 local widget = require "widget"
 local menu_barLight = require ("menu_barLight")
+local previous_scene_name = storyboard.getPrevious()
 local http = require("socket.http")
 -----------------------------------------------
 local topBoundary = display.screenOriginY
@@ -47,7 +48,7 @@ local function onBtnRelease(event)
 
     elseif event.target.id == "back" then -- back button
         print( "event: "..event.target.id)
-        storyboard.gotoScene( "shop_money" ,"fade", 100 )
+        storyboard.gotoScene( previous_scene_name ,"fade", 100 )
     end
     --    storyboard.gotoScene( "title_page", "fade", 100 )
     return true	-- indicates successful touch
@@ -133,7 +134,7 @@ local function scrollViewList()
 
         local BtnImage = {}
         BtnImage[i] = widget.newButton{
-            default = "img/background/sellBattle_Item/framelist_sell.png",
+            defaultFile = "img/background/sellBattle_Item/framelist_sell.png",
             width= screenW * .7 , height= screenH *.08,
             top = pointFrmLisY,
             left = 0,
@@ -182,8 +183,8 @@ function scene:createScene( event )
     titleText.y = screenH /3.1
 
     backButton = widget.newButton{
-        default="img/background/button/Button_BACK.png",
-        over="img/background/button/Button_BACK.png",
+        defaultFile="img/background/button/Button_BACK.png",
+        overFile="img/background/button/Button_BACK.png",
         width= screenW/10, height= screenH/21,
         onRelease = onBtnRelease	-- event listener function
     }

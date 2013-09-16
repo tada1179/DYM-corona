@@ -86,8 +86,8 @@ local function createBackButton()
         return true	-- indicates successful touch
     end
     backButton = widget.newButton{
-        default= image_btnback,
-        over= image_btnback,
+        defaultFile= image_btnback,
+        overFile= image_btnback,
         width= screenW/10, height= screenH/21,
         onRelease = requestRelease	-- event listener function
     }
@@ -98,8 +98,8 @@ local function createBackButton()
     gdisplay:insert(backButton)
     -- ** SEND REGUEST **
     REQUESTButton = widget.newButton{
-        default= image_btnrequest,
-        over= image_btnrequest,
+        defaultFile= image_btnrequest,
+        overFile= image_btnrequest,
         width=screenW*.32, height=screenH*.056,
         onRelease = requestRelease	-- event listener function
     }

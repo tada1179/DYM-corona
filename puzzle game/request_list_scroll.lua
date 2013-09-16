@@ -197,13 +197,7 @@ function new(params)
         local pointDateY = screenH*.1
 
         local img_framelist = "img/characterIcon/framelist.png"
-        local frame = {
-            "img/characterIcon/as_cha_frm01.png",
-            "img/characterIcon/as_cha_frm02.png",
-            "img/characterIcon/as_cha_frm03.png",
-            "img/characterIcon/as_cha_frm04.png",
-            "img/characterIcon/as_cha_frm05.png"
-        }
+        local frame = require("alertMassage").loadFramElement()
 
         local rowscharac = maxChapter+1
         for i = 1, rowscharac, 1 do
@@ -250,8 +244,8 @@ function new(params)
                 scrollView:insert(Character)
 
                 local FrmCharacter = widget.newButton{
-                    default= frame[characterItem[i].element],
-                    over= frame[characterItem[i].element],
+                    defaultFile= frame[characterItem[i].element],
+                    overFile= frame[characterItem[i].element],
                     top = pointListY,
                     left = pointFrameX,
                     width= sizecharacW, height= sizecharacH,

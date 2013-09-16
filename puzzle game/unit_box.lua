@@ -112,7 +112,7 @@ local function selectLeader(event)
 end
 
 local function scrollViewList ()
-    local function onTouchGameOverScreen ( self, event )
+    local function onTouchGameoverFileScreen ( self, event )
 
         if event.phase == "began" then
 
@@ -168,7 +168,7 @@ local function scrollViewList ()
             if countCharac < Allcharacter then
                 countID = countID + 1
                 listCharacter[countID] = widget.newButton{
-                    default= characterItem[countID].dataTable,
+                    defaultFile= characterItem[countID].dataTable,
                     width=sizeleaderW , height=sizeleaderH,
                     top = LeaderpointX,
                     left = LeaderpointY,
@@ -202,7 +202,7 @@ local function scrollViewList ()
                     scrollView:insert(backcharacter)
 
                     groupView:insert(backcharacter)
-                    groupView.touch = onTouchGameOverScreen
+                    groupView.touch = onTouchGameoverFileScreen
                     groupView:addEventListener( "touch", groupView )
                     scrollView:insert(groupView)
 
@@ -237,8 +237,8 @@ end
 local function createBackButton()
     local image_btnback = "img/background/button/Button_BACK.png"
     local backButton = widget.newButton{
-        default= image_btnback,
-        over= image_btnback,
+        defaultFile= image_btnback,
+        overFile= image_btnback,
         width=screenW/10, height=screenH/21,
         onRelease = onbtnBackButton	-- event listener function
     }
@@ -250,8 +250,8 @@ local function createBackButton()
 
     local image_btnback = "img/background/button/BOX_EXTENSION.png"
     local boxButton = widget.newButton{
-        default= image_btnback,
-        over= image_btnback,
+        defaultFile= image_btnback,
+        overFile= image_btnback,
         width=screenW*.35, height=screenH*.06,
         onRelease = onbtnBackButton	-- event listener function
     }

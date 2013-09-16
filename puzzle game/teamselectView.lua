@@ -49,7 +49,7 @@ function new( imageSet, slideBackground, top, bottom ,pageTeam,pageItem,user_id,
     --imgNum = 3
     images = {}
     for i = 1,#imageSet do
-
+         print("friend_id ==== ",params.friend_id)
         local p = require(imageSet[i]).newTEAM(params.friend_id)
         p:setReferencePoint(display.CenterReferencePoint)
 
@@ -144,11 +144,16 @@ function new( imageSet, slideBackground, top, bottom ,pageTeam,pageItem,user_id,
                     SKL = 1,
                     BTN = 1,
                     checkOption = 1,
+--                    friend_id = 2,
+--                    team = 1,
+                    user_id = params.user_id,
+                    map_id = params.map_id,
+                    chapter_id = params.chapter_id,
+                    mission_id = params.mission_id,
                     friend_id = params.friend_id,
                     team = imgNum
                 }
             }
-            print("team = ",option.params.team)
               storyboard.gotoScene( "puzzleCode" ,option )
 --            storyboard.gotoScene( "map","fade", 100 )
         end
@@ -156,10 +161,10 @@ function new( imageSet, slideBackground, top, bottom ,pageTeam,pageItem,user_id,
     end
     local image_btnback = "img/background/button/Button_BACK.png"
     backButton = widget.newButton{
-        default= image_btnback,
-        over= image_btnback,
-        overAlpha = .2,
-        overScale = 1.1,
+        defaultFile= image_btnback,
+        overFile= image_btnback,
+        overFileAlpha = .2,
+        overFileScale = 1.1,
         width=screenW/10, height=screenH/21,
         onRelease = onbtnstartBattleBack	-- event listener function
     }
@@ -172,8 +177,8 @@ function new( imageSet, slideBackground, top, bottom ,pageTeam,pageItem,user_id,
 
     local image_btnbuttle = "img/background/button/START_BATTLE.png"
     startbuttle = widget.newButton{
-        default= image_btnbuttle,
-        over= image_btnbuttle,
+        defaultFile= image_btnbuttle,
+        overFile= image_btnbuttle,
         width= screenW*.25, height= screenH*.05,
         onRelease = onbtnstartBattleBack
     }

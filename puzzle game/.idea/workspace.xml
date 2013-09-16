@@ -4,34 +4,34 @@
     <list default="true" id="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" name="Default" comment="" />
     <ignored path="puzzle game.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/map.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1377063371775" ignored="false" />
+    <file path="/map.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1378984427310" ignored="false" />
     <file path="/guscha.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1366278172723" ignored="false" />
     <file path="/scrollView.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1366267382963" ignored="false" />
     <file path="/game-scene.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1375348435523" ignored="false" />
     <file path="/util.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1366247811944" ignored="false" />
-    <file path="/main.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1376365759834" ignored="false" />
-    <file path="/gacha.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1375165273858" ignored="false" />
-    <file path="/team_main.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1374656963354" ignored="false" />
-    <file path="/title_page.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1366941364432" ignored="false" />
-    <file path="/map_substate.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1377063307309" ignored="false" />
-    <file path="/misstion.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1377160158421" ignored="false" />
-    <file path="/guest.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1377243035013" ignored="false" />
-    <file path="/team_item.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1374131174547" ignored="false" />
+    <file path="/main.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1379054923354" ignored="false" />
+    <file path="/gacha.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1378355077959" ignored="false" />
+    <file path="/team_main.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1378868741896" ignored="false" />
+    <file path="/title_page.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1378726912936" ignored="false" />
+    <file path="/map_substate.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1378881081181" ignored="false" />
+    <file path="/misstion.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1378984582265" ignored="false" />
+    <file path="/guest.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1378364222814" ignored="false" />
+    <file path="/team_item.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1378869619279" ignored="false" />
     <file path="/character.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1368787361937" ignored="false" />
-    <file path="/characterprofile.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1375160002407" ignored="false" />
+    <file path="/characterprofile.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1378296577810" ignored="false" />
     <file path="/shop_main.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1374141839426" ignored="false" />
     <file path="/menu_bar.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1367203614354" ignored="false" />
     <file path="/commu_main.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1374143753500" ignored="false" />
-    <file path="/menu_barLight.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1376908741836" ignored="false" />
+    <file path="/menu_barLight.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1378892577083" ignored="false" />
     <file path="/teamView.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1374720301764" ignored="false" />
-    <file path="/team1.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1374717923316" ignored="false" />
+    <file path="/team1.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1378869714239" ignored="false" />
     <file path="/team5.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1367220641909" ignored="false" />
     <file path="/team2.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1369107856031" ignored="false" />
     <file path="/team3.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1367222079813" ignored="false" />
-    <file path="/mission_clear.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1375685478150" ignored="false" />
+    <file path="/mission_clear.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1379069406964" ignored="false" />
     <file path="/unit_main.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1374652855471" ignored="false" />
     <file path="/item_setting.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1371119680802" ignored="false" />
-    <file path="/power_up_main.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1373617856104" ignored="false" />
+    <file path="/power_up_main.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1378726503250" ignored="false" />
     <file path="/upgrade_main.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1373530877791" ignored="false" />
     <file path="/discharge_main.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1373622944198" ignored="false" />
     <file path="/request_list.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1374145165287" ignored="false" />
@@ -45,8 +45,8 @@
     <file path="/battle_item.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1371119713688" ignored="false" />
     <file path="/sell_item.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1372390133936" ignored="false" />
     <file path="/team_select.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1377249975593" ignored="false" />
-    <file path="/teamselectView.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1377253662335" ignored="false" />
-    <file path="/teamSelect1.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1377252372859" ignored="false" />
+    <file path="/teamselectView.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1378891647157" ignored="false" />
+    <file path="/teamSelect1.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1377486447779" ignored="false" />
     <file path="/itemSelectView.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1371448185438" ignored="false" />
     <file path="/itemSelect1.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1370317241549" ignored="false" />
     <file path="/character_show.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1368441669813" ignored="false" />
@@ -54,22 +54,22 @@
     <file path="/teamSelect2.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1373873280453" ignored="false" />
     <file path="/databaseConnect.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1368612780427" ignored="false" />
     <file path="/includeFunction.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1377246850992" ignored="false" />
-    <file path="/character_scene.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1373867744754" ignored="false" />
-    <file path="/alertMassage.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1376898572040" ignored="false" />
+    <file path="/character_scene.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1378869777396" ignored="false" />
+    <file path="/alertMassage.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1378988213710" ignored="false" />
     <file path="/pageWith.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1373341527238" ignored="false" />
-    <file path="/characterAll.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1373870680197" ignored="false" />
+    <file path="/characterAll.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1378471513796" ignored="false" />
     <file path="/teamSelect5.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1377250711534" ignored="false" />
     <file path="/request.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1373444147876" ignored="false" />
     <file path="/itemprofile.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1370861563847" ignored="false" />
     <file path="/setting.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1371695326851" ignored="false" />
-    <file path="/scrollImage.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1377159930369" ignored="false" />
+    <file path="/scrollImage.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1378877192173" ignored="false" />
     <file path="/chapter_select.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1372916882530" ignored="false" />
     <file path="/scrollImage2.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1372305547834" ignored="false" />
-    <file path="/misstion_scroll.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1377240091734" ignored="false" />
+    <file path="/misstion_scroll.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1378873749868" ignored="false" />
     <file path="/characterAll_scroll.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1372327295147" ignored="false" />
     <file path="/sell_item_scroll.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1372389943796" ignored="false" />
     <file path="/Firstpage.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1372412856922" ignored="false" />
-    <file path="/friend_list_scroll.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1373431861826" ignored="false" />
+    <file path="/friend_list_scroll.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1378874047712" ignored="false" />
     <file path="/request_list_scroll.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1373437214161" ignored="false" />
     <file path="/default.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1372752518585" ignored="false" />
     <file path="/unit_box.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1374648996269" ignored="false" />
@@ -88,10 +88,15 @@
     <file path="$APPLICATION_HOME_DIR$/lib/idea.jar!/standardSchemas/xml.xsd" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1373937461514" ignored="false" />
     <file path="/sprite_sheet_fight.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1374202749166" ignored="false" />
     <file path="/sheet_yellow.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1374219867458" ignored="false" />
-    <file path="/gacha_card.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1375165254176" ignored="false" />
+    <file path="/gacha_card.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1378347420293" ignored="false" />
     <file path="/test.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1375168018010" ignored="false" />
     <file path="/puzzle.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1376385634182" ignored="false" />
-    <file path="/puzzleCode.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1377254915079" ignored="false" />
+    <file path="/puzzleCode.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1379067195169" ignored="false" />
+    <file path="/power_up_save.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1378693675456" ignored="false" />
+    <file path="/register.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1378782107093" ignored="false" />
+    <file path="/register_element.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1378784524829" ignored="false" />
+    <file path="/regard-shop-purchase.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1378866280487" ignored="false" />
+    <file path="/SettingScrollImage.lua" changelist="a4aaf2fa-f95f-470f-9fb0-bfc6b7a7fc9e" time="1378870152339" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,74 +162,60 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="guest.lua" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/guest.lua">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="139" column="24" selection-start="4148" selection-end="4157" vertical-scroll-proportion="-12.653846">
-              <folding>
-                <element signature="n#scene:enterScene#0" expanded="false" />
-                <element signature="n#scene:exitScene#0" expanded="false" />
-                <element signature="n#scene:destroyScene#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="team_select.lua" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/team_select.lua">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="188" column="51" selection-start="5122" selection-end="5122" vertical-scroll-proportion="-55.96154">
-              <folding>
-                <element signature="n#createBackButton#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="puzzleCode.lua" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/puzzleCode.lua">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1042" column="35" selection-start="34640" selection-end="34640" vertical-scroll-proportion="0.8157051">
+            <state line="1032" column="94" selection-start="35758" selection-end="35758" vertical-scroll-proportion="0.5030488">
               <folding>
-                <element signature="e#377#595#1" expanded="false" />
-                <element signature="e#991#1076#1" expanded="false" />
-                <element signature="e#1093#1164#1" expanded="false" />
-                <element signature="e#3148#3447#0" expanded="false" />
+                <element signature="n#SaveMissionClear#0" expanded="false" />
+                <element signature="n#checkMemory#0" expanded="false" />
+                <element signature="n#clearmyAnimationSheet#0" expanded="false" />
+                <element signature="n#onTouchGameoverFileScreen#0" expanded="false" />
+                <element signature="n#gameoverFile_Cancel#0" expanded="false" />
+                <element signature="n#gameoverFile#0" expanded="false" />
+                <element signature="n#enableGemTouch#0" expanded="false" />
+                <element signature="n#enablePuzzleTouch#0" expanded="false" />
+                <element signature="n#damageAttackEnemy#0" expanded="false" />
+                <element signature="n#cleanDisplay#0" expanded="false" />
+                <element signature="n#cleanListeners#0" expanded="false" />
+                <element signature="n#cleanTimers#0" expanded="false" />
+                <element signature="n#cleanTransitions#0" expanded="false" />
+                <element signature="n#battle_Animation#0" expanded="false" />
+                <element signature="n#characterBattle#0" expanded="false" />
                 <element signature="n#createItem#0" expanded="false" />
                 <element signature="n#Victory_Animation_aura#0" expanded="false" />
                 <element signature="n#Victory_Animation_font#0" expanded="false" />
+                <element signature="n#swapSheetBackground#0" expanded="false" />
                 <element signature="n#BossSprite#0" expanded="false" />
-                <element signature="n#Warning_Animation#0" expanded="false" />
+                <element signature="e#31216#31318#1" expanded="false" />
                 <element signature="n#LeaveOption#0" expanded="false" />
                 <element signature="n#BonusOption#0" expanded="false" />
+                <element signature="e#45270#45432#2" expanded="false" />
                 <element signature="n#GameOption#0" expanded="false" />
                 <element signature="n#MenuInPuzzle#0" expanded="false" />
                 <element signature="n#createCharacter#0" expanded="false" />
                 <element signature="n#miniIconCharac#0" expanded="false" />
                 <element signature="n#miniIconCharac_frame#0" expanded="false" />
-                <element signature="n#getCharacterCoin#0" expanded="false" />
                 <element signature="n#sprite_sheet#0" expanded="false" />
                 <element signature="n#battleIcon#0" expanded="false" />
-                <element signature="n#swapSheet#0" expanded="false" />
+                <element signature="n#getCharacterCoin#0" expanded="false" />
+                <element signature="e#78087#78948#0" expanded="false" />
+                <element signature="e#78953#79912#0" expanded="false" />
                 <element signature="n#fncallSprite2#0" expanded="false" />
                 <element signature="n#swapSheet2#0" expanded="false" />
                 <element signature="n#createBackButton#0" expanded="false" />
                 <element signature="n#cancelAllTimers#0" expanded="false" />
                 <element signature="n#cancelAllTransitions#0" expanded="false" />
-                <element signature="n#handleLowMemory#0" expanded="false" />
-                <element signature="n#checkMemory#0" expanded="false" />
                 <element signature="n#newGem#0" expanded="false" />
                 <element signature="n#copyGem#0" expanded="false" />
                 <element signature="n#pasteGem#0" expanded="false" />
                 <element signature="n#slideGem#0" expanded="false" />
-                <element signature="n#enableGemTouch#0" expanded="false" />
                 <element signature="n#textNumber#0" expanded="false" />
+                <element signature="n#deleteHP_Defense#0" expanded="false" />
                 <element signature="n#ClearNumber#0" expanded="false" />
-                <element signature="n#clearmyAnimationSheet#0" expanded="false" />
                 <element signature="n#PopNumIconCharacter#0" expanded="false" />
                 <element signature="n#shiftGems#0" expanded="false" />
                 <element signature="n#destroyGems#0" expanded="false" />
-                <element signature="n#checkPointball#0" expanded="false" />
                 <element signature="n#cleanUpGems#0" expanded="false" />
                 <element signature="n#markPreDestory#0" expanded="false" />
                 <element signature="n#markToDestroy#0" expanded="false" />
@@ -232,46 +223,53 @@
                 <element signature="n#chkGruopDel#0" expanded="false" />
                 <element signature="n#chkGruopGem#0" expanded="false" />
                 <element signature="n#chkGruopGem2#0" expanded="false" />
+                <element signature="n#chkGruopOnload#0" expanded="false" />
                 <element signature="n#lockGem#0" expanded="false" />
                 <element signature="n#rndLock2#0" expanded="false" />
                 <element signature="n#rndLock#0" expanded="false" />
                 <element signature="n#test#0" expanded="false" />
-                <element signature="n#formulaMission#0" expanded="false" />
                 <element signature="n#numberToimg#0" expanded="false" />
                 <element signature="n#checkdoubleRight#0" expanded="false" />
                 <element signature="n#checkdoubleAll#0" expanded="false" />
+                <element signature="n#checkdoubleOnload#0" expanded="false" />
                 <element signature="n#onGemTouch#0" expanded="false" />
-                <element signature="n#scene:createScene#0" expanded="false" />
-                <element signature="e#109570#110494#1" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="teamselectView.lua" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/teamselectView.lua">
+      <file leaf-file-name="mission_clear.lua" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mission_clear.lua">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="146" column="48" selection-start="4492" selection-end="4492" vertical-scroll-proportion="-21.076923">
+            <state line="178" column="25" selection-start="5801" selection-end="5801" vertical-scroll-proportion="-14.423077">
               <folding>
-                <element signature="e#8143#8278#0" expanded="false" />
+                <element signature="n#onBtnonclick#0" expanded="false" />
+                <element signature="n#onTouchFileScreen#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="teamSelect1.lua" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/teamSelect1.lua">
+      <file leaf-file-name="menu_barLight.lua" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/menu_barLight.lua">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="70" column="8" selection-start="2403" selection-end="2953" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="605" column="18" selection-start="21946" selection-end="21955" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="n#checkMemory#0" expanded="false" />
+                <element signature="n#SystemPhone#0" expanded="false" />
+                <element signature="n#numFriend#0" expanded="false" />
+                <element signature="n#newMenubutton#0" expanded="false" />
+                <element signature="n#newrequestList#0" expanded="false" />
+                <element signature="n#stamina#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="includeFunction.lua" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/includeFunction.lua">
+      <file leaf-file-name="main.lua" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main.lua">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="44" column="45" selection-start="1198" selection-end="1384" vertical-scroll-proportion="0.0">
+            <state line="47" column="37" selection-start="1464" selection-end="1464" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -280,9 +278,10 @@
       <file leaf-file-name="alertMassage.lua" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/alertMassage.lua">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1833" column="27" selection-start="60340" selection-end="60357" vertical-scroll-proportion="0.0">
+            <state line="1118" column="40" selection-start="36718" selection-end="36730" vertical-scroll-proportion="-8.8">
               <folding>
-                <element signature="n#sprite_sheet#0" expanded="false" />
+                <element signature="n#NoHaveSlot#0" expanded="false" />
+                <element signature="e#60149#60355#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -298,21 +297,21 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/map.lua" />
-        <option value="$PROJECT_DIR$/menu_barLight.lua" />
-        <option value="$PROJECT_DIR$/map_substate.lua" />
+        <option value="$PROJECT_DIR$/friend_list_scroll.lua" />
+        <option value="$PROJECT_DIR$/request_list_scroll.lua" />
         <option value="$PROJECT_DIR$/scrollImage.lua" />
-        <option value="$PROJECT_DIR$/misstion_scroll.lua" />
-        <option value="$PROJECT_DIR$/misstion.lua" />
         <option value="$PROJECT_DIR$/guest.lua" />
-        <option value="$PROJECT_DIR$/includeFunction.lua" />
-        <option value="$PROJECT_DIR$/team_select.lua" />
         <option value="$PROJECT_DIR$/teamSelect1.lua" />
-        <option value="$PROJECT_DIR$/teamSelect5.lua" />
-        <option value="$PROJECT_DIR$/teamSelect4.lua" />
-        <option value="$PROJECT_DIR$/teamSelect3.lua" />
-        <option value="$PROJECT_DIR$/teamSelect2.lua" />
         <option value="$PROJECT_DIR$/teamselectView.lua" />
+        <option value="$PROJECT_DIR$/menu_barLight.lua" />
+        <option value="$PROJECT_DIR$/map.lua" />
+        <option value="$PROJECT_DIR$/misstion.lua" />
+        <option value="$PROJECT_DIR$/team_main.lua" />
+        <option value="$PROJECT_DIR$/team_select.lua" />
+        <option value="$PROJECT_DIR$/alertMassage.lua" />
+        <option value="$PROJECT_DIR$/map_substate.lua" />
+        <option value="$PROJECT_DIR$/mission_clear.lua" />
+        <option value="$PROJECT_DIR$/main.lua" />
         <option value="$PROJECT_DIR$/puzzleCode.lua" />
       </list>
     </option>
@@ -321,9 +320,9 @@
     <treeState />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="154" />
-    <option name="y" value="22" />
-    <option name="width" value="1236" />
+    <option name="x" value="-25" />
+    <option name="y" value="96" />
+    <option name="width" value="1553" />
     <option name="height" value="829" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -352,6 +351,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -363,7 +363,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -380,8 +379,8 @@
     <property name="FullScreen" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
@@ -396,6 +395,19 @@
       <option name="SHMEM_ADDRESS" value="javadebug" />
       <option name="HOST" value="localhost" />
       <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
@@ -423,19 +435,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -491,7 +490,7 @@
     </configuration>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
-  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false">
+  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="sslv3">
     <option name="USER" value="" />
     <option name="PASSWORD" value="" />
     <option name="mySSHConnectionTimeout" value="30000" />
@@ -501,7 +500,6 @@
     <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
     <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
     <option name="IGNORE_SPACES_IN_MERGE" value="false" />
-    <option name="DETECT_NESTED_COPIES" value="true" />
     <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
     <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
     <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
@@ -538,7 +536,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="154" y="22" width="1236" height="829" extended-state="0" />
+    <frame x="-25" y="96" width="1553" height="829" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -553,7 +551,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32998455" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16386555" sideWeight="0.67559946" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.12674187" sideWeight="0.67559946" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="LuaJ" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -625,57 +623,57 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="lua-line">
-          <url>file://$PROJECT_DIR$/puzzleCode.lua</url>
-          <line>2795</line>
-          <option name="timeStamp" value="93" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="lua-line">
-          <url>file://$PROJECT_DIR$/puzzleCode.lua</url>
-          <line>1464</line>
-          <option name="timeStamp" value="102" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="lua-line">
           <url>file://$PROJECT_DIR$/alertMassage.lua</url>
-          <line>1775</line>
+          <line>2004</line>
           <option name="timeStamp" value="104" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="lua-line">
-          <url>file://$PROJECT_DIR$/puzzleCode.lua</url>
-          <line>1406</line>
-          <option name="timeStamp" value="105" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="lua-line">
-          <url>file://$PROJECT_DIR$/puzzleCode.lua</url>
-          <line>1294</line>
-          <option name="timeStamp" value="106" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="lua-line">
-          <url>file://$PROJECT_DIR$/puzzleCode.lua</url>
-          <line>300</line>
-          <option name="timeStamp" value="108" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="lua-line">
-          <url>file://$PROJECT_DIR$/puzzleCode.lua</url>
-          <line>203</line>
-          <option name="timeStamp" value="109" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="lua-line">
-          <url>file://$PROJECT_DIR$/puzzleCode.lua</url>
-          <line>1219</line>
-          <option name="timeStamp" value="111" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="lua-line">
           <url>file://$PROJECT_DIR$/map.lua</url>
-          <line>62</line>
+          <line>63</line>
           <option name="timeStamp" value="112" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="lua-line">
           <url>file://$PROJECT_DIR$/menu_barLight.lua</url>
-          <line>73</line>
+          <line>108</line>
           <option name="timeStamp" value="113" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="lua-line">
+          <url>file://$PROJECT_DIR$/alertMassage.lua</url>
+          <line>155</line>
+          <option name="timeStamp" value="154" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="lua-line">
+          <url>file://$PROJECT_DIR$/menu_barLight.lua</url>
+          <line>581</line>
+          <option name="timeStamp" value="158" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="lua-line">
+          <url>file://$PROJECT_DIR$/puzzleCode.lua</url>
+          <line>2887</line>
+          <option name="timeStamp" value="163" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="lua-line">
+          <url>file://$PROJECT_DIR$/puzzleCode.lua</url>
+          <line>2231</line>
+          <option name="timeStamp" value="165" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="lua-line">
+          <url>file://$PROJECT_DIR$/puzzleCode.lua</url>
+          <line>2123</line>
+          <option name="timeStamp" value="167" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="lua-line">
+          <url>file://$PROJECT_DIR$/puzzleCode.lua</url>
+          <line>467</line>
+          <option name="timeStamp" value="169" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="lua-line">
+          <url>file://$PROJECT_DIR$/puzzleCode.lua</url>
+          <line>782</line>
+          <option name="timeStamp" value="170" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="115" />
+      <option name="time" value="172" />
     </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
@@ -683,172 +681,167 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/scrollImage.lua">
+    <entry file="file://$PROJECT_DIR$/characterAll.lua">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="237" column="71" selection-start="7989" selection-end="7989" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#1072#3114#0" expanded="false" />
-            <element signature="e#3120#4804#0" expanded="false" />
-            <element signature="e#4810#5408#0" expanded="false" />
-            <element signature="e#5414#5740#0" expanded="false" />
-          </folding>
-        </state>
+        <state line="577" column="68" selection-start="19856" selection-end="19856" vertical-scroll-proportion="-193.26923" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/misstion_scroll.lua">
+    <entry file="file://$PROJECT_DIR$/teamselectView.lua">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="77" selection-start="895" selection-end="895" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="78" column="3" selection-start="2446" selection-end="2446" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/unit_main.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/upgrade_main.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-3.6563876" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/team_select.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="57" column="77" selection-start="1506" selection-end="1506" vertical-scroll-proportion="0.5947136" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/team_main.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="0" selection-start="299" selection-end="299" vertical-scroll-proportion="0.17621145" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/misstion.lua">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="71" column="93" selection-start="2442" selection-end="2442" vertical-scroll-proportion="0.0">
-          <folding />
+        <state line="201" column="4" selection-start="7851" selection-end="7988" vertical-scroll-proportion="0.5726872" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter_select.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-4.0528636" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/map.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="68" column="4" selection-start="1878" selection-end="2022" vertical-scroll-proportion="0.5256975">
+          <folding>
+            <element signature="n#onMapRelease#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/map_substate.lua">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="63" column="41" selection-start="1844" selection-end="1864" vertical-scroll-proportion="0.0">
+        <state line="184" column="13" selection-start="5778" selection-end="5778" vertical-scroll-proportion="0.8135095">
           <folding>
             <element signature="n#onBtnRelease#0" expanded="false" />
+            <element signature="n#loadChapter#0" expanded="false" />
             <element signature="n#createBackButton#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/guest.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="139" column="24" selection-start="4148" selection-end="4157" vertical-scroll-proportion="-12.653846">
-          <folding>
-            <element signature="n#scene:enterScene#0" expanded="false" />
-            <element signature="n#scene:exitScene#0" expanded="false" />
-            <element signature="n#scene:destroyScene#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/item2.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/teamSelect2.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="24" selection-start="435" selection-end="435" vertical-scroll-proportion="0.27355623">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/teamSelect4.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="73" selection-start="844" selection-end="844" vertical-scroll-proportion="0.50151974">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/includeFunction.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="45" selection-start="1198" selection-end="1384" vertical-scroll-proportion="0.0">
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/alertMassage.lua">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1833" column="27" selection-start="60340" selection-end="60357" vertical-scroll-proportion="0.0">
+        <state line="1118" column="40" selection-start="36718" selection-end="36730" vertical-scroll-proportion="-8.8">
           <folding>
-            <element signature="n#sprite_sheet#0" expanded="false" />
+            <element signature="n#NoHaveSlot#0" expanded="false" />
+            <element signature="e#60149#60355#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/teamSelect5.lua">
+    <entry file="file://$PROJECT_DIR$/characterprofile.lua">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="73" selection-start="844" selection-end="844" vertical-scroll-proportion="0.4845815">
+        <state line="168" column="7" selection-start="6151" selection-end="6151" vertical-scroll-proportion="1.0572687">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/teamSelect3.lua">
+    <entry file="file://$PROJECT_DIR$/menu_barLight.lua">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="73" selection-start="844" selection-end="844" vertical-scroll-proportion="0.4845815">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/team_select.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="188" column="51" selection-start="5122" selection-end="5122" vertical-scroll-proportion="-55.96154">
+        <state line="605" column="18" selection-start="21946" selection-end="21955" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="n#createBackButton#0" expanded="false" />
+            <element signature="n#checkMemory#0" expanded="false" />
+            <element signature="n#SystemPhone#0" expanded="false" />
+            <element signature="n#numFriend#0" expanded="false" />
+            <element signature="n#newMenubutton#0" expanded="false" />
+            <element signature="n#newrequestList#0" expanded="false" />
+            <element signature="n#stamina#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/teamSelect1.lua">
+    <entry file="file://$PROJECT_DIR$/mission_clear.lua">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="70" column="8" selection-start="2403" selection-end="2953" vertical-scroll-proportion="0.0">
-          <folding />
+        <state line="178" column="25" selection-start="5801" selection-end="5801" vertical-scroll-proportion="-14.423077">
+          <folding>
+            <element signature="n#onBtnonclick#0" expanded="false" />
+            <element signature="n#onTouchFileScreen#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/teamselectView.lua">
+    <entry file="file://$PROJECT_DIR$/main.lua">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="146" column="48" selection-start="4492" selection-end="4492" vertical-scroll-proportion="-21.076923">
-          <folding>
-            <element signature="e#8143#8278#0" expanded="false" />
-          </folding>
+        <state line="47" column="37" selection-start="1464" selection-end="1464" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/puzzleCode.lua">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1042" column="35" selection-start="34640" selection-end="34640" vertical-scroll-proportion="0.8157051">
+        <state line="1032" column="94" selection-start="35758" selection-end="35758" vertical-scroll-proportion="0.5030488">
           <folding>
-            <element signature="e#377#595#1" expanded="false" />
-            <element signature="e#991#1076#1" expanded="false" />
-            <element signature="e#1093#1164#1" expanded="false" />
-            <element signature="e#3148#3447#0" expanded="false" />
+            <element signature="n#SaveMissionClear#0" expanded="false" />
+            <element signature="n#checkMemory#0" expanded="false" />
+            <element signature="n#clearmyAnimationSheet#0" expanded="false" />
+            <element signature="n#onTouchGameoverFileScreen#0" expanded="false" />
+            <element signature="n#gameoverFile_Cancel#0" expanded="false" />
+            <element signature="n#gameoverFile#0" expanded="false" />
+            <element signature="n#enableGemTouch#0" expanded="false" />
+            <element signature="n#enablePuzzleTouch#0" expanded="false" />
+            <element signature="n#damageAttackEnemy#0" expanded="false" />
+            <element signature="n#cleanDisplay#0" expanded="false" />
+            <element signature="n#cleanListeners#0" expanded="false" />
+            <element signature="n#cleanTimers#0" expanded="false" />
+            <element signature="n#cleanTransitions#0" expanded="false" />
+            <element signature="n#battle_Animation#0" expanded="false" />
+            <element signature="n#characterBattle#0" expanded="false" />
             <element signature="n#createItem#0" expanded="false" />
             <element signature="n#Victory_Animation_aura#0" expanded="false" />
             <element signature="n#Victory_Animation_font#0" expanded="false" />
+            <element signature="n#swapSheetBackground#0" expanded="false" />
             <element signature="n#BossSprite#0" expanded="false" />
-            <element signature="n#Warning_Animation#0" expanded="false" />
+            <element signature="e#31216#31318#1" expanded="false" />
             <element signature="n#LeaveOption#0" expanded="false" />
             <element signature="n#BonusOption#0" expanded="false" />
+            <element signature="e#45270#45432#2" expanded="false" />
             <element signature="n#GameOption#0" expanded="false" />
             <element signature="n#MenuInPuzzle#0" expanded="false" />
             <element signature="n#createCharacter#0" expanded="false" />
             <element signature="n#miniIconCharac#0" expanded="false" />
             <element signature="n#miniIconCharac_frame#0" expanded="false" />
-            <element signature="n#getCharacterCoin#0" expanded="false" />
             <element signature="n#sprite_sheet#0" expanded="false" />
             <element signature="n#battleIcon#0" expanded="false" />
-            <element signature="n#swapSheet#0" expanded="false" />
+            <element signature="n#getCharacterCoin#0" expanded="false" />
+            <element signature="e#78087#78948#0" expanded="false" />
+            <element signature="e#78953#79912#0" expanded="false" />
             <element signature="n#fncallSprite2#0" expanded="false" />
             <element signature="n#swapSheet2#0" expanded="false" />
             <element signature="n#createBackButton#0" expanded="false" />
             <element signature="n#cancelAllTimers#0" expanded="false" />
             <element signature="n#cancelAllTransitions#0" expanded="false" />
-            <element signature="n#handleLowMemory#0" expanded="false" />
-            <element signature="n#checkMemory#0" expanded="false" />
             <element signature="n#newGem#0" expanded="false" />
             <element signature="n#copyGem#0" expanded="false" />
             <element signature="n#pasteGem#0" expanded="false" />
             <element signature="n#slideGem#0" expanded="false" />
-            <element signature="n#enableGemTouch#0" expanded="false" />
             <element signature="n#textNumber#0" expanded="false" />
+            <element signature="n#deleteHP_Defense#0" expanded="false" />
             <element signature="n#ClearNumber#0" expanded="false" />
-            <element signature="n#clearmyAnimationSheet#0" expanded="false" />
             <element signature="n#PopNumIconCharacter#0" expanded="false" />
             <element signature="n#shiftGems#0" expanded="false" />
             <element signature="n#destroyGems#0" expanded="false" />
-            <element signature="n#checkPointball#0" expanded="false" />
             <element signature="n#cleanUpGems#0" expanded="false" />
             <element signature="n#markPreDestory#0" expanded="false" />
             <element signature="n#markToDestroy#0" expanded="false" />
@@ -856,17 +849,16 @@
             <element signature="n#chkGruopDel#0" expanded="false" />
             <element signature="n#chkGruopGem#0" expanded="false" />
             <element signature="n#chkGruopGem2#0" expanded="false" />
+            <element signature="n#chkGruopOnload#0" expanded="false" />
             <element signature="n#lockGem#0" expanded="false" />
             <element signature="n#rndLock2#0" expanded="false" />
             <element signature="n#rndLock#0" expanded="false" />
             <element signature="n#test#0" expanded="false" />
-            <element signature="n#formulaMission#0" expanded="false" />
             <element signature="n#numberToimg#0" expanded="false" />
             <element signature="n#checkdoubleRight#0" expanded="false" />
             <element signature="n#checkdoubleAll#0" expanded="false" />
+            <element signature="n#checkdoubleOnload#0" expanded="false" />
             <element signature="n#onGemTouch#0" expanded="false" />
-            <element signature="n#scene:createScene#0" expanded="false" />
-            <element signature="e#109570#110494#1" expanded="false" />
           </folding>
         </state>
       </provider>

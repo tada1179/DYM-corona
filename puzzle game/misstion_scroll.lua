@@ -21,12 +21,11 @@ function new(params)
     local user_id = params.user_id
     local chapter_id = params.chapter_id
     local map_id = params.map_id
-    print("user_id,chapter_id,map_id,mission_id :",user_id,chapter_id,map_id)
     local maxChapter = 0
     local characterItem = {}
 
     local pointListX = screenW *.1
-    pointListY =  screenH *.15
+    pointListY =  screenH *.185
 
     scrollView.top = math.floor(screenH*.18) or 0
     scrollView.bottom =   math.floor(screenH*.27)
@@ -302,16 +301,19 @@ function new(params)
         local pointbattleY = screenH*.24
         local typeFont = native.systemFontBold
 
+        local frmsizsX = screenW*.7
+        local frmsizsY = screenH*.1
+        local pointNameX = screenW*.12
+
         local imgBoss
         local Fr_imgBoss
         for i = maxChapter, 1, -1 do
-           -- print("// framele",framele[1])
 
             if characterItem[i].ID_clear == "clear" then
                 local imgFrmList = "img/background/misstion/CLEAR_LAYOUT.png"
-                listCharacter[i] = display.newImageRect( imgFrmList, screenW*.9, screenH*.18)
+                listCharacter[i] = display.newImageRect( imgFrmList, frmsizsX, frmsizsY)
                 listCharacter[i]:setReferencePoint( display.TopLeftReferencePoint )
-                listCharacter[i].x, listCharacter[i].y = screenW*.02, pointListY
+                listCharacter[i].x, listCharacter[i].y = pointNameX, pointListY
                 listCharacter[i].id = i
 
                 imgBoss = display.newImageRect( characterItem[i].mission_img_boss, screenW*.12, screenH*.08)
@@ -320,11 +322,11 @@ function new(params)
                 scrollView:insert(imgBoss)
 
                 backButton = widget.newButton{
-                    default= framele[characterItem[i].mission_boss_element],
-                    over= framele[characterItem[i].mission_boss_element],
-                    top = pointPic,
-                    left = screenW*.68,
-                    width= screenW*.12, height= screenH*.08,
+                    defaultFile= framele[characterItem[i].mission_boss_element],
+                    overFile= framele[characterItem[i].mission_boss_element],
+                    top = pointListY,
+                    left = pointNameX,
+                    width=frmsizsX, height= frmsizsX,
                     onRelease = onBtnRelease	-- event listener function
                 }
                 backButton.id= characterItem[i].mission_id
@@ -343,9 +345,9 @@ function new(params)
 
             else
                 local imgFrmList = "img/background/misstion/NEW_LAYOUT.png"
-                listCharacter[i] = display.newImageRect( imgFrmList, screenW*.9, screenH*.18)
+                listCharacter[i] = display.newImageRect( imgFrmList, frmsizsX, frmsizsY)
                 listCharacter[i]:setReferencePoint( display.TopLeftReferencePoint )
-                listCharacter[i].x, listCharacter[i].y = screenW*.02, pointListY
+                listCharacter[i].x, listCharacter[i].y = pointNameX, pointListY
                 listCharacter[i].id = i
                 listCharacter[i].numTouches = 0
 
@@ -354,12 +356,17 @@ function new(params)
                 imgBoss.x, imgBoss.y = screenW*.68, pointPic
                 scrollView:insert(imgBoss)
 
+                imgBoss = display.newImageRect(framele[characterItem[i].mission_boss_element], screenW*.12, screenH*.08)
+                imgBoss:setReferencePoint( display.TopLeftReferencePoint )
+                imgBoss.x, imgBoss.y = screenW*.68, pointPic
+                scrollView:insert(imgBoss)
+
                 backButton = widget.newButton{
-                    default= framele[characterItem[i].mission_boss_element],
-                    over= framele[characterItem[i].mission_boss_element],
-                    top = pointPic,
-                    left = screenW*.68,
-                    width= screenW*.12, height= screenH*.08,
+                    defaultFile= imgFrmList,
+                    overFile= imgFrmList,
+                    top = pointListY,
+                    left = pointNameX,
+                    width=frmsizsX, height= frmsizsY,
                     onRelease = onBtnRelease	-- event listener function
                 }
                 backButton.id= characterItem[i].mission_id
@@ -376,10 +383,11 @@ function new(params)
                 txtstamina:setTextColor(173, 255, 47)
                 scrollView:insert(txtstamina)
             end
-            pointbattleY = pointbattleY + (screenH*.1)
-            pointNameY = pointNameY + (screenH*.1)
-            pointListY = pointListY + (screenH*.1)
-            pointPic = pointPic + (screenH*.1)
+            pointbattleY = pointbattleY + (screenH*.11)
+            pointNameY = pointNameY + (screenH*.11)
+            pointListY = pointListY + (screenH*.11)
+            pointPic = pointPic + (screenH*.11)
+
             scrollView:insert(listCharacter[i])
             scrollView:insert(backButton)
         end

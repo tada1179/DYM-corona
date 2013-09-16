@@ -162,8 +162,8 @@ function new( imageSet, slideBackground, top, bottom ,page,USERID,USERLV)
     end
 
     btnreset = widget.newButton{
-        default= image_reset,
-        over= image_reset,
+        defaultFile= image_reset,
+        overFile= image_reset,
         width = screenW /9, height= screenH/21,
         onRelease = onbtnreset	-- event listener function
     }
@@ -174,8 +174,8 @@ function new( imageSet, slideBackground, top, bottom ,page,USERID,USERLV)
     g:insert(btnreset)
     local image_back = "img/background/button/Button_BACK.png"
     btnback = widget.newButton{
-        default= image_back,
-        over= image_back,
+        defaultFile= image_back,
+        overFile= image_back,
         width = screenW/9, height = screenH/21,
         onRelease = onbtnreset	-- event listener function
     }

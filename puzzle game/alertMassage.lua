@@ -64,8 +64,8 @@ function diamondFail(namepage)
 
     --button cancel profile
     btn_cancel = widget.newButton{
-        default=image_cancel,
-        over=image_cancel,
+        defaultFile=image_cancel,
+        overFile=image_cancel,
         width=screenW*.2, height=screenH*.05,
         onRelease = onBtncharacter	-- event listener function
     }
@@ -137,8 +137,8 @@ function staminaFull(namepage)
 
     --button cancel profile
     btn_cancel = widget.newButton{
-        default=image_cancel,
-        over=image_cancel,
+        defaultFile=image_cancel,
+        overFile=image_cancel,
         width=screenW*.2, height=screenH*.05,
         onRelease = onBtncharacter	-- event listener function
     }
@@ -157,6 +157,7 @@ function addSlot(params)
     print("alertMassage addSlot")
     local USERID = params.user_id
     local namepage = params.namepage
+    print("namepage")
     if namepage == nil then
         namepage = "unit_box"
     end
@@ -259,8 +260,8 @@ function addSlot(params)
 
         --button cancel profile
         btn_cancel_S = widget.newButton{
-            default=image_ok,
-            over=image_ok,
+            defaultFile=image_ok,
+            overFile=image_ok,
             width=screenW*.2, height=screenH*.05,
             onRelease = onBtncharacter_show	-- event listener function
         }
@@ -347,8 +348,8 @@ function addSlot(params)
 
     --button cancel profile
     btn_cancelT = widget.newButton{
-        default=image_cancel,
-        over=image_cancel,
+        defaultFile=image_cancel,
+        overFile=image_cancel,
         width=screenW*.2, height=screenH*.05,
         onRelease = onBtncharacter	-- event listener function
     }
@@ -360,8 +361,8 @@ function addSlot(params)
 
     --button ok profile
     btn_OK = widget.newButton{
-        default=image_ok,
-        over=image_ok,
+        defaultFile=image_ok,
+        overFile=image_ok,
         width=screenW*.2, height=screenH*.05,
         onRelease = onBtncharacter	-- event listener function
     }
@@ -483,8 +484,8 @@ function stamina(params)
 
         --button cancel profile
         btn_cancel_s = widget.newButton{
-            default=image_ok,
-            over=image_ok,
+            defaultFile=image_ok,
+            overFile=image_ok,
             width=screenW*.2, height=screenH*.05,
             onRelease = onBtncharacter_show	-- event listener function
         }
@@ -574,8 +575,8 @@ function stamina(params)
 
     --button cancel profile
     btn_cancel = widget.newButton{
-        default=image_cancel,
-        over=image_cancel,
+        defaultFile=image_cancel,
+        overFile=image_cancel,
         width=screenW*.2, height=screenH*.05,
         onRelease = onBtncharacter	-- event listener function
     }
@@ -587,8 +588,8 @@ function stamina(params)
 
     --button ok profile
     btn_OK = widget.newButton{
-        default=image_ok,
-        over=image_ok,
+        defaultFile=image_ok,
+        overFile=image_ok,
         width=screenW*.2, height=screenH*.05,
         onRelease = onBtncharacter	-- event listener function
     }
@@ -701,8 +702,8 @@ function resetCharacter(id,holddteam_no,team_id,USERID,g)
 
     --button cancel profile
     btn_cancel = widget.newButton{
-        default=image_cancel,
-        over=image_cancel,
+        defaultFile=image_cancel,
+        overFile=image_cancel,
         width=screenW*.2, height=screenH*.05,
         onRelease = onBtncharacter	-- event listener function
     }
@@ -714,8 +715,8 @@ function resetCharacter(id,holddteam_no,team_id,USERID,g)
 
     --button ok profile
     btn_OK = widget.newButton{
-        default=image_ok,
-        over=image_ok,
+        defaultFile=image_ok,
+        overFile=image_ok,
         width=screenW*.2, height=screenH*.05,
         onRelease = onBtncharacter	-- event listener function
     }
@@ -945,8 +946,8 @@ function confrimDischarge(countCHNo,characterAll,numCoin,user_id,domain)
 
     --button cancel profile
     btn_cancel = widget.newButton{
-        default=image_cancel,
-        over=image_cancel,
+        defaultFile=image_cancel,
+        overFile=image_cancel,
         width=screenW*.2, height=screenH*.05,
         onRelease = onBtncharacter	-- event listener function
     }
@@ -958,8 +959,8 @@ function confrimDischarge(countCHNo,characterAll,numCoin,user_id,domain)
 
     --button ok profile
     btn_OK = widget.newButton{
-        default=image_ok,
-        over=image_ok,
+        defaultFile=image_ok,
+        overFile=image_ok,
         width=screenW*.2, height=screenH*.05,
         onRelease = onBtncharacter	-- event listener function
     }
@@ -1145,8 +1146,8 @@ function confrimSellItem(option)
 
     -- -- -- -- -  -- --
     imgPlus = widget.newButton{
-        default= image_plus,
-        over=  image_plus,
+        defaultFile= image_plus,
+        overFile=  image_plus,
         width= screenW*.06, height= screenH*.04,
         onRelease = onbtnPlusItem	-- event listener function
     }
@@ -1157,8 +1158,8 @@ function confrimSellItem(option)
     imgPlus.alpha = 1
 
     imgiMinus = widget.newButton{
-        default= image_minus,
-        over=  image_minus,
+        defaultFile= image_minus,
+        overFile=  image_minus,
         width= screenW*.06, height= screenH*.04,
         onRelease = onbtnPlusItem	-- event listener function
     }
@@ -1172,8 +1173,8 @@ function confrimSellItem(option)
 
     -- ******** - -
     ButtonSell = widget.newButton{
-        default= image_btnsell,
-        over=  image_btnsell,
+        defaultFile= image_btnsell,
+        overFile=  image_btnsell,
         width= screenW*.26, height= screenH*.06,
         onRelease = onBtncharacter	-- event listener function
     }
@@ -1185,8 +1186,8 @@ function confrimSellItem(option)
 
     -- ******** - -
     ButtonCancel = widget.newButton{
-        default= image_btncancel,
-        over=  image_btncancel,
+        defaultFile= image_btncancel,
+        overFile=  image_btncancel,
         width= screenW*.24, height= screenH*.06,
         onRelease = onBtncharacter	-- event listener function
     }
@@ -1295,8 +1296,8 @@ function resetItem(user_id)
 
     --button cancel profile
     btn_cancel = widget.newButton{
-        default=image_cancel,
-        over=image_cancel,
+        defaultFile=image_cancel,
+        overFile=image_cancel,
         width=screenW*.2, height=screenH*.05,
         onRelease = onBtncharacter	-- event listener function
     }
@@ -1308,8 +1309,8 @@ function resetItem(user_id)
 
     --button ok profile
     btn_OK = widget.newButton{
-        default=image_ok,
-        over=image_ok,
+        defaultFile=image_ok,
+        overFile=image_ok,
         width=screenW*.2, height=screenH*.05,
         onRelease = onBtncharacter	-- event listener function
     }
@@ -1477,8 +1478,8 @@ function accepFriend(option)
 
     -- ******** - -
     local ButtonAccep = widget.newButton{
-        default= image_btnACCEPT,
-        over=  image_btnACCEPT,
+        defaultFile= image_btnACCEPT,
+        overFile=  image_btnACCEPT,
         width= screenW*.2, height= screenH*.05,
         onRelease = onBtncharacter	-- event listener function
     }
@@ -1491,8 +1492,8 @@ function accepFriend(option)
 
     -- ******** - -
     local ButtonIgnore = widget.newButton{
-        default= image_btnIGNORE,
-        over=  image_btnIGNORE,
+        defaultFile= image_btnIGNORE,
+        overFile=  image_btnIGNORE,
         width= screenW*.2, height= screenH*.045,
         onRelease = onBtncharacter	-- event listener function
     }
@@ -1505,8 +1506,8 @@ function accepFriend(option)
 
     -- ******** - -
     local ButtonCancel = widget.newButton{
-        default= image_btncancel,
-        over=  image_btncancel,
+        defaultFile= image_btncancel,
+        overFile=  image_btncancel,
         width= screenW*.2, height= screenH*.05,
         onRelease = onBtncharacter	-- event listener function
     }
@@ -1567,8 +1568,8 @@ function NoDataInList()
 
     --button ok profile
     local btn_OK = widget.newButton{
-        default=image_ok,
-        over=image_ok,
+        defaultFile=image_ok,
+        overFile=image_ok,
         width=screenW*.2, height=screenH*.05,
         onRelease = okNoDataInList	-- event listener function
     }
@@ -1584,8 +1585,236 @@ function NoDataInList()
 
 end
 
+function NoFriendPoint()
+    --    print("alertMassage NoDataInList")
+    local groupView = display.newGroup()
+    local sizetextName = 20
+    local image_cancel = "img/background/button/as_butt_discharge_cancel.png"
+    local image_ok = "img/background/button/OK_button.png"
+    local function ontouchNoDataInList ( self, event )
+
+        if event.phase == "began" then
+
+            --storyboard.gotoScene( "menu-scene", "fade", 400  )
+
+            return true
+        end
+    end
+    local function okNoDataInList(event)
+        display.remove(groupView)
+        groupView = nil
+
+        if event.target.id == "okNoDataInList" then
+            -- storyboard.gotoScene( "commu_main","fade",100 )
+        end
+    end
+
+    local back_while = display.newRect(0, 0, screenW, screenH)
+    back_while.strokeWidth =0
+    back_while.alpha = .5
+    back_while:setFillColor(0, 0, 0)
+    groupView:insert(back_while)
+
+    local myRectangle = display.newRoundedRect(screenW*.2, screenH*.4, screenW*.6, screenH*.2,7)
+    myRectangle.strokeWidth = 2
+    myRectangle:setStrokeColor(255,255,255)
+    myRectangle.alpha = .8
+    myRectangle:setFillColor(0, 0, 0)
+    groupView:insert(myRectangle)
+
+
+    local SmachText = display.newText("Not enough Friend Points", screenW*.30, screenH *.45,typeFont, sizetextName)
+    SmachText:setTextColor(255, 255, 255)
+    groupView:insert(SmachText)
+
+    --button ok profile
+    local btn_OK = widget.newButton{
+        defaultFile=image_ok,
+        overFile=image_ok,
+        width=screenW*.2, height=screenH*.05,
+        onRelease = okNoDataInList	-- event listener function
+    }
+    btn_OK.id="okNoDataInList"
+    btn_OK:setReferencePoint( display.CenterReferencePoint )
+    btn_OK.x =screenW *.5
+    btn_OK.y = screenH*.55
+    groupView:insert(btn_OK)
+
+    groupView.touch = ontouchNoDataInList
+    groupView:addEventListener( "touch", groupView )
+    menu_barLight.checkMemory()
+
+end
+function NoDiamondPoint()
+    --    print("alertMassage NoDataInList")
+    local groupView = display.newGroup()
+    local sizetextName = 20
+    local image_cancel = "img/background/button/as_butt_discharge_cancel.png"
+    local image_ok = "img/background/button/OK_button.png"
+    local function ontouchNoDataInList ( self, event )
+
+        if event.phase == "began" then
+
+            --storyboard.gotoScene( "menu-scene", "fade", 400  )
+
+            return true
+        end
+    end
+    local function okNoDataInList(event)
+        display.remove(groupView)
+        groupView = nil
+
+        if event.target.id == "OKBuy" then
+            storyboard.gotoScene( "ticket_shop","fade",100 )
+        end
+    end
+
+    local back_while = display.newRect(0, 0, screenW, screenH)
+    back_while.strokeWidth =0
+    back_while.alpha = .5
+    back_while:setFillColor(0, 0, 0)
+    groupView:insert(back_while)
+
+    local myRectangle = display.newRoundedRect(screenW*.15, screenH*.35, screenW*.73, screenH*.3,7)
+    myRectangle.strokeWidth = 2
+    myRectangle:setStrokeColor(255,255,255)
+    myRectangle.alpha = .8
+    myRectangle:setFillColor(0, 0, 0)
+    groupView:insert(myRectangle)
+
+    local SmachText_T = util.wrappedText("  Not enoungh Golds.Do you \nwant to buy Golds?", screenW*.28, 30,typeFont, {255, 255, 255})
+    SmachText_T.x = screenW*.18
+    SmachText_T.y = screenH*.40
+    groupView:insert(SmachText_T)
+
+    --button ok profile
+    local btn_OK = widget.newButton{
+        defaultFile=image_ok,
+        overFile=image_ok,
+        width=screenW*.2, height=screenH*.05,
+        onRelease = okNoDataInList	-- event listener function
+    }
+    btn_OK.id="OKBuy"
+    btn_OK:setReferencePoint( display.CenterReferencePoint )
+    btn_OK.x =screenW *.35
+    btn_OK.y = screenH*.6
+    groupView:insert(btn_OK)
+
+    local btn_cancel = widget.newButton{
+        defaultFile=image_cancel,
+        overFile=image_cancel,
+        width=screenW*.2, height=screenH*.05,
+        onRelease = okNoDataInList	-- event listener function
+    }
+    btn_cancel.id="cancelBuy"
+    btn_cancel:setReferencePoint( display.CenterReferencePoint )
+    btn_cancel.x =screenW *.65
+    btn_cancel.y = screenH*.6
+    groupView:insert(btn_cancel)
+
+end
+
+function NoHaveSlot(page)
+    print("NoHaveSlot ",page)
+    local groupView = display.newGroup()
+    local sizetextName = 20
+    local image_cancel = "img/background/button/as_butt_discharge_cancel.png"
+    local image_ok = "img/background/button/OK_button.png"
+    local function ontouchNoDataInList ( self, event )
+
+        if event.phase == "began" then
+
+            --storyboard.gotoScene( "menu-scene", "fade", 400  )
+
+            return true
+        end
+    end
+    local function NoslotInList(event)
+        display.remove(groupView)
+        groupView = nil
+        local params = {
+               namepage = page,
+                user_id = menu_barLight.user_id()
+        }
+        if event.target.id == "OKBuy" then
+            addSlot(params)
+        end
+    end
+
+    local back_while = display.newRect(0, 0, screenW, screenH)
+    back_while.strokeWidth =0
+    back_while.alpha = .5
+    back_while:setFillColor(0, 0, 0)
+    groupView:insert(back_while)
+
+    local myRectangle = display.newRoundedRect(screenW*.13, screenH*.35, screenW*.77, screenH*.5,7)
+    myRectangle.strokeWidth = 2
+    myRectangle:setStrokeColor(255,255,255)
+    myRectangle.alpha = .8
+    myRectangle:setFillColor(0, 0, 0)
+    groupView:insert(myRectangle)
+
+    local all = menu_barLight.characterAll() +1
+    local SmachText_1 = display.newText("Inventory limit reached",0 , 0,native.systemFontBold,30)
+    SmachText_1:setReferencePoint( display.CenterReferencePoint )
+    SmachText_1.x = screenW*.5
+    SmachText_1.y = screenH*.40
+    SmachText_1:setTextColor(255, 255 ,255)
+    groupView:insert(SmachText_1)
+
+    local imgslot = display.newImageRect("img/background/shop/slot.png", screenW*.12, screenH*.08 )
+    imgslot:setReferencePoint( display.CenterReferencePoint )
+    imgslot.x, imgslot.y = screenW*.5, screenH*.5
+    groupView:insert(imgslot)
+
+    local SmachText_num = display.newText(all,0 , 0,native.systemFontBold,55)
+    SmachText_num:setReferencePoint( display.CenterReferencePoint )
+    SmachText_num.x = screenW*.45
+    SmachText_num.y = screenH*.59
+    SmachText_num:setTextColor(255, 0 ,139)
+    groupView:insert(SmachText_num)
+
+    local SmachText_num2 = display.newText("/"..menu_barLight.slot(),0 , 0,native.systemFontBold,28)
+    SmachText_num2:setReferencePoint( display.CenterReferencePoint )
+    SmachText_num2.x = SmachText_num.x + 60
+    SmachText_num2.y = screenH*.6
+    SmachText_num2:setTextColor(255, 255 ,139)
+    groupView:insert(SmachText_num2)
+
+    local SmachText_T = util.wrappedText("Inventory limit reached,unable to enter\nanother battle or get new cards.\nUse 1 diamond to extend 5 slots of inventory", screenW*.28, 20,typeFont, {255, 255, 255})
+    SmachText_T.x = screenW*.15
+    SmachText_T.y = screenH*.65
+    groupView:insert(SmachText_T)
+
+    --button ok profile
+    local btn_OK = widget.newButton{
+        defaultFile=image_ok,
+        overFile=image_ok,
+        width=screenW*.2, height=screenH*.05,
+        onRelease = NoslotInList	-- event listener function
+    }
+    btn_OK.id="OKBuy"
+    btn_OK:setReferencePoint( display.CenterReferencePoint )
+    btn_OK.x =screenW *.35
+    btn_OK.y = screenH*.79
+    groupView:insert(btn_OK)
+
+    local btn_cancel = widget.newButton{
+        defaultFile=image_cancel,
+        overFile=image_cancel,
+        width=screenW*.2, height=screenH*.05,
+        onRelease = NoslotInList	-- event listener function
+    }
+    btn_cancel.id="cancelBuy"
+    btn_cancel:setReferencePoint( display.CenterReferencePoint )
+    btn_cancel.x =screenW *.65
+    btn_cancel.y = screenH*.79
+    groupView:insert(btn_cancel)
+
+end
+
 function confrimLeaveTicket(option)
-    print("alertMassage confrimLeaveTicket")
+--    print("alertMassage confrimLeaveTicket")
     local params = option.params
     local useTicket = params.useTicket
     local NumDiamond = params.NumDiamond
@@ -1628,7 +1857,7 @@ function confrimLeaveTicket(option)
             end
 
         elseif event.target.id == "cancel" then
-            groupView.alpha = 0
+
         end
 
     end
@@ -1643,19 +1872,19 @@ function confrimLeaveTicket(option)
     backcolor.strokeWidth = 2
     backcolor:setStrokeColor(255,255,255)
     backcolor.alpha = 1
-    backcolor:setFillColor(200, 150, 0)
+    backcolor:setFillColor(0, 0, 0)
     groupView:insert(backcolor)
 
     local txtMSN = display.newText("EXP", screenW*.45, screenH*.45, typeFont, sizetext)
-    txtMSN:setTextColor(0, 200, 0)
+    txtMSN:setTextColor(255, 255, 255)
     txtMSN.text =  string.format("Comfrim You Retreat?")
     txtMSN.alpha = 1
     groupView:insert(txtMSN)
 
     local img_OK = "img/background/button/OK_button.png"
     local btnOK = widget.newButton{
-        default = img_OK,
-        over = img_OK,
+        defaultFile = img_OK,
+        overFile = img_OK,
         width=screenW*.3, height= screenH*.07,
         onRelease = ButtouRelease	-- event listener function
     }
@@ -1668,8 +1897,8 @@ function confrimLeaveTicket(option)
 
     local img_cancel = "img/background/button/as_butt_discharge_cancel.png"
     local btnucancel = widget.newButton{
-        default = img_cancel,
-        over = img_cancel,
+        defaultFile = img_cancel,
+        overFile = img_cancel,
         width=screenW*.3, height= screenH*.07,
         onRelease = ButtouRelease	-- event listener function
     }
@@ -1831,6 +2060,7 @@ function sprite_sheet(characterAll,num,color,pointX,pointY)
     menu_barLight.checkMemory()
     return true
 end
+
 function loadFramElement()
     local framele = {
         "img/characterIcon/frame_element/fire.png",

@@ -6,7 +6,6 @@ storyboard.isDebug = true
 --------------------------------------------------
 local gdisplay = display.newGroup()
 local pageTeam  = nil
-local background
 local titleText
 function scene:createScene( event )
     local screenW, screenH = display.contentWidth, display.contentHeight
@@ -24,7 +23,8 @@ function scene:createScene( event )
 
     local image_background = "img/background/MAP_Chinese-ornament-frame.jpg"
 --    local background = display.newImageRect(image_background , display.contentWidth, display.contentHeight )
-    background = display.newImageRect("img_back", system.DocumentsDirectory,screenW,screenH)
+    local image_background = "img/background/background_11.png"
+    local background = display.newImageRect(image_background,screenW,screenH)
     background:setReferencePoint( display.TopLeftReferencePoint )
     background.x, background.y = 0, 0
     gdisplay:insert(background)
@@ -39,15 +39,17 @@ function scene:createScene( event )
     if teamNumber > 5 then
         teamNumber = 5
     end
-    teamNumber = 5
+    --teamNumber = 5
     local mySlides = {}
     for i = 1,teamNumber,1 do
         mySlides[i] = "team"..i
+        print("mySlides[i] = ",mySlides[i])
     end
     local pagelock = 5-teamNumber
     if pagelock ~=0 then
         for k = 1,pagelock,1 do
             mySlides[teamNumber+k] = "teamLock"
+            print("mySlides locak[i] = ",mySlides[teamNumber+k])
         end
     end
 

@@ -128,8 +128,8 @@ function newTEAM(pageteam)
     local poinLVX = screenW*0.03
 
         leader[1] = widget.newButton{
-            default = frame0,
-            over = frame0,
+            defaultFile = frame0,
+            overFile = frame0,
             width = sizeleaderW ,
             height= sizeleaderH,
             onRelease = selectLeader
@@ -148,8 +148,8 @@ function newTEAM(pageteam)
     for i = 2, maxCharac, 1 do
 
             leader[i] = widget.newButton{
-                default = frame0,
-                over = frame0,
+                defaultFile = frame0,
+                overFile = frame0,
                 width= sizeleaderW,
                 height= sizeleaderH,
                 onRelease = selectLeader

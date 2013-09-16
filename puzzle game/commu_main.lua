@@ -111,8 +111,8 @@ local function list_community()
     local sizemenuW = screenW *.4
 
     btnplayer = widget.newButton{
-        default = image_player,
-        over = image_player,
+        defaultFile = image_player,
+        overFile = image_player,
         width= sizemenuW ,
         height= sizemenuH,
         onRelease = onBtnRelease
@@ -125,8 +125,8 @@ local function list_community()
 
 
     btnfriend = widget.newButton{
-        default = image_friend,
-        over = image_friend,
+        defaultFile = image_friend,
+        overFile = image_friend,
         width= sizemenuW ,
         height= sizemenuH,
         onRelease = onBtnRelease
@@ -138,8 +138,8 @@ local function list_community()
     gdisplay:insert(btnfriend)
 
     btnrequest = widget.newButton{
-        default = image_request,
-        over = image_request,
+        defaultFile = image_request,
+        overFile = image_request,
         width= sizemenuW ,
         height= sizemenuH,
         onRelease = onBtnRelease

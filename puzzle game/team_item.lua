@@ -4,6 +4,7 @@ local scene = storyboard.newScene()
 storyboard.purgeOnSceneChange = true
 local widget = require "widget"
 local menu_barLight = require ("menu_barLight")
+local alertMSN = require("alertMassage")
 local http = require("socket.http")
 local json = require("json")
 -----------------------------------------------------------------------------------------
@@ -87,13 +88,14 @@ local function BackButton(event)
 end
 
 local function scrollViewList ()
-    local frame = {
-        "img/characterIcon/as_cha_frm01.png",
-        "img/characterIcon/as_cha_frm02.png",
-        "img/characterIcon/as_cha_frm03.png",
-        "img/characterIcon/as_cha_frm04.png",
-        "img/characterIcon/as_cha_frm05.png"
-    }
+    local frame = alertMSN.loadFramElement()
+--        {
+--        "img/characterIcon/as_cha_frm01.png",
+--        "img/characterIcon/as_cha_frm02.png",
+--        "img/characterIcon/as_cha_frm03.png",
+--        "img/characterIcon/as_cha_frm04.png",
+--        "img/characterIcon/as_cha_frm05.png"
+--    }
     local backcharacter
     local function onTouchGameOverScreen ( self, event )
 
@@ -106,6 +108,7 @@ local function scrollViewList ()
     end
 
     function onButtonEvent(event)
+        print("holddteam_no = ",holddteam_no)
         if event.phase == "begen" then
             event.markX = event.x
             event.markY = event.y
@@ -120,8 +123,8 @@ local function scrollViewList ()
                 --moveScrollBar(dy)
             end
 
-        elseif event.phase == "release" then
-
+        elseif event.phase == "release" or event.phase ==  "ended" then
+            print("holddteam_no = ",holddteam_no)
             require("character_scene").character(event.target.id,holddteam_no,team_id,user_id)
         end
 
@@ -157,7 +160,8 @@ local function scrollViewList ()
                 countID = countID + 1
 
             listCharacter[countID] = widget.newButton{
-                default= characterItem[countID].dataTable,
+                defaultFile= characterItem[countID].dataTable,
+                overFile= characterItem[countID].dataTable,
                 width=sizeleaderW , height=sizeleaderH,
                 top = LeaderpointX,
                 left = LeaderpointY,
@@ -212,8 +216,8 @@ end
 local function createBackButton()
     local image_btnback = "img/background/button/Button_BACK.png"
     local backButton = widget.newButton{
-        default= image_btnback,
-        over= image_btnback,
+        defaultFile= image_btnback,
+        overFile= image_btnback,
         width=screenW*.12, height=screenH*.05,
         onRelease = BackButton	-- event listener function
     }

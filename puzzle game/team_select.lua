@@ -8,7 +8,7 @@ local menu_barLight = require ("menu_barLight")
 local screenW, screenH = display.contentWidth, display.contentHeight
 local pageTeam = nil
 local pageItem = 1
-local groupGameLayer = display.newGroup()
+
 
 local myItem
 local user_id
@@ -27,113 +27,8 @@ local chapter_id
 local friend_id
 --------------------------------------------------------
 
-local function onbtnstartBattleBack(event)
-
-    display.remove(titleText)
-    titleText = nil
-    display.remove(background)
-    background = nil
-
-    display.remove(backButton)
-    backButton = nil
-
-    display.remove(startbuttle)
-    startbuttle = nil
-
-    display.remove(mySlides)
-    mySlides = nil
-    display.remove(mySlides)
-    mySlides = nil
-
-    for i= groupGameLayer.numChildren,1,-1 do
-        local child = groupGameLayer[i]
-        child.parent:remove( child )
-        child = nil
-    end
-    display.remove(groupGameLayer)
-    groupGameLayer = nil
-
-
-    if event.target.id == "back" then
-        local option = {
-            effect = "fade",
-            time = 100,
-            params =
-            {
-
-                mission_id = mission_id,
-                chapter_id = chapter_id,
-                map_id = map_id,
-                user_id = user_id
-
-            }
-        }
-         storyboard.gotoScene( "guest" ,option )
-
-    elseif event.target.id == "startBattle" then
---       local option = require("character_scene").getTeamgetItem()
-       local option = {
-           effect = "fade",
-           time = 100,
-           params = {
-               mission = "CODE KWANTA",
-               battle = "1/5",
-
-               -- 1 : ON
-               -- 2 : OFF
-               BGM = 1,
-               SFX = 1,
-               SKL = 1,
-               BTN = 1,
-               checkOption = 1,
-
-               friend_id = friend_id,
-               mission_id = mission_id,
-               chapter_id = chapter_id,
-               map_id = map_id,
-               user_id = user_id
-
-           }
-       }
-        storyboard.gotoScene( "puzzle" ,option )
---        storyboard.gotoScene( "map","fade", 100 )
-    end
-    return true
-end
-
-local function createBackButton(event)
-
-    local image_btnback = "img/background/button/Button_BACK.png"
-    backButton = widget.newButton{
-        default= image_btnback,
-        over= image_btnback,
-        overAlpha = .2,
-        overScale = 1.1,
-        width=screenW/10, height=screenH/21,
-        onRelease = onbtnstartBattleBack	-- event listener function
-    }
-    backButton.id = "back"
-    backButton:setReferencePoint( display.TopLeftReferencePoint )
-    backButton.x = screenW *.15
-    backButton.y = screenH *.3
-    groupGameLayer:insert(backButton)
-
-    local image_btnbuttle = "img/background/button/START_BATTLE.png"
-    startbuttle = widget.newButton{
-        default= image_btnbuttle,
-        over= image_btnbuttle,
-        width= screenW*.25, height= screenH*.05,
-        onRelease = onbtnstartBattleBack
-    }
-    startbuttle.id = "startBattle"
-    startbuttle:setReferencePoint( display.TopLeftReferencePoint )
-    startbuttle.x = screenW *.6
-    startbuttle.y = screenH *.3
-    groupGameLayer:insert(startbuttle)
-end
-
 function scene:createScene( event )
-
+    local groupGameLayer = display.newGroup()
     local image_text = "img/text/TEAM_SELECT.png"
     local group = self.view
 
@@ -159,7 +54,8 @@ function scene:createScene( event )
     mission_id = params.mission_id
     friend_id = params.friend_id
 
-    background = display.newImageRect("img_back", system.DocumentsDirectory,screenW,screenH)
+    local image_background = "img/background/background_11.png"
+    local background = display.newImageRect(image_background,screenW,screenH)
     background:setReferencePoint( display.TopLeftReferencePoint )
     background.x, background.y = 0, 0
     groupGameLayer:insert(background)

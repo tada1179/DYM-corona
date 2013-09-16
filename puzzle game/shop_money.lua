@@ -97,8 +97,8 @@ function scene:createScene( event )
 
     local image_btnback = "img/background/button/Button_BACK.png"
     backButton = widget.newButton{
-        default= image_btnback,
-        over= image_btnback,
+        defaultFile= image_btnback,
+        overFile= image_btnback,
         width=screenW*.12, height=screenH*.05,
         onRelease = onBtnRelease	-- event listener function
     }
@@ -110,8 +110,8 @@ function scene:createScene( event )
 
     for i = 1, #imageMenu ,1 do
         btnmenu[i] = widget.newButton{
-            default= imageMenu[i],
-            over= imageMenu[i],
+            defaultFile= imageMenu[i],
+            overFile= imageMenu[i],
             width=screenW*.56, height=screenH*.086,
             onRelease = onBtnRelease	-- event listener function
         }

@@ -51,8 +51,8 @@ function scene:createScene( event )
     background.x, background.y = 0, 0     
     
     btnBattle = widget.newButton{			
-            default="img/background/battle_light.png",
-            over="img/background/battle_dark.png",
+            defaultFile="img/background/battle_light.png",
+            overFile="img/background/battle_dark.png",
             width=53, height=53,
             onRelease = onBtnRelease	-- event listener function
     }
@@ -61,8 +61,8 @@ function scene:createScene( event )
     btnBattle.x, btnBattle.y = 43, 432
 
     btnTeam = widget.newButton{			
-            default="img/background/team_light.png",
-            over="img/background/team_dark.png",
+            defaultFile="img/background/team_light.png",
+            overFile="img/background/team_dark.png",
             width=53, height=53,
             onRelease = onBtnRelease	-- event listener function
     }
@@ -71,8 +71,8 @@ function scene:createScene( event )
     btnTeam.x, btnTeam.y = 100, 432
     
     btnShop = widget.newButton{			
-            default="img/background/store_light.png",
-            over="img/background/store_dark.png",
+            defaultFile="img/background/store_light.png",
+            overFile="img/background/store_dark.png",
             width=53, height=53,
             onRelease = onBtnRelease	-- event listener function
     }
@@ -81,8 +81,8 @@ function scene:createScene( event )
     btnShop.x, btnShop.y = 160, 432
     
     btnGacha = widget.newButton{			
-            default="img/background/gacha_light.png",
-            over="img/background/gacha_dark.png",
+            defaultFile="img/background/gacha_light.png",
+            overFile="img/background/gacha_dark.png",
             width=53, height=53,
             onRelease = onBtnRelease	-- event listener function
     }
@@ -91,8 +91,8 @@ function scene:createScene( event )
     btnGacha.x, btnGacha.y = 218, 432
     
     btnCommu = widget.newButton{			
-            default="img/background/commu_light.png",
-            over="img/background/commu_dark.png",
+            defaultFile="img/background/commu_light.png",
+            overFile="img/background/commu_dark.png",
             width=53, height=53,
             onRelease = onBtnRelease	-- event listener function
     }

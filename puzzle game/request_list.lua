@@ -35,8 +35,8 @@ end
 
 local function createBackButton()
     backButton = widget.newButton{
-        default="img/background/button/Button_BACK.png",
-        over="img/background/button/Button_BACK.png",
+        defaultFile="img/background/button/Button_BACK.png",
+        overFile="img/background/button/Button_BACK.png",
         width=display.contentWidth/10, height=display.contentHeight/21,
         onRelease = BackRelease	-- event listener function
     }

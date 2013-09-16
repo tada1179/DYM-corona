@@ -5,6 +5,7 @@ storyboard.disableAutoPurge = true
 local scene = storyboard.newScene()
 local widget = require "widget"
 local menu_barLight = require ("menu_barLight")
+local alertMSN = require ("alertMassage")
 local http = require("socket.http")
 local json = require("json")
 -----------------------------------------------------------------------------------------
@@ -27,6 +28,7 @@ local numColum = 5
 local character_id
 local characterChoose = {}
 local characterCHooseLV = {}
+local characterCHooseImg = {}
 
 local pointChoose = {}
 local BLOCK_character = {}
@@ -43,11 +45,13 @@ local sizetext = 20
 
 local countCHNo = 0
 local characterItem = {}
+local character_LV = nil
 
 local viewback = display.newGroup()
 local scrollView
 local gplayView = display.newGroup()
 local groupClick = display.newGroup()
+local formula = {}
 
 ---------------
 local function LoadTeam()
@@ -70,12 +74,18 @@ local function LoadTeam()
             characterItem[k].dataTable = allRow.chracter[k].charac_img_mini
             characterItem[k].charactID = allRow.chracter[k].charac_id
             characterItem[k].element = tonumber(allRow.chracter[k].charac_element)
-            characterItem[k].level = allRow.chracter[k].charac_lv
+            characterItem[k].level = tonumber(allRow.chracter[k].charac_lv)
+            characterItem[k].exp = tonumber(allRow.chracter[k].charac_exp)
+            characterItem[k].charac_sac = tonumber(allRow.chracter[k].charac_sac)
+            characterItem[k].charac_lvmax = tonumber(allRow.chracter[k].charac_lvmax)
+            formula[k] = math.ceil(characterItem[k].charac_sac+(characterItem[k].charac_sac*((characterItem[k].level-1)/characterItem[k].charac_lvmax)*1.5))
+
             k = k + 1
         end
     end
 end
 local function PowerUpButtonEvent(event)
+    print("numUnit == ",numUnit)
     local option =
     {
         effect = "fade",
@@ -87,7 +97,8 @@ local function PowerUpButtonEvent(event)
             countCHNo =  countCHNo  ,
             character_id = character_id  ,
             user_id = user_id ,
-            characterCHooseLV = characterCHooseLV
+            characterCHooseLV = characterCHooseLV ,
+            SUMformula = numUnit,
         }
     }
 
@@ -101,6 +112,7 @@ local function PowerUpButtonEvent(event)
       numCoin = 0
       txtCoin.text = string.format( numCoin )
       txtUnit.text = string.format( countCHNo )
+      numCharacAll.text = string.format(countCHNo.."/"..numALL )
 
       if numCoin then
           viewback.alpha = 0.8
@@ -147,7 +159,7 @@ local function character_choose(id,user_id,countNo,targetX,targetY,lv)--event.ta
     characterChoose[countNo] = id
     characterCHooseLV[countNo] = lv
 
-    local function onTouchGameOverScreennum ( self,event )
+    local function onTouchGameoverFileScreennum ( self,event )
         local framImagex
         local framImagey
 
@@ -186,8 +198,11 @@ local function character_choose(id,user_id,countNo,targetX,targetY,lv)--event.ta
                 display.remove(backView)
                 backView = nil
             else
-                numCoin = tonumber( numCoin - (characterCHooseLV[countNo]*100))
+                numCoin = tonumber( numCoin - (100*character_LV))
                 txtCoin.text = string.format( numCoin )
+
+                numUnit = tonumber( numUnit - (formula[countNo]))
+                txtUnit.text = string.format( numUnit )
 
             end
 
@@ -197,7 +212,9 @@ local function character_choose(id,user_id,countNo,targetX,targetY,lv)--event.ta
     end
 
     txtCoin.text = string.format( numCoin )
-    txtUnit.text = string.format( countCHNo )
+    txtUnit.text = string.format( numUnit )
+    --numCharacAll.text = string.format( countCHNo.."/"..numALL )
+
     BLOCK_character[countNo]  =  display.newRect(targetX, targetY, sizeleaderW, sizeleaderH)
     BLOCK_character[countNo] .alpha = .8
     BLOCK_character[countNo]:setFillColor(130 ,130, 130)
@@ -210,7 +227,7 @@ local function character_choose(id,user_id,countNo,targetX,targetY,lv)--event.ta
     backView:insert(pointChoose[countNo])
 
     backView.id = id
-    backView.touch = onTouchGameOverScreennum
+    backView.touch = onTouchGameoverFileScreennum
     backView:addEventListener( "touch", backView )
 
     pointCharacX[countNo] = targetX
@@ -227,15 +244,10 @@ local function scrollViewList (event)
     local sizeleaderW = screenW*.14
     local sizeleaderH = screenH*.1
     local groupView = display.newGroup()
-    local frame = {
-        "img/characterIcon/as_cha_frm01.png",
-        "img/characterIcon/as_cha_frm02.png",
-        "img/characterIcon/as_cha_frm03.png",
-        "img/characterIcon/as_cha_frm04.png",
-        "img/characterIcon/as_cha_frm05.png"
-    }
+    local frame = {}
+    frame = alertMSN.loadFramElement()
 
-    local function onTouchGameOverScreen ( self, event )
+    local function onTouchGameoverFileScreen ( self, event )
         if event.phase == "began" then
 
             --storyboard.gotoScene( "menu-scene", "fade", 400  )
@@ -267,20 +279,27 @@ local function scrollViewList (event)
                 if countCHNo < numCharacter_up then
                     countCHNo = countCHNo + 1
                     characterChoose[countCHNo] = event.target.id
+
                     local LinkOneCharac = "http://localhost/DYM/Onecharacter.php"
                     local characterID =  LinkOneCharac.."?character="..characterChoose[countCHNo].."&user_id="..user_id
                     local characterImg = http.request(characterID)
                     local characterSelect
-                    local character_LV
+                    --local character_LV
+                    local character_exp
 
                     if characterImg == nil then
                         print("No Dice")
                     else
                         characterSelect  = json.decode(characterImg)
-                        character_LV = characterSelect.chracter[1].charac_lv
+                        --character_LV = characterSelect.chracter[1].charac_lv
+                        character_exp = characterSelect.chracter[1].charac_exp
 
                         numCoin = numCoin + (character_LV*100)
                         txtCoin.text = string.format( numCoin )
+
+                        print("formula[countCHNo] === ",formula[countCHNo])
+                        numUnit = numUnit + (formula[countCHNo])
+                        txtUnit.text = string.format( numUnit )
 
                     end
 
@@ -295,8 +314,8 @@ local function scrollViewList (event)
     end
 
     scrollView = widget.newScrollView{
-        width = screenW *.75,
-        height = screenH * .45,
+        width = screenW *.77,
+        height = screenH * .4,
         top = screenH *.35,
         left = screenW *.14,
         scrollWidth = 0,
@@ -321,7 +340,7 @@ local function scrollViewList (event)
             if countCharac < Allcharacter then
                 countID = countID + 1
                 listCharacter[countID] = widget.newButton{
-                    default= characterItem[countID].dataTable,
+                    defaultFile= characterItem[countID].dataTable,
                     width=sizeleaderW , height=sizeleaderH,
                     top = LeaderpointX,
                     left = LeaderpointY,
@@ -337,6 +356,7 @@ local function scrollViewList (event)
                 scrollView:insert(framImage)
 
                 local textLV = display.newText("Lv."..characterItem[countID].level, LVpointY,LVpointX,typeFont, sizetext)
+                textLV:setReferencePoint( display.CenterReferencePoint )
                 textLV:setTextColor(255, 255, 255)
                 scrollView:insert(textLV)
 
@@ -351,7 +371,7 @@ local function scrollViewList (event)
                     texINUSE:setTextColor(255, 0, 255)
 
                     groupView:insert(backcharacter)
-                    groupView.touch = onTouchGameOverScreen
+                    groupView.touch = onTouchGameoverFileScreen
                     groupView:addEventListener( "touch", groupView )
                     scrollView:insert(groupView)
                     scrollView:insert(texINUSE)
@@ -360,18 +380,18 @@ local function scrollViewList (event)
                 countCharac = countCharac + 1
             end
 
-            LeaderpointY = LeaderpointY + (screenW *.145)
-            LVpointY = LVpointY +  (screenW *.145)
-            InusepointX = InusepointX + (screenW*.145)
+            LeaderpointY = LeaderpointY + (screenW *.15)
+            LVpointY = LVpointY +  (screenW *.15)
+            InusepointX = InusepointX + (screenW*.15)
 
         end
 
         InusepointX =  screenW*.02
         LeaderpointY = 0
         LVpointY =  screenW*.03
-        LeaderpointX = LeaderpointX + (screenH *.1)
-        LVpointX = LVpointX + (screenH *.1)
-        InusepointY = InusepointY + (screenH *.1)
+        LeaderpointX = LeaderpointX + (screenH *.11)
+        LVpointX = LVpointX + (screenH *.11)
+        InusepointY = InusepointY + (screenH *.11)
 
     end
 end
@@ -382,14 +402,15 @@ function scene:createScene( event )
     local img_reset = "img/background/button/as_team_reset.png"
     local img_OK = "img/background/button/OK.png"
     local image_background = "img/background/background_1.jpg"
-
+    local groupTapCoin = nil
     local group = self.view
     user_id = menu_barLight.user_id()
     LoadTeam()
     local groupView = display.newGroup()
+
     local params = event.params
 
-    local function onTouchGameOverScreenCreate ( self, event )
+    local function onTouchGameoverFileScreenCreate ( self, event )
         if event.phase == "began" then
             --storyboard.gotoScene( "menu-scene", "fade", 400  )
             return true
@@ -402,6 +423,7 @@ function scene:createScene( event )
     gplayView:insert(background)
 
     if params then
+        groupTapCoin = display.newGroup()
         txtCoin = display.newText(numCoin, screenW*.5, screenH*.763,typeFont, sizetext)
         txtCoin.text = string.format( numCoin )
         txtCoin:setTextColor(205, 170, 125)
@@ -410,11 +432,14 @@ function scene:createScene( event )
         txtUnit.text = string.format( numUnit )
         txtUnit:setTextColor(205, 170, 125)
 
+        character_LV = tonumber(params.character_LV)
+        print("****** ******* character_LV ==== ",character_LV)
         countCHNo = params.countCHNo
         if countCHNo then
             countCHNo = params.countCHNo
             character_id = params.character_id
             user_id = params.user_id
+
             for k = 1,countCHNo, 1  do
                 characterChoose[k] = params.characterChoose[k]
                 characterCHooseLV[k] = params.characterCHooseLV[k]
@@ -422,54 +447,58 @@ function scene:createScene( event )
                 pointCharacY[k] = params.pointCharacY[k]
                 character_choose(characterChoose[k] ,user_id,k,pointCharacX[k] ,pointCharacY[k],characterCHooseLV[k] )
             end
+            numCoin = numCoin + (character_LV*100)
+            txtCoin.text = string.format( numCoin )
+
+            txtUnit.text = string.format( countCHNo )
         else
             countCHNo = 0
         end
 
         character_id = params.character_id
-        local numCharacAll = display.newText(Allcharacter.."/"..numALL, screenW*.5, screenH*.815,typeFont, sizetext)
+        numCharacAll = display.newText(numUnit.."/"..numALL, screenW*.5, screenH*.815,typeFont, sizetext)
         numCharacAll:setTextColor(205, 170, 125)
 
         local BLOCK_BOX =  display.newRect(screenW*.07, screenH*.76, screenW*.86, screenH*.075)
         BLOCK_BOX.alpha = .8
         BLOCK_BOX:setFillColor(130 ,130, 130)
-        gplayView:insert(BLOCK_BOX)
-        gplayView:insert(numCharacAll)
+        groupTapCoin:insert(BLOCK_BOX)
+        groupTapCoin:insert(numCharacAll)
 
         local titleBox = display.newImageRect( image_textBox, screenW*.15, screenH*.065)
         titleBox:setReferencePoint( display.CenterReferencePoint )
         titleBox.x = screenW*.35
         titleBox.y = screenH*.8
-        gplayView:insert(titleBox)
+        groupTapCoin:insert(titleBox)
 
         local btnreset = widget.newButton{
-            default= img_reset,
+            defaultFile= img_reset,
             width=screenH*.1 , height=screenW*.1,
             top = screenH*.765,
             left = screenW*.085,
             onRelease = PowerUpButtonEvent	-- event listener function
         }btnreset.id = "reset"
-        gplayView:insert(btnreset)
+        groupTapCoin:insert(btnreset)
 
         local btnOK = widget.newButton{
-            default= img_OK,
+            defaultFile= img_OK,
             width=screenH*.1 , height=screenW*.1,
             top = screenH*.765,
             left = screenW*.76,
             onRelease = PowerUpButtonEvent	-- event listener function
         }btnOK.id = "ok"
-        gplayView:insert(btnOK)
+        groupTapCoin:insert(btnOK)
 
 
         local  backcharacter = display.newRoundedRect(screenW*.76, screenH*.765, screenH*.1, screenW*.1,5)
         backcharacter.strokeWidth = 0
         backcharacter:setFillColor(0, 0, 0)
-        gplayView:insert(backcharacter)
+        groupTapCoin:insert(backcharacter)
 
         local backreset = display.newRoundedRect(screenW*.085, screenH*.765, screenH*.1, screenW*.1,5)
         backreset.strokeWidth = 0
         backreset:setFillColor(0, 0, 0)
-        gplayView:insert(backreset)
+        groupTapCoin:insert(backreset)
 
         viewback:insert(backreset)
         viewback:insert(backcharacter)
@@ -477,7 +506,7 @@ function scene:createScene( event )
         if countCHNo == 0  then
 
             viewback.alpha = 0.8
-            viewback.touch = onTouchGameOverScreenCreate
+            viewback.touch = onTouchGameoverFileScreenCreate
             viewback:addEventListener( "touch", viewback )
 
         else
@@ -485,8 +514,8 @@ function scene:createScene( event )
             viewback.alpha = 0
         end
 
-        gplayView:insert(txtCoin)
-        gplayView:insert(txtUnit)
+        groupTapCoin:insert(txtCoin)
+        groupTapCoin:insert(txtUnit)
     end
     scrollViewList(event)
 
@@ -501,8 +530,8 @@ function scene:createScene( event )
 
     local image_btnback = "img/background/button/Button_BACK.png"
     local backButton = widget.newButton{
-        default= image_btnback,
-        over= image_btnback,
+        defaultFile= image_btnback,
+        overFile= image_btnback,
         width=screenW/10, height=screenH/21,
         onRelease = PowerUpButtonEvent	-- event listener function
     }
@@ -519,6 +548,11 @@ function scene:createScene( event )
     gplayView:insert(numCharac)
     gplayView:insert(groupView)
     gplayView:insert(viewback)
+    if groupTapCoin~= nil then
+        gplayView:insert(groupTapCoin)
+    end
+
+
     gplayView:insert(menu_barLight.newMenubutton())
     group:insert(gplayView)
     ------------- other scene ---------------

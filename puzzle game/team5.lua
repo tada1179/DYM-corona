@@ -184,8 +184,8 @@ function newTEAM(USERID)
         picture[1].y = pointY
 
         leader[1] = widget.newButton{
-            default = frame[imagefrm[1]],
-            over = frame[imagefrm[1]],
+            defaultFile = frame[imagefrm[1]],
+            overFile = frame[imagefrm[1]],
             width = sizeleaderW ,
             height= sizeleaderH,
             onRelease = selectLeader
@@ -208,8 +208,8 @@ function newTEAM(USERID)
         itemImg = itemImg + 1
     else
         leader[1] = widget.newButton{
-            default = frame0,
-            over = frame0,
+            defaultFile = frame0,
+            overFile = frame0,
             width = sizeleaderW ,
             height= sizeleaderH,
             onRelease = selectLeader
@@ -234,8 +234,8 @@ function newTEAM(USERID)
             picture[i].y = pointY
 
             leader[i] = widget.newButton{
-                default = frame[imagefrm[itemImg]],
-                over = frame[imagefrm[itemImg]],
+                defaultFile = frame[imagefrm[itemImg]],
+                overFile = frame[imagefrm[itemImg]],
                 width= sizeleaderW,
                 height= sizeleaderH,
                 onRelease = selectLeader
@@ -257,8 +257,8 @@ function newTEAM(USERID)
             itemImg = itemImg + 1
         else
             leader[i] = widget.newButton{
-                default = frame0,
-                over = frame0,
+                defaultFile = frame0,
+                overFile = frame0,
                 width= sizeleaderW,
                 height= sizeleaderH,
                 onRelease = selectLeader

@@ -9,6 +9,7 @@ function newTEAM(id)
     local includeFUN = require("includeFunction")
     -----------------------------------------------------------------
     local data = {}
+    local maxTeamNo = nil
     local maxCharac = 5
     local teamNumber = 1
     local itemImg = 1
@@ -49,12 +50,11 @@ function newTEAM(id)
     else
         local dataTable = json.decode(response)
         rowCharac = dataTable.chrAll
-        print("****++ inselect 1 = ",response)
+
         local m = 1
         while m <= rowCharac do
             if dataTable.chracter ~= nil then
                 characterItem[m] = {}
-                print("ID = ",dataTable.chracter[m].team_no)
                 characterItem[m].holdcharac_id = dataTable.chracter[m].holdcharac_id
                 characterItem[m].imgMini = dataTable.chracter[m].imgMini
                 characterItem[m].element = tonumber(dataTable.chracter[m].element)
@@ -63,6 +63,9 @@ function newTEAM(id)
                 imagePicture[m] = imageName
                 imagefrm[m] = frame0
                 team_no[m] = 0
+            end
+            if m == rowCharac then
+                maxTeamNo = characterItem[m].teamno
             end
 
             m = m + 1
@@ -105,9 +108,7 @@ function newTEAM(id)
         end
 
     end
-    print("team_no = 1 :",characterItem[itemImg].teamno)
     if characterItem[itemImg].teamno == 1 then
-        print("team_no OK:",characterItem[itemImg].teamno)
         picture[1] = display.newImageRect(characterItem[itemImg].imgMini,sizeleaderW,sizeleaderH)
         picture[1]:setReferencePoint( display.CenterReferencePoint )
         g:insert(picture[1])
@@ -115,8 +116,8 @@ function newTEAM(id)
         picture[1].y = pointY
 
         leader[1] = widget.newButton{
-            default = frame[characterItem[itemImg].element],
-            over = frame[characterItem[itemImg].element],
+            defaultFile = frame[characterItem[itemImg].element],
+            overFile = frame[characterItem[itemImg].element],
             width = sizeleaderW ,
             height= sizeleaderH,
             --onRelease = selectLeader
@@ -130,8 +131,8 @@ function newTEAM(id)
         itemImg = itemImg + 1
     else
         leader[1] = widget.newButton{
-            default = frame0,
-            over = frame0,
+            defaultFile = frame0,
+            overFile = frame0,
             width = sizeleaderW ,
             height= sizeleaderH,
             --onRelease = selectLeader
@@ -147,9 +148,8 @@ function newTEAM(id)
     local pointleader = leader[1].x
 
     for i = 2, maxCharac, 1 do
-        if rowCharac >= i then
+        if maxTeamNo >= i then
             if characterItem[itemImg].teamno == i  then
-                print("team_no OKOK :",characterItem[itemImg].teamno)
                 picture[i] = display.newImageRect(characterItem[itemImg].imgMini,sizeleaderW,sizeleaderH)
                 picture[i]:setReferencePoint( display.CenterReferencePoint )
                 picture[i].x = pointleader +  (screenW*.135)
@@ -157,8 +157,8 @@ function newTEAM(id)
                 g:insert(picture[i])
 
                 leader[i] = widget.newButton{
-                    default = frame[characterItem[itemImg].element],
-                    over = frame[characterItem[itemImg].element],
+                    defaultFile = frame[characterItem[itemImg].element],
+                    overFile = frame[characterItem[itemImg].element],
                     width= sizeleaderW,
                     height= sizeleaderH,
                     --onRelease = selectLeader
@@ -172,8 +172,8 @@ function newTEAM(id)
                 itemImg = itemImg + 1
             else
                 leader[i] = widget.newButton{
-                    default = frame0,
-                    over = frame0,
+                    defaultFile = frame0,
+                    overFile = frame0,
                     width= sizeleaderW,
                     height= sizeleaderH,
                    -- onRelease = selectLeader
@@ -186,8 +186,8 @@ function newTEAM(id)
             end
         else
             leader[i] = widget.newButton{
-                default = frame0,
-                over = frame0,
+                defaultFile = frame0,
+                overFile = frame0,
                 width= sizeleaderW,
                 height= sizeleaderH,
                 -- onRelease = selectLeader
@@ -210,8 +210,8 @@ function newTEAM(id)
     g:insert(picture[maxCharac+1])
 
     leader[maxCharac+1] = widget.newButton{
-        default = frame[characterItem[maxCharac+1].element],
-        over = frame[characterItem[maxCharac+1].element],
+        defaultFile = frame[characterItem[6].element],
+        overFile = frame[characterItem[6].element],
         width= sizeleaderW,
         height= sizeleaderH,
         --onRelease = selectLeader

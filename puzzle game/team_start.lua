@@ -43,8 +43,8 @@ local function createBackButton(event)
 
     local image_btnback = "img/background/button/Button_BACK.png"
     local backButton = widget.newButton{
-        default= image_btnback,
-        over= image_btnback,
+        defaultFile= image_btnback,
+        overFile= image_btnback,
         width=screenW/10, height=screenH/21,
         onRelease = onbtnstartBattleBack	-- event listener function
     }
@@ -56,8 +56,8 @@ local function createBackButton(event)
 
     local image_btnbuttle = "img/background/button/START_BATTLE.png"
     local startbuttle = widget.newButton{
-        default= image_btnbuttle,
-        over= image_btnbuttle,
+        defaultFile= image_btnbuttle,
+        overFile= image_btnbuttle,
         width= screenW*.25, height= screenH*.05,
         onRelease = onbtnstartBattleBack
     }

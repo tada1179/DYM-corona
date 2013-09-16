@@ -168,7 +168,7 @@ local function character_choose(id,user_id,countNo,targetX,targetY,lv)--event.ta
 
     characterChoose[countNo] = id
     characterCHooseLV[countNo] = lv
-    local function onTouchGameOverScreennum ( self,event )
+    local function onTouchGameoverFileScreennum ( self,event )
         local framImagex
         local framImagey
 
@@ -237,7 +237,7 @@ local function character_choose(id,user_id,countNo,targetX,targetY,lv)--event.ta
     ViewView:insert(pointChoose[countNo])
 
     ViewView.id = id
-    ViewView.touch = onTouchGameOverScreennum
+    ViewView.touch = onTouchGameoverFileScreennum
     ViewView:addEventListener( "touch", ViewView )
 
     pointCharacX[countNo] = targetX
@@ -255,7 +255,7 @@ local function scrollViewList ()
         "img/characterIcon/as_cha_frm04.png",
         "img/characterIcon/as_cha_frm05.png"
     }
-    local function onTouchGameOverScreen ( self, event )
+    local function onTouchGameoverFileScreen ( self, event )
 
         if event.phase == "began" then
 
@@ -337,7 +337,7 @@ local function scrollViewList ()
 
                 countID = countID + 1
                 listCharacter[countID] = widget.newButton{
-                    default= characterItem[countID].dataTable,
+                    defaultFile= characterItem[countID].dataTable,
                     width=sizeleaderW , height=sizeleaderH,
                     top = LeaderpointX,
                     left = LeaderpointY,
@@ -365,7 +365,7 @@ local function scrollViewList ()
                     scrollView:insert(backcharacter)
 
                     groupView:insert(backcharacter)
-                    groupView.touch = onTouchGameOverScreen
+                    groupView.touch = onTouchGameoverFileScreen
                     groupView:addEventListener( "touch", groupView )
                     scrollView:insert(groupView)
 
@@ -390,8 +390,8 @@ end
 local function createBackButton()
     local image_btnback = "img/background/button/Button_BACK.png"
     local backButton = widget.newButton{
-        default= image_btnback,
-        over= image_btnback,
+        defaultFile= image_btnback,
+        overFile= image_btnback,
         width=screenW/10, height=screenH/21,
         onRelease = BackButton	-- event listener function
     }
@@ -402,7 +402,7 @@ local function createBackButton()
     gdisplay:insert(backButton)
 
 end
-local function onTouchGameOverScreen ( self, event )
+local function onTouchGameoverFileScreen ( self, event )
 
     if event.phase == "began" then
 
@@ -447,7 +447,7 @@ function scene:createScene( event )
     grouptab:insert(titleBox)
 
     local btnreset = widget.newButton{
-        default= img_reset,
+        defaultFile= img_reset,
         width=screenH*.1 , height=screenW*.1,
         top = screenH*.765,
         left = screenW*.085,
@@ -456,7 +456,7 @@ function scene:createScene( event )
     grouptab:insert(btnreset)
 
     local btnOK = widget.newButton{
-        default= img_OK,
+        defaultFile= img_OK,
         width=screenH*.1 , height=screenW*.1,
         top = screenH*.765,
         left = screenW*.76,
@@ -479,7 +479,7 @@ function scene:createScene( event )
 
         viewback:insert(backreset)
         viewback:insert(backcharacter)
-        viewback.touch = onTouchGameOverScreen
+        viewback.touch = onTouchGameoverFileScreen
         viewback:addEventListener( "touch", viewback )
     else
         viewback.alpha = 0

@@ -75,8 +75,8 @@ local function listMenu()
 
 
     btnBox = widget.newButton{
-        default=img_box,
-        over=img_box,
+        defaultFile=img_box,
+        overFile=img_box,
         width=screenW/8.5, height=screenH/22.5,
         onRelease = onRelistMenu	-- event listener function
     }
@@ -87,8 +87,8 @@ local function listMenu()
     groupView:insert(btnBox)
 
     btnTeam = widget.newButton{
-        default= img_team,
-        over = img_team,
+        defaultFile= img_team,
+        overFile = img_team,
         width=screenW*.47, height=screenH*.06,
         onRelease = onRelistMenu	-- event listener function
     }
@@ -99,8 +99,8 @@ local function listMenu()
     groupView:insert(btnTeam)
 
     btnPower = widget.newButton{
-        default= img_power,
-        over= img_power,
+        defaultFile= img_power,
+        overFile= img_power,
         width=screenW*.47, height=screenH*.06,
         onRelease = onRelistMenu	-- event listener function
     }
@@ -111,8 +111,8 @@ local function listMenu()
     groupView:insert(btnPower)
 
     btnUpgrade = widget.newButton{
-        default= img_upgrade,
-        over= img_upgrade,
+        defaultFile= img_upgrade,
+        overFile= img_upgrade,
         width=screenW*.47, height=screenH*.06,
         onRelease = onRelistMenu	-- event listener function
     }
@@ -123,8 +123,8 @@ local function listMenu()
     groupView:insert(btnUpgrade)
 
     btnDischarge = widget.newButton{
-        default= img_dischar,
-        over= img_dischar,
+        defaultFile= img_dischar,
+        overFile= img_dischar,
         width=screenW*.47, height=screenH*.06,
         onRelease = onRelistMenu	-- event listener function
     }

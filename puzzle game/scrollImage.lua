@@ -12,7 +12,6 @@ local screenW, screenH = display.contentWidth, display.contentHeight
 local prevTime = 0
 local pointListY =0
 function new(map_id,user_id)
-    print("map_id scroll,user_id = ",map_id,user_id)
     -- setup a group to be the scrolling screen
     local scrollView = display.newGroup()
     local Gscroll = display.newGroup()
@@ -24,7 +23,7 @@ function new(map_id,user_id)
     local backButton
     local txtbattle
     local pointListX = screenW *.1
-    pointListY =  screenH *.04
+    pointListY =  screenH *.07
 
     scrollView.top = math.floor(screenH*.18) or 0
     --    scrollView.bottom =   math.floor(screenH*.36)
@@ -227,7 +226,6 @@ function new(map_id,user_id)
             print("No Dice")
         else
             dataTable = json.decode(response)
-            print(":: response",response)
             maxChapter = dataTable.All
 
             local m = maxChapter
@@ -243,52 +241,57 @@ function new(map_id,user_id)
     end
     loadChapter()
 
-    local pointName = screenH*.2
-    local pointNameX = screenW*.7
+    local pointName = screenH*.15
+    local pointNameX = screenW*.12
     local pointBonus = screenH*.11
 
-    for i = maxChapter,1 , -1 do
+    local frmsizsX = screenW*.7
+    local frmsizsY = screenH*.1
+
+    for i = 1,10 , 1 do
+--    for i = maxChapter,1 , -1 do
         pointListY = pointListY + (screenH*.11)
-        print("i,maxChapter = ",i,maxChapter)
-            if dataTable[i].ID_status == "clear" then
+            if true then
+--            if dataTable[i].ID_status == "clear" then
                 local imgFrmList = "img/background/misstion/CLEAR_LAYOUT.png"
-                listCharacter[i] = display.newImageRect( imgFrmList, screenW*.9, screenH*.18)
+                listCharacter[i] = display.newImageRect( imgFrmList,frmsizsX ,frmsizsY)
                 listCharacter[i]:setReferencePoint( display.TopLeftReferencePoint )
-                listCharacter[i].x, listCharacter[i].y = screenW*.02, pointListY
-                listCharacter[i].id = dataTable[i].chapter_id
+                listCharacter[i].x, listCharacter[i].y = pointNameX, pointListY
+--                listCharacter[i].id = dataTable[i].chapter_id
                 listCharacter[i].numTouches = 0
 
-                local imgBnt = "img/background/button/Button_BACK.png"
+                local imgBnt = "img/background/misstion/CLEAR_LAYOUT.png"
                 backButton = widget.newButton{
-                    default= imgBnt,
-                    over= imgBnt,
-                    top = pointName ,
+                    defaultFile= imgBnt,
+                    overFile= imgBnt,
+                    top = pointListY,
                     left = pointNameX,
-                    width= screenW/10, height= screenH/21,
-                    onRelease = onBtnRelease	-- event listener function
+                    width= frmsizsX, height= frmsizsY,
+                    onRelease = onBtnRelease,	-- event listener function
                 }
                 backButton.id=i
-                txtbattle = display.newText(dataTable[i].chapter_name, screenW*.2, pointName,native.systemFontBold, 25)
-                txtbattle:setTextColor(200, 200, 200)
-                scrollView:insert(txtbattle)
+--                txtbattle = display.newText(dataTable[i].chapter_name, screenW*.2, pointName+screenH*.06,native.systemFontBold, 25)
+--                txtbattle:setTextColor(200, 200, 200)
+--                scrollView:insert(txtbattle)
             else
                 local imgFrmList = "img/background/misstion/NEW_LAYOUT.png"
-                listCharacter[i] = display.newImageRect( imgFrmList, screenW*.9, screenH*.18)
+                listCharacter[i] = display.newImageRect( imgFrmList, frmsizsX, frmsizsY)
                 listCharacter[i]:setReferencePoint( display.TopLeftReferencePoint )
-                listCharacter[i].x, listCharacter[i].y = screenW*.02, pointListY
+                listCharacter[i].x, listCharacter[i].y = pointNameX, pointListY
                 listCharacter[i].id = i
 
-                local imgBnt = "img/background/button/Button_BACK.png"
+                local imgBnt = "img/background/misstion/NEW_LAYOUT.png"
                 backButton = widget.newButton{
-                    default= imgBnt,
-                    over= imgBnt,
-                    top = pointName,
+                    defaultFile= imgBnt,
+                    overFile= imgBnt,
+                    top = pointListY,
                     left = pointNameX,
-                    width= screenW/10, height= screenH/21,
-                    onRelease = onBtnRelease	-- event listener function
+                    width= frmsizsX, height= frmsizsY,
+                    onRelease = onBtnRelease,	-- event listener function
+
                 }
                 backButton.id=  dataTable[i].chapter_id
-                txtbattle = display.newText(dataTable[i].chapter_name, screenW*.2, pointName,native.systemFontBold, 25)
+                txtbattle = display.newText(dataTable[i].chapter_name, screenW*.2, pointName+screenH*.06,native.systemFontBold, 25)
                 txtbattle:setTextColor(200, 200, 200)
                 scrollView:insert(txtbattle)
             end
@@ -326,6 +329,7 @@ function new(map_id,user_id)
         scrollView.SCROLL_LINE = SCROLL_LINE
 
     end
+    local maxChapter = 10
     if maxChapter >=5 then
         scrollView:addEventListener( "touch", scrollView )
         addScrollBar()

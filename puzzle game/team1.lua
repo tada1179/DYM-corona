@@ -6,6 +6,7 @@ local scene = storyboard.newScene()
 local screenW = display.contentWidth
 local screenH = display.contentHeight
 local widget = require "widget"
+local alertMSN = require ("alertMassage")
 
 function newTEAM(USERID)
 
@@ -29,13 +30,14 @@ function newTEAM(USERID)
     local sizetxt =  18
     local imageName = "img/characterIcon/as_cha_frm00.png"
     local frame0 = "img/characterIcon/as_cha_frm00.png"
-    local frame = {
-        "img/characterIcon/as_cha_frm01.png",
-        "img/characterIcon/as_cha_frm02.png",
-        "img/characterIcon/as_cha_frm03.png",
-        "img/characterIcon/as_cha_frm04.png",
-        "img/characterIcon/as_cha_frm05.png"
-    }
+    local frame =  alertMSN.loadFramElement()
+--    {
+--        "img/characterIcon/as_cha_frm01.png",
+--        "img/characterIcon/as_cha_frm02.png",
+--        "img/characterIcon/as_cha_frm03.png",
+--        "img/characterIcon/as_cha_frm04.png",
+--        "img/characterIcon/as_cha_frm05.png"
+--    }
 
     local image_tapteam = "img/background/tapitem_team/as_team_icn_team01.png"
     local image_tapcoler_status = "img/background/team/as_team_status.png"
@@ -158,8 +160,8 @@ function newTEAM(USERID)
          picture[1].y = pointY
 
          leader[1] = widget.newButton{
-             default = frame[imagefrm[1]],
-             over = frame[imagefrm[1]],
+             defaultFile = frame[imagefrm[1]],
+             overFile = frame[imagefrm[1]],
              width = sizeleaderW ,
              height= sizeleaderH,
              onRelease = selectLeader
@@ -182,8 +184,8 @@ function newTEAM(USERID)
          itemImg = itemImg + 1
    else
         leader[1] = widget.newButton{
-            default = frame0,
-            over = frame0,
+            defaultFile = frame0,
+            overFile = frame0,
             width = sizeleaderW ,
             height= sizeleaderH,
             onRelease = selectLeader
@@ -208,8 +210,8 @@ function newTEAM(USERID)
             picture[i].y = pointY
 
             leader[i] = widget.newButton{
-                default = frame[imagefrm[itemImg]],
-                over = frame[imagefrm[itemImg]],
+                defaultFile = frame[imagefrm[itemImg]],
+                overFile = frame[imagefrm[itemImg]],
                 width= sizeleaderW,
                 height= sizeleaderH,
                 onRelease = selectLeader
@@ -231,8 +233,8 @@ function newTEAM(USERID)
             itemImg = itemImg + 1
         else
             leader[i] = widget.newButton{
-                default = frame0,
-                over = frame0,
+                defaultFile = frame0,
+                overFile = frame0,
                 width= sizeleaderW,
                 height= sizeleaderH,
                 onRelease = selectLeader

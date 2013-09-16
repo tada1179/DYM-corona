@@ -54,8 +54,8 @@ local function createButton()
 
     -- shop coin
     btnshopcoin = widget.newButton{
-        default= image_shopcoin,
-        over= image_shopcoin,
+        defaultFile= image_shopcoin,
+        overFile= image_shopcoin,
         width= screenW*.378, height= screenH*.075,
         onRelease = onBtnshop	-- event listener function
     }
@@ -67,8 +67,8 @@ local function createButton()
 
     -- shop money
     btnshopmoney = widget.newButton{
-        default= image_shopmoney,
-        over= image_shopmoney,
+        defaultFile= image_shopmoney,
+        overFile= image_shopmoney,
         width= screenW*.375, height= screenH*.09,
         onRelease = onBtnshop	-- event listener function
     }

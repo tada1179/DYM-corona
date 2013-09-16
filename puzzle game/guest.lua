@@ -38,6 +38,7 @@ local function loadcharacter()
     if numberHold == nil then
         print("111 No Dice")
     else
+    --print("numberHold == ",numberHold)
         local allRow  = json.decode(numberHold)
         rowfriend =tonumber(allRow.All)
         rowfriend = rowfriend - 1
@@ -46,6 +47,7 @@ local function loadcharacter()
         while k <= rowfriend do
             characterItem[k] = {}
             characterItem[k].holdcharac_id = allRow.chracter[k].holdcharac_id
+            print("id == ",characterItem[k].holdcharac_id)
             characterItem[k].friend_userid = allRow.chracter[k].friend_userid
             characterItem[k].friend_id = allRow.chracter[k].friend_id
             characterItem[k].friend_name = allRow.chracter[k].friend_name
@@ -120,7 +122,6 @@ local function onBtnRelease(event)
         storyboard.gotoScene( "misstion" ,option )
 
     else --if event.target.id == 1 then
-       print("event ******************************** ",event.target.id)
        local option = {
            effect = "fade",
            time = 100,
@@ -154,13 +155,7 @@ end
 
 
 local function scrollViewList()
-    local frame = {
-        "img/characterIcon/as_cha_frm01.png",
-        "img/characterIcon/as_cha_frm02.png",
-        "img/characterIcon/as_cha_frm03.png",
-        "img/characterIcon/as_cha_frm04.png",
-        "img/characterIcon/as_cha_frm05.png"
-    }
+    local frame = require("alertMassage").loadFramElement()
 
     local pointFrameY = screenH*.35
     local pointNameY = screenH*.35
@@ -178,8 +173,8 @@ local function scrollViewList()
     for i = 1, rowfriend, 1 do
 
         listCharacter[i] = widget.newButton{
-            default = img_list,
-            over    = img_list,
+            defaultFile = img_list,
+            overFile   = img_list,
             width   = screenW * .75 ,
             height  = screenH *.09,
             top     = pointFrameY,
@@ -237,8 +232,8 @@ local function scrollViewList()
 
     local img_btnback = "img/background/button/Button_BACK.png"
     backButton = widget.newButton{
-        default=img_btnback,
-        over=img_btnback,
+        defaultFile=img_btnback,
+        overFile=img_btnback,
         width=screenW*.1, height=screenH*.05,
         onRelease = onBtnRelease	-- event listener function
     }
@@ -252,13 +247,13 @@ local function scrollViewList()
 end
 
 function scene:createScene( event )
-    print("--: xxx 000 guest :--")
+    print("--: guest :--")
     local group = self.view
      user_id = event.params.user_id
      chapter_id =  event.params.chapter_id
      map_id =  event.params.map_id
      mission_id = event.params.mission_id
-    print("user_id,chapter_id,map_id,mission_id :",user_id,chapter_id,map_id,mission_id)
+
     local  img_text= "img/text/GUEST_SELECT.png"
     local  img_back= "img/background/background_11.png"
 

@@ -39,6 +39,7 @@ local gdisplay = display.newGroup()
 local function characterShow(event)
     local params = event.params
     local character_id = params.character_id
+    print("characterShow character_id == ",character_id)
     local user_id = params.user_id
     local team_id = params.team_id
     local holddteam_no = params.holddteam_no
@@ -61,13 +62,14 @@ local function characterShow(event)
     }
 
     local LinkURL = "http://localhost/DYM/Onecharacter.php"
-    local characterID =  LinkURL.."?character="..params.character_id.."&user_id="..user_id
+    local characterID =  LinkURL.."?character="..character_id.."&user_id="..user_id
     local characterImg = http.request(characterID)
 
     if characterImg == nil then
         print("No Dice")
     else
         local characterSelect  = json.decode(characterImg)
+        print("characterImg ===== ",characterImg)
         characterItem[1] = {}
         characterItem[1].character_name = characterSelect.chracter[1].charac_name
         characterItem[1].txtDEF = characterSelect.chracter[1].charac_def

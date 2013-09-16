@@ -222,8 +222,8 @@ function new(params)
 
                 local imgBnt = "img/background/button/Button_BACK.png"
                 backButton = widget.newButton{
-                    default= imgBnt,
-                    over= imgBnt,
+                    defaultFile= imgBnt,
+                    overFile= imgBnt,
                     top = pointNameY,
                     left = screenW*.5,
                     width= screenW/10, height= screenH/21,
@@ -256,8 +256,8 @@ function new(params)
 
                 local imgBnt = "img/background/button/Button_BACK.png"
                 backButton = widget.newButton{
-                    default= imgBnt,
-                    over= imgBnt,
+                    defaultFile= imgBnt,
+                    overFile= imgBnt,
                     top = pointNameY,
                     left = screenW*.65,
                     width= screenW/10, height= screenH/21,

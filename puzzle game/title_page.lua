@@ -1,10 +1,7 @@
------------------------------------------------------------------------------------------
---
--- title_page.lua
---
--- ##ref
--- Action goto game center and chk UDID
+
 print("title_page.lua")
+local menu_barLight = require ("menu_barLight")
+local screenW, screenH = display.contentWidth, display.contentHeight
 -----------------------------------------------------------------------------------------
 
 
@@ -12,60 +9,31 @@ local storyboard = require( "storyboard" )
 local scene = storyboard.newScene()
 
 
-function scene:createScene( event )    
+function scene:createScene( event )
     print("--------------title----------------")
     local group = self.view
-    
---    local background = display.newImageRect( "img/background/bgtest.jpg", display.contentWidth, display.contentHeight )
---    background:setReferencePoint( display.TopLeftReferencePoint ) CenterReferencePoint
---    background.x, background.y = 0, 0
-    local positX = display.contentWidth/4
-    local positY=display.contentHeight/8
+    local user_id = menu_barLight.user_id()
 
-    local txtNameGame = display.newText( "- game name -", positX, positY-positY, native.systemFont, 36 )
-    txtNameGame:setTextColor(255,255,255)
+    local image_background1 = "img/background/TITLE.png"
+    local background = display.newImageRect(image_background1,screenW,screenH)--contentWidth contentHeight
+    background:setReferencePoint(display.TopLeftReferencePoint)-- setReferencePoint( display.TopLeftReferencePoint )
+    background.x,background.y = 0,0
+    group:insert(background)
 
 
+    local function onStartTouch(event)
+        if user_id ~= nil then
+            storyboard.gotoScene( "map", "crossFade", 200 )
+        else
+            storyboard.gotoScene( "register", "crossFade", 100 )
+        end
 
-    local startGame = display.newText("Start",positX,positY , nil, 48)
-    startGame.id = "btnStart"
-    startGame:setReferencePoint(display.BottomLeftReferencePoint)
-    startGame:setTextColor(137,161,188)
-    
-    txtStart=3
-    txtStop=1
 
-    startGame.xScale = 3
-
-    local function animeShowTxt( event )
-      --print( event.time,"Hello world! rnd" )
-      txtStart = txtStart-0.2
-      startGame.xScale = txtStart
-      startGame:translate(10, 1)  
-
-      --print (txtStart,'chked')
-
-      if txtStart < txtStop then 
-        startGame:setTextColor(204,0,0)
-        timer.cancel( event.source )
-      end
-      
-    end
-    timer.performWithDelay( 50, animeShowTxt, 0 ) -- fede start
-      
---    group:insert( background )
-    group:insert( txtNameGame)
-    group:insert(startGame)
-    
-    
-    local function onStartTouch(event)         
-        --print('onStartTouch')
-        storyboard.gotoScene( "map", "crossFade", 500 )
         return true
     end
-    startGame:addEventListener( "touch", onStartTouch ) -- touch togo mainpage   
-    
-------------- other scene ---------------
+    group:addEventListener( "touch", onStartTouch ) -- touch togo mainpage
+
+    ------------- other scene ---------------
     storyboard.removeScene( "map" )
     storyboard.removeScene( "map_substate" )
     storyboard.removeScene( "team_main" )
@@ -75,11 +43,11 @@ function scene:createScene( event )
 end
 
 function scene:enterScene( event )
-    local group = self.view	
+    local group = self.view
 end
 
 function scene:exitScene( event )
-    local group = self.view	
+    local group = self.view
 end
 
 function scene:destroyScene( event )
@@ -91,7 +59,7 @@ scene:addEventListener( "enterScene", scene )
 scene:addEventListener( "exitScene", scene )
 scene:addEventListener( "destroyScene", scene )
 return scene
-    
+
 
 
 

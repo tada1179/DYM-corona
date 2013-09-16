@@ -46,12 +46,13 @@ local function onMapRelease(event)
 
         }
     }
+    print("event.target.id",event.target.id)
     if event.target.id == "water" then
-        option.params.map_id = 1
+        option.params.map_id = 2
        storyboard.gotoScene( "map_substate", option ) --game-scene
 
     elseif  event.target.id == "forest" then
-        option.params.map_id = 2
+        option.params.map_id = 1
         storyboard.gotoScene( "map_substate", option ) --game-scene
 
     elseif  event.target.id == "mountain" then
@@ -61,16 +62,18 @@ local function onMapRelease(event)
 end
 
 function scene:createScene( event)
+    print("MAP")
     local group = self.view
     user_id = menu_barLight.user_id()
     local sizemenu = screenH*.1
-    background = display.newImageRect("img_map", system.DocumentsDirectory,screenW,screenH)
+    local image_background = "img/background/MAP_Chinese-ornament-frame.png"
+    background = display.newImageRect(image_background,screenW,screenH)
     background:setReferencePoint( display.TopLeftReferencePoint )
     background.x, background.y = 0, 0
 
     btnMapWater = widget.newButton{
-            default="img/map/water_dark.png",
-            over="img/map/water_glow.png",
+            defaultFile="img/map/water_dark.png",
+            overFile="img/map/water_glow.png",
             width=screenW*.26, height=screenH*.187,
             onRelease = onMapRelease	-- event listener function
     }
@@ -80,8 +83,8 @@ function scene:createScene( event)
     btnMapWater.y =  screenH - (screenH*.323)
 
     btnMapForest = widget.newButton{
-            default="img/map/forest_dark.png",
-            over="img/map/forest_glow.png",
+            defaultFile="img/map/forest_dark.png",
+            overFile="img/map/forest_glow.png",
             width=screenW*.375, height=screenH*.233,
             onRelease = onMapRelease	-- event listener function
     }
@@ -91,8 +94,8 @@ function scene:createScene( event)
     btnMapForest.y = screenH - (screenH*.273)
 
     btnMapMountain = widget.newButton{
-            default="img/map/mountain_dark.png",
-            over="img/map/mountain_glow.png",
+            defaultFile="img/map/mountain_dark.png",
+            overFile="img/map/mountain_glow.png",
             width=screenW*.43, height=screenH*.18,
             onRelease = onMapRelease	-- event listener function
     }
@@ -121,9 +124,6 @@ function scene:enterScene( event )
 end
 
 function scene:exitScene( event )
-    local group = self.view
-    display.remove(groupView)
-    groupView = nil
     storyboard.removeAll ()
     storyboard.purgeAll()
 -----------------

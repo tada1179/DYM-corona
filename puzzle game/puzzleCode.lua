@@ -57,15 +57,16 @@ local posXch={10,115,220,325,430,535} ---- à¸£à¸°à¸¢à¸°à¸«à¹�
 
 -------------------------- HP value -------------------------
 local number ={}
-local hpPlayer = 100
-local hpFull = 100
-local fullLineHP = 570
+local hpPlayer = nil
+local hpFull = nil
+local fullLineHP = 576
 local lifeline_sh
+local lifeline
 --------------------------
 
-timerStash = {}
-transitionStash = {}
-
+local TimersST= {}
+local transitionStash = {}
+local FlagPNG = {}
 
 storyboard.purgeOnSceneChange = true
 --** add function ---------------
@@ -74,6 +75,7 @@ local alertMSN = require("alertMassage")
 local menu_barLight = require("menu_barLight")
 local http = require("socket.http")
 local json = require("json")
+local util = require("util")
 local physics = require( "physics" )
 physics.start()
 --physics.setGravity (0, 0)
@@ -89,26 +91,43 @@ local user_id
 local backButton
 local bntItem
 local characImage ={}
+local Enemy_HP ={}
+local Enemy_bar ={}
+local TextCD ={}
+local battleall = nil
+local CountCharacterInBattle = nil
+local point = nil
+local damage = nil
+local NN = 0
+local pointStartEnemy_HP = {}
+local pointStart
+local lineFULLHP = 100
+
 -- game option
 -- 1 : ON
 -- 2 : OFF
 local character_numAll
 local image_char = {}
 
-
+---------------option-------------------------
 local BGM = 1
 local SFX = 1
 local SKL = 1
 local BTN = 1
+local sumHP = 0
+local sumATK = 0
+local sumDEF = 0
+local textHP
+local countCombo = 0
+local E = nil
 
-local battle = nil
+local battle = 1
 local mission = nil
+
 local checkOption = 1
 
-local NumExp = 50
-local NumCoin = 200
-local NumDiamond = 10
-local NumFlag = 10
+----------------------------------------
+
 local colercharacter
 local maxIcon = 5
 local myAnimation
@@ -117,20 +136,625 @@ local image_sheet
 local BGAnimation
 local Warning
 local datacharcter = {}
-local rowCharac
+local rowCharac = 0
 local myAnimationSheet
 local timerIMG
 
+------TEXT title
+
+local textFlagImg
+local textCoinImg
+
+local NumExp = 0
+local NumCoin = 0
+local NumDiamond = 0
+local NumFlag = 0
+local flagimg
+
+local myNumber = {}
+local myCount = {0,0,0,0,0,0}
+local myPink = {}
+
+--Enemy
+local hold_atk
+local cd = {0,1}
+----------------
+--BG
+local BGdropPuzzle
+
+
+local friend = 0
+local map_id = nil
+local chapter_id = nil
+local chapter_name = nil
+local mission_id = nil
+local mission_name = nil
+local mission_exp = nil
+local Olddiamond = nil
+local mission_coin = nil
+local RandomDrop = {}
+-----------------
 local Gdisplay = display.newGroup()
 --  tada1179.w@gmail.com ---------------------------------------------------
 local   picture = {"img/element/red.png","img/element/green.png","img/element/blue.png","img/element/purple.png","img/element/pink.png","img/element/yellow.png"}
 
 ---------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------
 -----***** MENU ITEM & Setting *****------
 --  tada1179.w@gmail.com -------------------------------
 local myItem = {}
 local rowItem
+local img_blockPUZ
+local TouchCount = 0
+local getCharac_id = {}
+----------------------------------------//
+local function SaveMissionClear()
+    cancelAllTimers()
+    cancelAllTransitions()
+    display.remove(groupGem)
+    groupGem = nil
+    display.remove(groupGemChk)
+    groupGemChk = nil
+    display.remove(Gdisplay)
+    Gdisplay = nil
+    display.remove(groupGameLayer)
+    groupGameLayer = nil
+
+    local LinkOneCharac = "http://localhost/DYM/missionClear.php"
+    local characterID =  LinkOneCharac.."?user_id="..user_id.."&mission_exp="..mission_exp.."&chapter_id="..chapter_id.."&mission_id="..mission_id
+    characterID = characterID.."&friend="..friend.."&NumCoin="..NumCoin.."&NumFlag="..NumFlag.."&diamond="..Olddiamond
+    for i=1,NumFlag,1 do
+        characterID = characterID.."&getCharac_id"..i.."="..getCharac_id[i]
+    end
+
+    local characterImg = http.request(characterID)
+    local characterSelect
+    local character_exp
+   -- storyboard.gotoScene( "menu-scene", "fade", 400  )
+    local option = {
+        effect = "fade",
+        time = 100,
+        params = {
+            user_id = user_id,
+            mission_id = mission_id,
+            mission_name = mission_name,
+            mission_exp = mission_exp,
+            chapter_name = chapter_name,
+            NumCoin = NumCoin,
+            NumFlag = NumFlag,
+            getCharac_id = getCharac_id,
+        }
+    }
+   storyboard.gotoScene("mission_clear",option)
+
+end
+
+local function checkMemory()
+    collectgarbage( "collect" )
+    local memUsage_str = string.format( "MEMORY = %.3f KB", collectgarbage( "count" ) )
+    print( memUsage_str, "in puzzle TEXTURE = "..(system.getInfo("textureMemoryUsed") / (1024 * 1024) ) )
+end
+local function clearmyAnimationSheet()
+    display.remove(myAnimationSheet)
+    myAnimationSheet = nil
+end
+
+local function onTouchGameoverFileScreen ( self, event )
+
+    if event.phase == "began" then
+
+
+        return true
+    end
+end
+local function gameoverFile_Cancel()
+    local typeFont = native.systemFontBold
+    local groupViewgameoverFile_Cancel = display.newGroup()
+    local option = {
+        effect = "crossFade",
+        time = 100,
+        params = {
+            map_id = map_id ,
+            user_id = user_id
+        }
+    }
+    local function overFileCancelRelease(event)
+        if event.target.id == "overFilecancel" then
+            display.remove(groupViewgameoverFile_Cancel)
+            groupViewgameoverFile_Cancel = nil
+
+            gameoverFile()
+        elseif event.target.id == "overFileOK" then
+            storyboard.gotoScene("map_substate",option)
+        end
+        return true
+    end
+    local myRectangle = display.newRoundedRect(0, 0, _W, _H,0)
+    myRectangle.strokeWidth = 2
+    myRectangle.alpha = .8
+    myRectangle:setFillColor(0, 0, 0)
+    groupViewgameoverFile_Cancel:insert(myRectangle)
+    groupViewgameoverFile_Cancel.touch = onTouchGameoverFileScreen
+    groupViewgameoverFile_Cancel:addEventListener( "touch", groupViewgameoverFile_Cancel )
+
+    local img_gameoverFile = "img/background/puzzle/game_over.png"
+    local textimg_gameoverFile = display.newImageRect( img_gameoverFile, _W*.8,_H*.3 )
+    textimg_gameoverFile:setReferencePoint( display.CenterReferencePoint )
+    textimg_gameoverFile.x = _W*.5
+    textimg_gameoverFile.y = _H*.2
+    textimg_gameoverFile.alpha = .9
+    groupViewgameoverFile_Cancel:insert(textimg_gameoverFile)
+
+    local image_Caution = "img/background/sellBattle_Item/CAUTION_BACKGROUND_LAYOT.png"
+    local bckCaution = display.newImageRect( image_Caution, _W*.95,_H*.55 )
+    bckCaution:setReferencePoint( display.CenterReferencePoint )
+    bckCaution.x = _W*.5
+    bckCaution.y = _H*.6
+    bckCaution.alpha = .9
+    groupViewgameoverFile_Cancel:insert(bckCaution)
+
+    if Olddiamond >0 then
+        local img_OK = "img/background/button/OK_button.png"
+        local btnOK = widget.newButton{
+            defaultFile = img_OK,
+            overFile = img_OK,
+            width=_W*.3, height= _H*.07,
+            onRelease = overFileCancelRelease	-- event listener function
+        }
+        btnOK.id = "overFileOK"
+        btnOK:setReferencePoint( display.CenterReferencePoint )
+        btnOK.alpha = 1
+        btnOK.x = _W*.3
+        btnOK.y = _H*.73
+        groupViewgameoverFile_Cancel:insert(btnOK)
+
+        local img_cancel = "img/background/button/as_butt_discharge_cancel.png"
+        local btncancel = widget.newButton{
+            defaultFile = img_cancel,
+            overFile = img_cancel,
+            width=_W*.3, height= _H*.07,
+            onRelease = overFileCancelRelease	-- event listener function
+        }
+        btncancel.id = "overFilecancel"
+        btncancel:setReferencePoint( display.TopLeftReferencePoint )
+        btncancel.alpha = 1
+        btncancel.x = _W*.55
+        btncancel.y = _H*.7
+        groupViewgameoverFile_Cancel:insert(btncancel)
+    else
+        local img_OK = "img/background/button/OK_button.png"
+        local btnOK = widget.newButton{
+            defaultFile = img_OK,
+            overFile = img_OK,
+            width=_W*.3, height= _H*.07,
+            onRelease = overFileCancelRelease	-- event listener function
+        }
+        btnOK.id = "overFileOK"
+        btnOK:setReferencePoint( display.CenterReferencePoint )
+        btnOK.alpha = 1
+        btnOK.x = _W*.5
+        btnOK.y = _H*.73
+        groupViewgameoverFile_Cancel:insert(btnOK)
+    end
+
+
+
+    local SmachText_s = util.wrappedText("All prizes will be lost \nif you leave stamina used \nwill not be restored.", _W*.3, 30,typeFont, {255, 255, 255})
+    SmachText_s.x = _W*.17
+    SmachText_s.y = _H*.45
+    groupViewgameoverFile_Cancel:insert(SmachText_s)
+
+
+    groupGameTop:insert(groupViewgameoverFile_Cancel)
+
+    checkMemory()
+
+end
+function gameoverFile()
+ if Olddiamond > 0 then
+    local groupViewgameoverFile = display.newGroup()
+    local option = {
+        effect = "crossFade",
+        time = 100,
+        params = {
+            map_id = map_id,
+            mission_id = mission_id,
+            user_id = user_id  ,
+            Olddiamond =Olddiamond
+        }
+    }
+    local function overFileRelease(event)
+         if event.target.id == "overFilecancel" then
+             gameoverFile_Cancel()
+
+             display.remove(groupViewgameoverFile)
+             groupViewgameoverFile = nil
+
+         elseif event.target.id == "overFileOK" then
+             Olddiamond = Olddiamond - 1
+             display.remove(groupViewgameoverFile)
+             groupViewgameoverFile = nil
+
+             hpPlayer = sumHP
+             lifeline_sh.width =  fullLineHP
+             lifeline_sh:setReferencePoint( display.TopLeftReferencePoint )
+             lifeline_sh.x = pointStart
+
+             textHP.text = string.format(hpPlayer.."/"..hpFull )
+             textHP:setReferencePoint( display.TopRightReferencePoint )
+             textHP.x = _W*.95
+             isGemTouchEnabled = true
+
+             scene:addEventListener( "createScene", scene )
+         end
+        return true
+    end
+
+    local typeFont = native.systemFontBold
+
+
+    local myRectangle = display.newRoundedRect(0, 0, _W, _H,0)
+    myRectangle.strokeWidth = 2
+    myRectangle.alpha = .8
+    myRectangle:setFillColor(0, 0, 0)
+    groupViewgameoverFile:insert(myRectangle)
+    groupViewgameoverFile.touch = onTouchGameoverFileScreen
+    groupViewgameoverFile:addEventListener( "touch", groupViewgameoverFile )
+
+    local img_gameoverFile = "img/background/puzzle/game_over.png"
+    local textimg_gameoverFile = display.newImageRect( img_gameoverFile, _W*.8,_H*.3 )
+    textimg_gameoverFile:setReferencePoint( display.CenterReferencePoint )
+    textimg_gameoverFile.x = _W*.5
+    textimg_gameoverFile.y = _H*.2
+    textimg_gameoverFile.alpha = .9
+    groupViewgameoverFile:insert(textimg_gameoverFile)
+
+    local image_Caution = "img/background/sellBattle_Item/CAUTION_BACKGROUND_LAYOT.png"
+    local bckCaution = display.newImageRect( image_Caution, _W*.95,_H*.55 )
+    bckCaution:setReferencePoint( display.CenterReferencePoint )
+    bckCaution.x = _W*.5
+    bckCaution.y = _H*.6
+    bckCaution.alpha = .9
+    groupViewgameoverFile:insert(bckCaution)
+
+    local img_OK = "img/background/button/OK_button.png"
+    local btnOK = widget.newButton{
+        defaultFile = img_OK,
+        overFile = img_OK,
+        width=_W*.3, height= _H*.07,
+        onRelease = overFileRelease	-- event listener function
+    }
+    btnOK.id = "overFileOK"
+    btnOK:setReferencePoint( display.CenterReferencePoint )
+    btnOK.alpha = 1
+    btnOK.x = _W*.3
+    btnOK.y = _H*.73
+    groupViewgameoverFile:insert(btnOK)
+
+    local img_cancel = "img/background/button/as_butt_discharge_cancel.png"
+    local btncancel = widget.newButton{
+        defaultFile = img_cancel,
+        overFile = img_cancel,
+        width=_W*.3, height= _H*.07,
+        onRelease = overFileRelease	-- event listener function
+    }
+    btncancel.id = "overFilecancel"
+    btncancel:setReferencePoint( display.TopLeftReferencePoint )
+    btncancel.alpha = 1
+    btncancel.x = _W*.55
+    btncancel.y = _H*.7
+    groupViewgameoverFile:insert(btncancel)
+
+    local SmachText_s = util.wrappedText("   Game overFile\nDo you want to retry \nwith 1 diamond?\nYou have "..Olddiamond .." diamonds now.", _W*.3, 30,typeFont, {255, 255, 255})
+    SmachText_s.x = _W*.17
+    SmachText_s.y = _H*.45
+    groupViewgameoverFile:insert(SmachText_s)
+
+
+    groupGameTop:insert(groupViewgameoverFile)
+
+    display.remove(BGdropPuzzle)
+    BGdropPuzzle = nil
+
+    cancelAllTimers()
+    cancelAllTransitions()
+    clearmyAnimationSheet()
+    checkMemory()
+ else
+     gameoverFile_Cancel()
+ end
+
+
+end
+local function enableGemTouch()
+    isGemTouchEnabled = true
+
+end
+local function enablePuzzleTouch(obj)
+    local groupView = display.newGroup()
+    if obj == 1 then
+        BGdropPuzzle = display.newRoundedRect(0, _H*.45, _W, _H*.55,0)
+        BGdropPuzzle.strokeWidth = 0
+        BGdropPuzzle.alpha = .8
+        BGdropPuzzle:setFillColor(156 ,156 ,156)
+        groupView:insert(BGdropPuzzle)
+        groupView.touch = onTouchGameoverFileScreen
+        groupView:addEventListener( "touch", groupView )
+    else
+        display.remove(BGdropPuzzle)
+        BGdropPuzzle = nil
+    end
+
+
+
+end
+local function damageAttackEnemy()
+    enablePuzzleTouch(2)--clear battle befor
+    local  battleIconcolor
+    local clearbattleIconcolor = function (obj)
+         transition.cancel( transitionStash.newTransition )
+         transitionStash.newTransition = nil
+
+         display.remove(obj)
+         obj = nil
+
+         transitionStash.newTransition = transition.to( lifeline, { time=100, xScale=2, yScale=2,x= lifeline.x+10,y=lifeline.y-10, alpha=1})
+         transitionStash.newTransition = transition.to( lifeline, { time=150,delay=50, xScale=1,x= lifeline.x,y=lifeline.y, yScale=1, alpha=1})
+
+         if BGdropPuzzle ~= nil then
+             transitionStash.newTransition = transition.to( BGdropPuzzle, { time=500,x= BGdropPuzzle.x+10,y=BGdropPuzzle.y-10, alpha=0.8})
+             transitionStash.newTransition = transition.to( BGdropPuzzle, { time=550,delay=50, xScale=1,x= BGdropPuzzle.x,y=BGdropPuzzle.y, yScale=1, alpha=0.8})
+
+         end
+         if hpPlayer <= 0 then
+             TimersST.myTimer = timer.performWithDelay(300,gameoverFile )
+             return true
+         end
+
+     end
+    local n = 1
+     for i=1,CountCharacterInBattle,1 do
+
+         getCharacterCoin(i)
+
+         if characImage[i].hold_countD <= 0 and characImage[i].hold_atk > 0 then
+             if n == 1 then
+                 enablePuzzleTouch(n) --set block puzzle
+             end
+             n = n + 1
+
+             local C = 50
+             local E = 1
+             local R = 0
+             local r = 0
+             local defense = math.ceil(characImage[i].atk + (characImage[i].atk *(C/200))) /(E+R+r)
+
+             hpPlayer = hpPlayer - defense
+             local x = math.ceil((fullLineHP *hpPlayer)/hpFull )
+
+             if hpPlayer <= 0 then
+                 --gameoverFile()
+
+                 lifeline_sh.width =  1
+                 hpPlayer = 0
+             else
+                 lifeline_sh.width =  x
+
+             end
+             characImage[i].hold_countD = characImage[i].countD
+             TextCD[i].text = string.format("CD:"..characImage[i].hold_countD)
+
+             lifeline_sh:setReferencePoint( display.TopLeftReferencePoint )
+             lifeline_sh.x = pointStart
+
+             textHP.text = string.format(hpPlayer.."/"..hpFull )
+             textHP:setReferencePoint( display.TopRightReferencePoint )
+             textHP.x = _W*.95
+
+             local img =  "img/element/object.png"
+             battleIconcolor = display.newImageRect( img, 64, 64 )
+             battleIconcolor.x, battleIconcolor.y = characImage[i].x, _H*.2
+             physics.addBody( battleIconcolor, { bounce=0.5, density=1.0 ,friction = 0, radius=10 } )
+            local vx, vy = -20, 100
+            --all icon element in puzzle   vy = -400,transition.to (time = 300)
+            battleIconcolor.isBullet = true
+            battleIconcolor.isSleepingAllowed = true
+            battleIconcolor:setLinearVelocity( vx*500,vy*500 )
+            groupGameTop:insert(battleIconcolor)
+            transitionStash.newTransition = transition.to( battleIconcolor, { time=200, xScale=2, yScale=2, alpha=0,onComplete =clearbattleIconcolor  })
+
+           end
+     end
+
+
+     local wait = function()
+         enablePuzzleTouch(2)  --clear battle befor
+     end
+
+    TimersST.myTimer = timer.performWithDelay(1000,wait )
+
+    checkMemory()
+end
+---clear object-------------------------------------//
+
+local function cleanDisplay(object)
+
+    if object ~= nil then
+        display.remove( object )
+        object = nil
+    end
+
+end
+
+local function cleanListeners(object)
+
+    if object._functionListeners ~= nil then
+        object._functionListeners = nil
+    end
+    if object._tableListeners ~= nil then
+        object._tableListeners = nil
+    end
+
+end
+
+function cleanTimers(timerStash)
+    if timerStash.myTimer ~= nil then
+        timer.cancel( timerStash.myTimer )
+    end
+
+end
+
+local function cleanTransitions(timerStash)
+    if timerStash.newTransition ~= nil then
+        transition.cancel( timerStash.newTransition )
+    end
+
+end
+--------------------------------------------------------
+local function battle_Animation(timebattle,all,battleimg)
+    enablePuzzleTouch(0)--clear battle befor
+
+    if img_blockPUZ~= nil then
+        display.remove(img_blockPUZ)
+        img_blockPUZ = nil
+    end
+
+    local start = function()
+        local groupView = display.newGroup()
+        local myRectangle = display.newRoundedRect(0, _H*.45, _W, _H*.55,0)
+        myRectangle.strokeWidth = 2
+        myRectangle.alpha = .8
+        myRectangle:setFillColor(0, 0, 0)
+        groupView:insert(myRectangle)
+        groupView.touch = onTouchGameoverFileScreen
+        groupView:addEventListener( "touch", groupView )
+
+        local square =  display.newImage( "img/Battle_Animation/background.png")
+        square:setReferencePoint( display.LeftReferencePoint )
+        square.x, square.y = 0, _H*.2
+        local w,h = _W, _H
+
+        local picBattle = "img/Battle_Animation/"..all.."/"..battleimg..".png"
+        local NumberBattle =  display.newImage( picBattle)
+        NumberBattle:setReferencePoint( display.RightReferencePoint )
+        NumberBattle.x, NumberBattle.y = _W, _H*.2
+
+        local A,B  = 0, 0
+
+
+        local listener1 = function( obj )
+
+        end
+
+        local listener2 = function( obj )
+
+        end
+        local listener3 = function( obj )
+            display.remove(obj)
+            obj = nil
+            isGemTouchEnabled = true
+            display.remove(myRectangle)
+            myRectangle = nil
+        end
+
+        -- (1) move square to bottom right corner; subtract half side-length
+        --     b/c the local origin is at the square's center; fade out square
+        transitionStash.newTransition = transition.to( square, { time=500, delay=500 ,alpha=1, x=(w-300), onComplete=listener1 } )
+        transitionStash.newTransition = transition.to( NumberBattle, { time=500 , delay=500, alpha=1, x=(A+300), onComplete=listener1 } )
+
+        -- (2) fade square back in after 2.5 seconds
+        transitionStash.newTransition = transition.to( square, { time=500, delay=2500, alpha=1.0, onComplete=listener2 } )
+        transitionStash.newTransition = transition.to( NumberBattle, { time=500, delay=2500, alpha=1.0, onComplete=listener2 } )
+
+        transitionStash.newTransition = transition.to( square, { time=500, delay=2500,alpha=0, onComplete=listener3 } )
+        transitionStash.newTransition = transition.to( NumberBattle, { time=500, delay=2500,alpha=0, onComplete=listener3 } )
+
+
+    end
+    TimersST.myTimer = timer.performWithDelay( timebattle, start )
+
+end
+local function characterBattle()
+    local i = battle
+    while i <= battle do
+        CountCharacterInBattle = tonumber(image_char[i].characAll)
+
+        for k=1,image_char[i].characAll,1  do
+            print("------- img error = ", image_char[i][k].charac_img)
+            local imgCharacter = image_char[i][k].charac_img
+            characImage[k] = display.newImage(imgCharacter,true)
+
+
+            if characImage[k].width ~= 1024 or characImage[k].height ~= 1024 then
+                if characImage[k].width > characImage[k].height then
+                    characImage[k].height = math.floor(characImage[k].height / (characImage[k].width/1024))
+                    characImage[k].width = 1024
+                else
+                    characImage[k].width = math.floor(characImage[k].width / (characImage[k].height/1024))
+                    characImage[k].height = 1024
+                end
+            end
+            characImage[k].width = math.floor(characImage[k].width/image_char[i][k].charac_sph)
+            characImage[k].height =  math.floor(characImage[k].height/image_char[i][k].charac_sph)
+
+            characImage[k]:setReferencePoint( display.BottomCenterReferencePoint)
+            characImage[k].x = (_W/(image_char[i].characAll+1))*k
+            characImage[k].y = _H*.27
+            characImage[k].id =k
+            characImage[k].charac_id = image_char[i][k].charac_id
+            characImage[k].hold_atk = tonumber(image_char[i][k].charac_atk)
+            characImage[k].atk = tonumber(image_char[i][k].charac_atk)
+            characImage[k].color = tonumber(image_char[i][k].charac_element)
+            characImage[k].countD = tonumber(image_char[i][k].charac_countD)
+            characImage[k].hold_countD = tonumber(image_char[i][k].charac_countD)
+            characImage[k].coin = tonumber(image_char[i][k].charac_coin)
+            groupGameTop:insert(characImage[k])
+            physics.addBody( characImage[k],"static", { density = 1.0, friction = 0, bounce = 0.2, radius = 20 } )
+
+            local hpLine = (lineFULLHP*characImage[k].hold_atk)/characImage[k].atk
+
+            Enemy_HP[k] = display.newImageRect( "img/background/frame/as_enemy_hp.png", 0, 15 )
+            Enemy_HP[k].width =  hpLine
+            Enemy_HP[k]:setReferencePoint( display.TopLeftReferencePoint)
+
+            pointStartEnemy_HP[k]= math.ceil(_W/(image_char[i].characAll+1))*k -50
+            Enemy_HP[k].x, Enemy_HP[k].y = pointStartEnemy_HP[k],_H*.27
+
+            if image_char[i][k].charac_element == 1 then --red
+                Enemy_HP[k]:setFillColor(255, 0 ,0)
+            elseif image_char[i][k].charac_element == 2 then   --green
+                Enemy_HP[k]:setFillColor(0 ,139, 0)
+            elseif image_char[i][k].charac_element == 3 then   --blue
+                Enemy_HP[k]:setFillColor( 	 0, 191, 255)
+            elseif image_char[i][k].charac_element == 4 then   --purple
+                Enemy_HP[k]:setFillColor(139, 71 ,137)
+            elseif image_char[i][k].charac_element == 5 then  --yellow
+                Enemy_HP[k]:setFillColor( 255 ,215, 0)
+            end
+            local imgbar =  "img/background/frame/as_enemy_bar.png"
+            Enemy_bar[k] = display.newImageRect(imgbar, 120, 16 )
+            Enemy_bar[k]:setReferencePoint( display.TopCenterReferencePoint)
+            Enemy_bar[k].x, Enemy_bar[k].y = (_W/(image_char[i].characAll+1))*k,_H*.27
+            groupGameTop:insert(Enemy_HP[k])
+            groupGameTop:insert(Enemy_bar[k])
+
+
+            TextCD[k] = display.newText("CD:"..characImage[k].countD,0 , 0,native.systemFontBold,25)
+            TextCD[k]:setReferencePoint( display.CenterReferencePoint )
+            TextCD[k].x = (_W/(image_char[i].characAll+1))*k,_H*.27
+            TextCD[k].y = _H*.05
+            TextCD[k]:setTextColor(47 ,79 ,79)
+            groupGameTop:insert(TextCD[k])
+
+
+
+        end
+        i = i+1
+
+    end
+
+
+
+end
 local function createItem()
 
     local Linkmission = "http://localhost/dym/item.php"
@@ -157,6 +781,15 @@ local function createItem()
     end
 end
 local function Victory_Animation_aura()
+
+    BGdropPuzzle = display.newRoundedRect(0, 0, _W, _H,0)
+    BGdropPuzzle.strokeWidth = 0
+    BGdropPuzzle.alpha = .8
+    BGdropPuzzle:setFillColor(0 ,0 ,0)
+    groupGameLayer:insert(BGdropPuzzle)
+    groupGameLayer.touch = onTouchGameoverFileScreen
+    groupGameLayer:addEventListener( "touch", groupGameLayer )
+
     local sheetdata_light = {width = _W, height = 425,numFrames = 75, sheetContentWidth = 3200 ,sheetContentHeight = 6375 }
     local image_sheet = {
         "img/sprite/Victory_Animation/aura.png"
@@ -173,7 +806,7 @@ local function Victory_Animation_aura()
         Victory_aura:play()
     end
     groupGameLayer:insert(Victory_aura)
-    timer.performWithDelay(0,FNVictory_aura )
+    TimersST.myTimer = timer.performWithDelay(0,FNVictory_aura )
 
     return true
 
@@ -184,7 +817,7 @@ local function Victory_Animation_font()
         "img/sprite/Victory_Animation/font.png"
     }
     local sheet_light = graphics.newImageSheet( image_sheet[1], sheetdata_light )
-    local sequenceData = { name="lightaura", sheet=sheet_light, start=1, count= sheetdata_light.numFrames , time=5400, loopCount=1 }
+    local sequenceData = { name="lightaura", sheet=sheet_light, start=1, count= sheetdata_light.numFrames , time=5000, loopCount=1 }
 
     local Victory_aura = display.newSprite( sheet_light, sequenceData )
     Victory_aura:setReferencePoint( display.TopLeftReferencePoint)
@@ -195,14 +828,86 @@ local function Victory_Animation_font()
         Victory_aura:play()
     end
     groupGameLayer:insert(Victory_aura)
-    timer.performWithDelay(100,FNVictory_font )
+    TimersST.myTimer = timer.performWithDelay(100,FNVictory_font )
+    TimersST.myTimer = timer.performWithDelay(5000,SaveMissionClear )
 
-    return true
+   -------save mission clear -------
+end
+local function swapSheetBackground()
+    local IMGtimer
+    --    local myAnimation = display.newImageRect( image_sheet[BGsprite] , display.contentWidth, 425 )
+    local myAnimation = display.newImageRect( image_sheet , display.contentWidth, 425 )
+    myAnimation:setReferencePoint( display.CenterReferencePoint )
+    myAnimation.x, myAnimation.y = _W*.5, _H*.2
+    groupGameTop1:insert(myAnimation)
+    local k = 1
+    local i = 0
+    local j = 0
+    local function finish()
+        display.remove(myAnimation)
+        myAnimation = nil
+
+        IMGtimer = nil
+    end
+    local function scalTran4()
+        k = k - 0.05
+        j = j + 0.05
+        if k < 0.05 then
+            k = 0
+            j = 1
+        end
+        myAnimation.y = myAnimation.y - math.random(1,3)
+        myAnimation.x = myAnimation.x - math.random(1,3)
+        transitionStash.newTransition = transition.to( myAnimation, { time=200, xScale=1.1+i, yScale=1.1+i, alpha=k,y = myAnimation.y ,x = myAnimation.x} )
+        if k == 0 then
+            finish()
+        end
+        BGAnimation.alpha = j
+        i = i +0.01
+
+    end
+    local function scalTran3()
+        k = k - 0.05
+        j = j + 0.05
+        myAnimation.y = myAnimation.y + math.random(1,2)
+        myAnimation.x = myAnimation.x + math.random(1,2)
+        transitionStash.newTransition = transition.to( myAnimation, { time=200, xScale=1.1+i, yScale=1.1+i, alpha=k,y = myAnimation.y ,x = myAnimation.x} )
+        TimersST.myTimer =  timer.performWithDelay(200, scalTran4)
+        i = i +0.01
+        BGAnimation.alpha = j
+    end
+    local function scalTran2()
+        k = k - 0.05
+        j = j + 0.05
+        myAnimation.y = myAnimation.y - math.random(1,4)
+        myAnimation.x = myAnimation.x - math.random(1,4)
+        transitionStash.newTransition = transition.to( myAnimation, { time=200, xScale=1.1+i, yScale=1.1+i, alpha=k,y = myAnimation.y ,x = myAnimation.x} )
+        TimersST.myTimer   = timer.performWithDelay(200, scalTran3)
+        i = i +0.01
+        BGAnimation.alpha = j
+    end
+    local function scalTran()
+        k = k - 0.05
+        j = j + 0.05
+        myAnimation.y = myAnimation.y + math.random(1,2)
+        myAnimation.x = myAnimation.x + math.random(1,2)
+        transitionStash.newTransition = transition.to( myAnimation, { time=200, xScale=1.1+i, yScale=1.1+i, alpha=k,y = myAnimation.y ,x = myAnimation.x} )
+        TimersST.myTimer = timer.performWithDelay( 200, scalTran2 )
+        i = i +0.01
+        BGAnimation.alpha = j
+    end
+
+    TimersST.myTimer =  timer.performWithDelay( 0, scalTran )
+    TimersST.myTimer =  timer.performWithDelay( 1000, scalTran )
+    TimersST.myTimer =  timer.performWithDelay( 2000, scalTran )
+    TimersST.myTimer =  timer.performWithDelay( 3000, scalTran )
+    TimersST.myTimer =  timer.performWithDelay( 4000, scalTran )
+   checkMemory()
 
 end
 
 local function BossSprite()
-    print("BOSS BOSS")
+--    print("BOSS BOSS")
     local function flash()
         local sheetdata_light = {width = 640, height = 425,numFrames = 40, sheetContentWidth = 3200 ,sheetContentHeight = 3400 }
         local image_sheet = {
@@ -217,20 +922,19 @@ local function BossSprite()
         CoinSheet.x = _W*.5
         CoinSheet.y = _H*.35
 
-        local IMGtransition
         local function clearSheet()
+            isGemTouchEnabled = true
             display.remove(CoinSheet)
             CoinSheet = nil
-            IMGtransition = nil
-        end
+         end
         local function swapSheet()
             CoinSheet:setSequence( "sheet" )
             CoinSheet:play()
             timerIMG = nil
 
         end
-        timerIMG = timer.performWithDelay( 1000, swapSheet )
-        IMGtransition = transition.to( CoinSheet, { time=3500,  alpha=1,onComplete = clearSheet} )
+        TimersST.myTimer =  timer.performWithDelay( 1000, swapSheet )
+        transitionStash.newTransition = transition.to( CoinSheet, { time=3500,  alpha=1,onComplete = clearSheet} )
 
     end
     local function thunder()
@@ -246,7 +950,7 @@ local function BossSprite()
         CoinSheet:setReferencePoint( display.BottomCenterReferencePoint)
         CoinSheet.x = _W*.5
         CoinSheet.y = _H*.35
-        local IMGtransition
+
         local function clearSheet()
             display.remove(CoinSheet)
             CoinSheet = nil
@@ -258,8 +962,8 @@ local function BossSprite()
             timerIMG = nil
 
         end
-        timerIMG = timer.performWithDelay( 1000, swapSheet )
-        IMGtransition = transition.to( CoinSheet, { time=3000,  alpha=1,onComplete = clearSheet} )
+        TimersST.myTimer =  timer.performWithDelay( 1000, swapSheet )
+        transitionStash.newTransition = transition.to( CoinSheet, { time=3000,  alpha=1,onComplete = clearSheet} )
 
     end
     local function groundcrack()
@@ -275,12 +979,11 @@ local function BossSprite()
         CoinSheet:setReferencePoint( display.BottomCenterReferencePoint)
         CoinSheet.x = _W*.5
         CoinSheet.y = _H*.35
-        local IMGtransition
+
         local function clearSheet()
             display.remove(CoinSheet)
             CoinSheet = nil
 
-            IMGtransition = nil
         end
         local function swapSheet()
             CoinSheet:setSequence( "sheet" )
@@ -288,17 +991,28 @@ local function BossSprite()
             timerIMG = nil
 
         end
-        timerIMG = timer.performWithDelay( 1000, swapSheet )
-        IMGtransition = transition.to( CoinSheet, { time=3000,  alpha=1,onComplete = clearSheet} )
+        TimersST.myTimer = timer.performWithDelay( 1000, swapSheet )
+        transitionStash.newTransition = transition.to( CoinSheet, { time=3000,  alpha=1,onComplete = clearSheet} )
 
     end
 
-    timer.performWithDelay( 0, flash )
-    timer.performWithDelay( 500, thunder )
-    timer.performWithDelay( 500, groundcrack )
-    menu_barLight.checkMemory()
+    TimersST.myTimer = timer.performWithDelay( 0, flash )
+    TimersST.myTimer.myTimer = timer.performWithDelay( 500, thunder )
+    TimersST.myTimer = timer.performWithDelay( 500, groundcrack )
+    TimersST.myTimer = timer.performWithDelay( 3000, characterBattle )
+   checkMemory()
 end
 local function Warning_Animation()
+
+    local groupView = display.newGroup()
+    local myRectangle = display.newRoundedRect(0, 0, _W, _H,0)
+    myRectangle.strokeWidth = 2
+    myRectangle.alpha = .8
+    myRectangle:setFillColor(0, 0, 0)
+    groupView:insert(myRectangle)
+    groupView.touch = onTouchGameoverFileScreen
+    groupView:addEventListener( "touch", groupView )
+
     local sheetdata_light = {width = _W, height = 225,numFrames = 40, sheetContentWidth = 3200 ,sheetContentHeight = 1800 }
     local image_sheet = {
         "img/sprite/Warning_Animation/spritesheet.png"
@@ -313,15 +1027,31 @@ local function Warning_Animation()
     local function FNWarning_Animation()
         Warning:setSequence( "lightaura" )
         Warning:play()
-        timer.performWithDelay(6500,BossSprite )
     end
-    groupGameLayer:insert(Warning)
-    timer.performWithDelay(1000,FNWarning_Animation )
+
+    local function callBoss()
+        display.remove(Warning)
+        Warning = nil
+
+        display.remove(myRectangle)
+        myRectangle = nil
+
+        display.remove(groupView)
+        groupView = nil
+
+
+        BossSprite()
+    end
+--    groupGameLayer:insert(Warning)
+    groupView:insert(Warning)
+    TimersST.myTimer = timer.performWithDelay(0,FNWarning_Animation )
+    transitionStash.newTransition = transition.to( Warning, { time=4000 , alpha=0,  onComplete=callBoss } )
 
 
     return true
 
 end
+---- button setting -------------
 local function LeaveOption(event)
     local groupView = display.newGroup()
     local typeFont = native.systemFontBold
@@ -329,33 +1059,36 @@ local function LeaveOption(event)
 
 
     local function ButtouRelease(event)
+        display.remove(groupView)
+        groupView = nil
         local alertMSN =  require( "alertMassage" )
         if event.target.id == "OK" then
-            groupView.alpha = 0
+            display.remove(groupView)
+            groupView = nil
+
             local useTicket = 0 --0:No use ticket
             local optionBonus = {
                 params = {
                     useTicket = useTicket,
                     NumDiamond = 0 ,
-                    NumCoin = 0 ,
-                    NumEXP = 0,
-                    NumFlag = 0,
+                    NumCoin = NumCoin ,
+                    NumEXP = mission_exp,
+                    NumFlag = NumFlag,
                     user_id = user_id
                 }
             }
             alertMSN.confrimLeaveTicket(optionBonus)
 
         elseif event.target.id =="cancel"  then
-            groupView.alpha = 0
+            MenuInPuzzle()
         elseif event.target.id =="useticket"  then
-            groupView.alpha = 0
             local useTicket = 1 --1:Yes use ticket
             local optionBonus = {
                 params = {
                     useTicket = useTicket,
                     NumDiamond = NumDiamond ,
                     NumCoin = NumCoin ,
-                    NumEXP = NumExp,
+                    NumEXP = mission_exp,
                     NumFlag = NumFlag,
                     user_id = user_id
                 }
@@ -379,63 +1112,111 @@ local function LeaveOption(event)
     bckCaution.y = _H*.5
     bckCaution.alpha = .8
     groupView:insert(bckCaution)
+    if Olddiamond > 0 then
 
-    local image_GAME_OPTION = "img/background/button/RETREAT.png"
-    local btnGameop = display.newImageRect( image_GAME_OPTION, _W*.4,_H*.08 )
-    btnGameop:setReferencePoint( display.CenterReferencePoint )
-    btnGameop.x = _W *.5
-    btnGameop.y = _H*.28
-    btnGameop.alpha = 1
-    groupView:insert(btnGameop)
+        local image_GAME_OPTION = "img/background/button/RETREAT.png"
+        local btnGameop = display.newImageRect( image_GAME_OPTION, _W*.4,_H*.08 )
+        btnGameop:setReferencePoint( display.CenterReferencePoint )
+        btnGameop.x = _W *.5
+        btnGameop.y = _H*.28
+        btnGameop.alpha = 1
+        groupView:insert(btnGameop)
 
-    local util = require("util")
-    local txtMSN = "USE 1 TICKET\n RETREAT FROM BATTLE BUT\n RECIEVE ALL BONUS WHICH\n GOT FROM THE BATTLE\n\n\n\nRETREAT\n RETREAT FROM THE BATTLE\n WITH NO BOUNS WHICH\n GOT FROM THE BATTLE"
-    local lotsOfTextObject = util.wrappedText( txtMSN, 30, sizetext, native.systemFont, {0,200,0} )
-    lotsOfTextObject.x = _W*.15
-    lotsOfTextObject.y = _H*.31
-    groupView:insert(lotsOfTextObject)
+        local util = require("util")
+        local txtMSN = "USE 1 TICKET\n RETREAT FROM BATTLE BUT\n RECIEVE ALL BONUS WHICH\n GOT FROM THE BATTLE\n\n\n\nRETREAT\n RETREAT FROM THE BATTLE\n WITH NO BOUNS WHICH\n GOT FROM THE BATTLE"
+        local lotsOfTextObject = util.wrappedText( txtMSN, 30, sizetext, native.systemFont, {0,200,0} )
+        lotsOfTextObject.x = _W*.15
+        lotsOfTextObject.y = _H*.31
+        groupView:insert(lotsOfTextObject)
 
-    local img_useticket = "img/background/button/OK_button.png"
-    local btnuseticket = widget.newButton{
-        default = img_useticket,
-        over = img_useticket,
-        width=_W*.3, height= _H*.07,
-        onRelease = ButtouRelease	-- event listener function
-    }
-    btnuseticket.id = "useticket"
-    btnuseticket:setReferencePoint( display.CenterReferencePoint )
-    btnuseticket.alpha = 1
-    btnuseticket.x = _W*.5
-    btnuseticket.y = _H*.52
-    groupView:insert(btnuseticket)
+        local img_useticket = "img/background/button/OK_button.png"
+        local btnuseticket = widget.newButton{
+            defaultFile = img_useticket,
+            overFile = img_useticket,
+            width=_W*.3, height= _H*.07,
+            onRelease = ButtouRelease	-- event listener function
+        }
+        btnuseticket.id = "useticket"
+        btnuseticket:setReferencePoint( display.CenterReferencePoint )
+        btnuseticket.alpha = 1
+        btnuseticket.x = _W*.5
+        btnuseticket.y = _H*.52
+        groupView:insert(btnuseticket)
 
-    local img_cancel = "img/background/button/as_butt_discharge_cancel.png"
-    local btnucancel = widget.newButton{
-        default = img_cancel,
-        over = img_cancel,
-        width=_W*.3, height= _H*.07,
-        onRelease = ButtouRelease	-- event listener function
-    }
-    btnucancel.id = "cancel"
-    btnucancel:setReferencePoint( display.CenterReferencePoint )
-    btnucancel.alpha = 1
-    btnucancel.x = _W*.68
-    btnucancel.y = _H*.77
-    groupView:insert(btnucancel)
+        local img_cancel = "img/background/button/as_butt_discharge_cancel.png"
+        local btnucancel = widget.newButton{
+            defaultFile = img_cancel,
+            overFile = img_cancel,
+            width=_W*.3, height= _H*.07,
+            onRelease = ButtouRelease	-- event listener function
+        }
+        btnucancel.id = "cancel"
+        btnucancel:setReferencePoint( display.CenterReferencePoint )
+        btnucancel.alpha = 1
+        btnucancel.x = _W*.68
+        btnucancel.y = _H*.77
+        groupView:insert(btnucancel)
 
-    local img_OK = "img/background/button/OK_button.png"
-    local btnOK = widget.newButton{
-        default = img_OK,
-        over = img_OK,
-        width=_W*.3, height= _H*.07,
-        onRelease = ButtouRelease	-- event listener function
-    }
-    btnOK.id = "OK"
-    btnOK:setReferencePoint( display.CenterReferencePoint )
-    btnOK.alpha = 1
-    btnOK.x = _W*.3
-    btnOK.y = _H*.77
-    groupView:insert(btnOK)
+        local img_OK = "img/background/button/OK_button.png"
+        local btnOK = widget.newButton{
+            defaultFile = img_OK,
+            overFile = img_OK,
+            width=_W*.3, height= _H*.07,
+            onRelease = ButtouRelease	-- event listener function
+        }
+        btnOK.id = "OK"
+        btnOK:setReferencePoint( display.CenterReferencePoint )
+        btnOK.alpha = 1
+        btnOK.x = _W*.3
+        btnOK.y = _H*.77
+        groupView:insert(btnOK)
+    else
+        local image_GAME_OPTION = "img/background/button/RETREAT.png"
+        local btnGameop = display.newImageRect( image_GAME_OPTION, _W*.4,_H*.08 )
+        btnGameop:setReferencePoint( display.CenterReferencePoint )
+        btnGameop.x = _W *.5
+        btnGameop.y = _H*.28
+        btnGameop.alpha = 1
+        groupView:insert(btnGameop)
+
+        local util = require("util")
+        local txtMSN = " RETREAT FROM THE BATTLE\n WITH NO BOUNS WHICH\n GOT FROM THE BATTLE"
+        local lotsOfTextObject = util.wrappedText( txtMSN, 30, sizetext, native.systemFont, {0,200,0} )
+        lotsOfTextObject.x = _W*.15
+        lotsOfTextObject.y = _H*.35
+        groupView:insert(lotsOfTextObject)
+
+        local img_cancel = "img/background/button/as_butt_discharge_cancel.png"
+        local btnucancel = widget.newButton{
+            defaultFile = img_cancel,
+            overFile = img_cancel,
+            width=_W*.3, height= _H*.07,
+            onRelease = ButtouRelease	-- event listener function
+        }
+        btnucancel.id = "cancel"
+        btnucancel:setReferencePoint( display.CenterReferencePoint )
+        btnucancel.alpha = 1
+        btnucancel.x = _W*.68
+        btnucancel.y = _H*.77
+        groupView:insert(btnucancel)
+
+        local img_OK = "img/background/button/OK_button.png"
+        local btnOK = widget.newButton{
+            defaultFile = img_OK,
+            overFile = img_OK,
+            width=_W*.3, height= _H*.07,
+            onRelease = ButtouRelease	-- event listener function
+        }
+        btnOK.id = "OK"
+        btnOK:setReferencePoint( display.CenterReferencePoint )
+        btnOK.alpha = 1
+        btnOK.x = _W*.3
+        btnOK.y = _H*.77
+        groupView:insert(btnOK)
+    end
+
+
+
 end
 local function BonusOption(event)
     local groupView = display.newGroup()
@@ -449,7 +1230,10 @@ local function BonusOption(event)
     }
     local function ButtouRelease(event)
         if event.target.id == "OK" then
-            groupView.alpha = 0
+            display.remove(groupView)
+            groupView = nil
+
+            MenuInPuzzle()
         end
 
     end
@@ -480,66 +1264,39 @@ local function BonusOption(event)
     local img_coin = display.newImageRect( image_itemBouns[1], _W*.12,_H*.08 )
     img_coin:setReferencePoint( display.CenterReferencePoint )
     img_coin.x = pointimg
-    img_coin.y = _H*.48
+    img_coin.y = _H*.40
     img_coin.alpha = .8
     groupView:insert(img_coin)
 
-    local img_diamond = display.newImageRect( image_itemBouns[2],  _W*.12,_H*.08 )
-    img_diamond:setReferencePoint( display.CenterReferencePoint )
-    img_diamond.x = pointimg
-    img_diamond.y = _H*.58
-    img_diamond.alpha = .8
-    groupView:insert(img_diamond)
 
     local img_flag = display.newImageRect( image_itemBouns[3],  _W*.12,_H*.08 )
     img_flag:setReferencePoint( display.CenterReferencePoint )
     img_flag.x = pointimg
-    img_flag.y = _H*.68
+    img_flag.y = _H*.5
     img_flag.alpha = .8
     groupView:insert(img_flag)
 
     local txtTest = "200"
     local pointtxt = _W*.35
     local pointnum = _W*.65
-    local txtEXP = display.newText("EXP", pointtxt, _H*.37, typeFont, sizetext)
-    txtEXP:setTextColor(0, 200, 0)
-    txtEXP.text =  string.format("EXP")
-    txtEXP.alpha = 1
-    groupView:insert(txtEXP)
-    local numEXP = display.newText(NumExp, pointnum, _H*.37, typeFont, sizetext)
-    numEXP:setTextColor(0, 200, 0)
-    numEXP.text =  string.format(NumExp)
-    numEXP.alpha = 1
-    groupView:insert(numEXP)
 
-    local txtcoin = display.newText("Coin", pointtxt, _H*.46, typeFont, sizetext)
+    local txtcoin = display.newText("Coin", pointtxt, _H*.40, typeFont, sizetext)
     txtcoin:setTextColor(0, 200, 0)
     txtcoin.text =  string.format("Coin")
     txtcoin.alpha = 1
     groupView:insert(txtcoin)
-    local numCoin = display.newText(NumCoin, pointnum, _H*.46, typeFont, sizetext)
+    local numCoin = display.newText(NumCoin, pointnum, _H*.40, typeFont, sizetext)
     numCoin:setTextColor(0, 200, 0)
     numCoin.text =  string.format(NumCoin)
     numCoin.alpha = 1
     groupView:insert(numCoin)
 
-    local txtdiamond = display.newText("Diamond", pointtxt, _H*.56, typeFont, sizetext)
-    txtdiamond:setTextColor(0, 200, 0)
-    txtdiamond.text =  string.format("Diamond")
-    txtdiamond.alpha = 1
-    groupView:insert(txtdiamond)
-    local numDiamond = display.newText(NumDiamond, pointnum, _H*.56, typeFont, sizetext)
-    numDiamond:setTextColor(0, 200, 0)
-    numDiamond.text =  string.format(NumDiamond)
-    numDiamond.alpha = 1
-    groupView:insert(numDiamond)
-
-    local txtflag = display.newText("FLAG", pointtxt, _H*.66, typeFont, sizetext)
+    local txtflag = display.newText("FLAG", pointtxt, _H*.5, typeFont, sizetext)
     txtflag:setTextColor(0, 200, 0)
     txtflag.text =  string.format("FLAG")
     txtflag.alpha = 1
     groupView:insert(txtflag)
-    local numFlag = display.newText(NumFlag, pointnum, _H*.66, typeFont, sizetext)
+    local numFlag = display.newText(NumFlag, pointnum, _H*.5, typeFont, sizetext)
     numFlag:setTextColor(0, 200, 0)
     numFlag.text =  string.format(NumFlag)
     numFlag.alpha = 1
@@ -547,8 +1304,8 @@ local function BonusOption(event)
 
     local img_OK = "img/background/button/OK_button.png"
     local btnOK = widget.newButton{
-        default = img_OK,
-        over = img_OK,
+        defaultFile = img_OK,
+        overFile = img_OK,
         width=_W*.3, height= _H*.07,
         onRelease = ButtouRelease	-- event listener function
     }
@@ -561,16 +1318,7 @@ local function BonusOption(event)
 
 end
 local function GameOption(option)
-    local gameOption = option.params
-    mission =  gameOption.mission
-    battle =  gameOption.battle
-
-    BGM =  gameOption.BGM
-    SFX =  gameOption.SFX
-    BTN =  gameOption.BTN
-    SKL =  gameOption.SKL
     checkOption =  2
-
 
     local groupView = display.newGroup()
     local typeFont = native.systemFontBold
@@ -595,8 +1343,8 @@ local function GameOption(option)
             BGM = 2
             btnBGM_ON.alpha = 0
             btnBGM_ON = widget.newButton{
-                default = img_button[BGM],
-                over = img_button[BGM],
+                defaultFile = img_button[BGM],
+                overFile = img_button[BGM],
                 width=_W*.2, height= _H*.05,
                 onRelease = ButtouON_Off	-- event listener function
             }
@@ -611,8 +1359,8 @@ local function GameOption(option)
             BGM = 1
             btnBGM_ON.alpha = 0
             btnBGM_ON = widget.newButton{
-                default = img_button[BGM],
-                over = img_button[BGM],
+                defaultFile = img_button[BGM],
+                overFile = img_button[BGM],
                 width=_W*.2, height= _H*.05,
                 onRelease = ButtouON_Off	-- event listener function
             }
@@ -627,8 +1375,8 @@ local function GameOption(option)
             SFX = 2
             btnSFX_ON.alpha = 0
             btnSFX_ON = widget.newButton{
-                default = img_button[SFX],
-                over = img_button[SFX],
+                defaultFile = img_button[SFX],
+                overFile = img_button[SFX],
                 width=_W*.2, height= _H*.05,
                 onRelease = ButtouON_Off	-- event listener function
             }
@@ -643,8 +1391,8 @@ local function GameOption(option)
             SFX = 1
             btnSFX_ON.alpha = 0
             btnSFX_ON = widget.newButton{
-                default = img_button[SFX],
-                over = img_button[SFX],
+                defaultFile = img_button[SFX],
+                overFile = img_button[SFX],
                 width=_W*.2, height= _H*.05,
                 onRelease = ButtouON_Off	-- event listener function
             }
@@ -659,8 +1407,8 @@ local function GameOption(option)
             SKL = 2
             btnSKL_ON.alpha = 0
             btnSKL_ON = widget.newButton{
-                default = img_button[SKL],
-                over = img_button[SKL],
+                defaultFile = img_button[SKL],
+                overFile = img_button[SKL],
                 width= _W*.2, height= _H*.05,
                 onRelease = ButtouON_Off	-- event listener function
             }
@@ -675,8 +1423,8 @@ local function GameOption(option)
             SKL = 1
             btnSKL_ON.alpha = 0
             btnSKL_ON = widget.newButton{
-                default = img_button[SKL],
-                over = img_button[SKL],
+                defaultFile = img_button[SKL],
+                overFile = img_button[SKL],
                 width= _W*.2, height= _H*.05,
                 onRelease = ButtouON_Off	-- event listener function
             }
@@ -691,8 +1439,8 @@ local function GameOption(option)
             BTN = 2
             btnBTN_ON.alpha = 0
             btnBTN_ON = widget.newButton{
-                default = img_button[BTN],
-                over = img_button[BTN],
+                defaultFile = img_button[BTN],
+                overFile = img_button[BTN],
                 width= _W*.2, height= _H*.05,
                 onRelease = ButtouON_Off	-- event listener function
             }
@@ -706,8 +1454,8 @@ local function GameOption(option)
             BTN = 1
             btnBTN_ON.alpha = 0
             btnBTN_ON = widget.newButton{
-                default = img_button[BTN],
-                over = img_button[BTN],
+                defaultFile = img_button[BTN],
+                overFile = img_button[BTN],
                 width= _W*.2, height= _H*.05,
                 onRelease = ButtouON_Off	-- event listener function
             }
@@ -736,6 +1484,7 @@ local function GameOption(option)
             }
         }
         groupView.alpha = 0
+        MenuInPuzzle()
     end
     local myRectangle = display.newRoundedRect(0, 0, _W, _H,0)
     myRectangle.strokeWidth = 2
@@ -761,8 +1510,8 @@ local function GameOption(option)
 
     local image_ON = "img/background/button/ON.png"
     btnBGM_ON = widget.newButton{
-        default = img_button[BGM],
-        over = img_button[BGM],
+        defaultFile = img_button[BGM],
+        overFile = img_button[BGM],
         width=_W*.2, height= _H*.05,
         onRelease = ButtouON_Off	-- event listener function
     }
@@ -774,8 +1523,8 @@ local function GameOption(option)
     groupView:insert(btnBGM_ON)
 
     btnSFX_ON = widget.newButton{
-        default = img_button[SFX],
-        over = img_button[SFX],
+        defaultFile = img_button[SFX],
+        overFile = img_button[SFX],
         width=_W*.2, height= _H*.05,
         onRelease = ButtouON_Off	-- event listener function
     }
@@ -787,8 +1536,8 @@ local function GameOption(option)
     groupView:insert(btnSFX_ON)
 
     btnSKL_ON = widget.newButton{
-        default = img_button[SKL],
-        over = img_button[SKL],
+        defaultFile = img_button[SKL],
+        overFile = img_button[SKL],
         width=_W*.2, height= _H*.05,
         onRelease = ButtouON_Off	-- event listener function
     }
@@ -800,8 +1549,8 @@ local function GameOption(option)
     groupView:insert(btnSKL_ON)
 
     btnBTN_ON = widget.newButton{
-        default = img_button[BTN],
-        over = img_button[BTN],
+        defaultFile = img_button[BTN],
+        overFile = img_button[BTN],
         width=_W*.2, height= _H*.05,
         onRelease = ButtouON_Off	-- event listener function
     }
@@ -842,8 +1591,8 @@ local function GameOption(option)
 
     local img_OK = "img/background/button/OK_button.png"
     local btnOK = widget.newButton{
-        default = img_OK,
-        over = img_OK,
+        defaultFile = img_OK,
+        overFile = img_OK,
         width=_W*.3, height= _H*.07,
         onRelease = ButtouRelease	-- event listener function
     }
@@ -854,38 +1603,17 @@ local function GameOption(option)
     btnOK.y = _H*.75
     groupView:insert(btnOK)
 
-    return   option
-
 end
-local function MenuInPuzzle(option)
-
-    local c = option.params
-    mission =  c.mission
-    battle =  c.battle
-    BGM =  c.BGM
-    SFX =  c.SFX
-    BTN =  c.BTN
-    SKL =  c.SKL
-    checkOption =  c.checkOption
-
-
-
+function MenuInPuzzle()
     local groupView = display.newGroup()
     local typeFont = native.systemFontBold
     local sizetext = 25
 
     --    mission = "ABCDEFGHIJK"
-    local strMission = string.len(mission)
+    local strMission = string.len(mission_name)
     local pointMission =  (_W*.5)-(strMission/4)
 
-    local function onTouchGameOverScreen ( self, event )
 
-        if event.phase == "began" then
-
-
-            return true
-        end
-    end
 
     local function ButtouRelease(event)
         groupView.alpha = 0
@@ -919,8 +1647,8 @@ local function MenuInPuzzle(option)
     backgroundCaution.alpha = 1
     groupView:insert(backgroundCaution)
 
-    local image_power= "img/element/green.png"
-    local imgPower = display.newImageRect( image_power, _W*.5,_H*.15 )
+    local image_power= "img/element/ELEMENTS_CIRCLE.png"
+    local imgPower = display.newImageRect( image_power, _W*.5,_H*.33 )
     imgPower:setReferencePoint( display.CenterReferencePoint )
     imgPower.x = _W *.5
     imgPower.y = _H*.2
@@ -930,20 +1658,20 @@ local function MenuInPuzzle(option)
 
     local NameMission = display.newText(battle, pointMission, _H*.35, typeFont, sizetext)
     NameMission:setTextColor(0, 200, 0)
-    NameMission.text =  string.format(mission)
+    NameMission.text =  string.format(mission_name)
     NameMission.alpha = 1
     groupView:insert(NameMission)
 
     local  NameBattle = display.newText(battle, _W*.5, _H*.4, typeFont, sizetext)
     NameBattle:setTextColor(200, 200, 200)
-    NameBattle.text =  string.format("BATTLE :"..battle)
+    NameBattle.text =  string.format("BATTLE :"..battle.."/"..battleall)
     NameBattle.alpha = 1
     groupView:insert(NameBattle)
 
     local img_setting = "img/background/button/SETTING.png"
     local setting = widget.newButton{
-        default = img_setting,
-        over = img_setting,
+        defaultFile = img_setting,
+        overFile = img_setting,
         width=_W*.3, height= _H*.07,
         onRelease = ButtouRelease	-- event listener function
     }
@@ -956,8 +1684,8 @@ local function MenuInPuzzle(option)
 
     local img_BONUS = "img/background/button/BONUS.png"
     local setBONUS = widget.newButton{
-        default = img_BONUS,
-        over = img_BONUS,
+        defaultFile = img_BONUS,
+        overFile = img_BONUS,
         width=_W*.3, height= _H*.07,
         onRelease = ButtouRelease	-- event listener function
     }
@@ -970,8 +1698,8 @@ local function MenuInPuzzle(option)
 
     local img_LEAVE = "img/background/button/LEAVE.png"
     local setLEAVE = widget.newButton{
-        default = img_LEAVE,
-        over = img_LEAVE,
+        defaultFile = img_LEAVE,
+        overFile = img_LEAVE,
         width=_W*.3, height= _H*.07,
         onRelease = ButtouRelease	-- event listener function
     }
@@ -984,8 +1712,8 @@ local function MenuInPuzzle(option)
 
     local img_cancel = "img/background/button/as_butt_discharge_cancel.png"
     local btncancel = widget.newButton{
-        default = img_cancel,
-        over = img_cancel,
+        defaultFile = img_cancel,
+        overFile = img_cancel,
         width=_W*.3, height= _H*.07,
         onRelease = ButtouRelease	-- event listener function
     }
@@ -996,63 +1724,16 @@ local function MenuInPuzzle(option)
     btncancel.y = _H*.8
     groupView:insert(btncancel)
 
-    groupView.touch = onTouchGameOverScreen
+    groupView.touch = onTouchGameoverFileScreen
     groupView:addEventListener( "touch", groupView )
 
     return option
 
 end
-
-local function battle_Animation(all,battle)
-    print("BB battle_Animation")
-    local square =  display.newImage( "img/Battle_Animation/background.png")
-    square:setReferencePoint( display.LeftReferencePoint )
-    square.x, square.y = 0, _H*.2
-    local w,h = _W, _H
-
-    local picBattle = "img/Battle_Animation/"..all.."/"..battle..".png"
-    local NumberBattle =  display.newImage( picBattle)
-    NumberBattle:setReferencePoint( display.RightReferencePoint )
-    NumberBattle.x, NumberBattle.y = _W, _H*.2
-    local A,B  = 0, 0
-
-
-    local listener1 = function( obj )
-        print( "Transition 1 completed on object: " .. tostring( obj ) )
-    end
-
-    local listener2 = function( obj )
-        print( "Transition 2 completed on object: " .. tostring( obj ) )
-    end
-    local listener3 = function( obj )
-        display.remove(obj)
-        obj = nil
-    end
-
-    -- (1) move square to bottom right corner; subtract half side-length
-    --     b/c the local origin is at the square's center; fade out square
-    transition.to( square, { time=500, delay=500 ,alpha=1, x=(w-300), onComplete=listener1 } )
-    transition.to( NumberBattle, { time=500 , delay=500, alpha=1, x=(A+300), onComplete=listener1 } )
-
-    -- (2) fade square back in after 2.5 seconds
-    transition.to( square, { time=500, delay=2500, alpha=1.0, onComplete=listener2 } )
-    transition.to( NumberBattle, { time=500, delay=2500, alpha=1.0, onComplete=listener2 } )
-
-    transition.to( square, { time=500, delay=2500,alpha=0, onComplete=listener3 } )
-    transition.to( NumberBattle, { time=500, delay=2500,alpha=0, onComplete=listener3 } )
-
-end
-local all = 3
-local pagebattle = 13
+---------------------------------
 local function createCharacter(event)
-    battle_Animation(all,pagebattle)
-    character_numAll = 4
-    --    character_numAll = math.random(1,character_numAll)
-    colercharacter = math.random(1,5)
-
-
-    local LinkURL = "http://localhost/DYM/character_battle.php"
-    local URL =  LinkURL.."?user_id="..user_id.."&character_numAll="..character_numAll
+    local LinkURL = "http://localhost/DYM/character_battle_mission.php"
+    local URL =  LinkURL.."?mission_id="..mission_id
     local response = http.request(URL)
 
     if response == nil then
@@ -1060,63 +1741,47 @@ local function createCharacter(event)
 
     else
         local dataTable = json.decode(response)
-        -- character_numAll = dataTable.All
-
+        character_numAll = dataTable.battleAll
+        mission_coin = dataTable.missionCoin
         local m = 1
         while m <= character_numAll do
-            if dataTable.character ~= nil then
-                image_char[m] = {}
-                image_char[m].charac_id = tonumber(dataTable.character[m].charac_id)
-                image_char[m].charac_name = dataTable.character[m].charac_name
-                image_char[m].charac_img = dataTable.character[m].charac_img
-                image_char[m].charac_element = tonumber(dataTable.character[m].charac_name)
-                image_char[m].charac_spw = tonumber(dataTable.character[m].charac_spw)
-                image_char[m].charac_sph = tonumber(dataTable.character[m].charac_sph)
+
+            image_char[m] = {}
+            image_char[m].battle_id = dataTable.one[m].mission.battle_id
+            image_char[m].battle = dataTable.one[m].mission.battle
+            image_char[m].characAll = tonumber(dataTable.one[m].mission.characAll)
+
+            local k = 1
+            while k <= image_char[m].characAll do
+                image_char[m][k] = {}
+                image_char[m][k].charac_id = dataTable.one[m].mission.charcac[k].charac_id
+                image_char[m][k].charac_name = dataTable.one[m].mission.charcac[k].charac_name
+                image_char[m][k].charac_img = dataTable.one[m].mission.charcac[k].charac_img
+                image_char[m][k].charac_element = tonumber(dataTable.one[m].mission.charcac[k].charac_element)
+                image_char[m][k].charac_hp = tonumber(dataTable.one[m].mission.charcac[k].charac_hp)
+                image_char[m][k].charac_def = tonumber(dataTable.one[m].mission.charcac[k].charac_def)
+                image_char[m][k].charac_atk = tonumber(dataTable.one[m].mission.charcac[k].charac_atk )
+                image_char[m][k].charac_def = tonumber(dataTable.one[m].mission.charcac[k].charac_def)
+                image_char[m][k].charac_spw = tonumber(dataTable.one[m].mission.charcac[k].charac_spw)
+                image_char[m][k].charac_sph = tonumber(dataTable.one[m].mission.charcac[k].charac_sph)
+                image_char[m][k].charac_countD = tonumber(dataTable.one[m].mission.charcac[k].charac_countD)
+                image_char[m][k].charac_coin = tonumber(dataTable.one[m].mission.charcac[k].charac_coin)
+                k = k+1
             end
             m = m + 1
         end
     end
 
-    for i=1,character_numAll,1 do
-        local imgCharacter = image_char[i].charac_img
-        characImage[i] = display.newImage(imgCharacter,true)
-
-        if characImage[i].width ~= 1024 or characImage[i].height ~= 1024 then
-            if characImage[i].width > characImage[i].height then
-                characImage[i].height = math.floor(characImage[i].height / (characImage[i].width/1024))
-                characImage[i].width = 1024
-            else
-                characImage[i].width = math.floor(characImage[i].width / (characImage[i].height/1024))
-                characImage[i].height = 1024
-            end
-        end
-        --resize to big character
-        --        if image_char[i].charac_id == 6  then--img/character/character_TU/kanu-v101.png
-        --            characImage[i].width = math.floor(characImage[i].width/3.5)
-        --            characImage[i].height =  math.floor(characImage[i].height/3.5)
-        --
-        --        elseif image_char[i].charac_id == 20 then
-        --            characImage[i].width = math.floor(characImage[i].width/4.5)
-        --            characImage[i].height =  math.floor(characImage[i].height/4.5)
-        --        else
-        --            characImage[i].width = math.floor(characImage[i].width/5)
-        --            characImage[i].height =  math.floor(characImage[i].height/5)
-        --        end
-        characImage[i].width = math.floor(characImage[i].width/image_char[i].charac_sph)
-        characImage[i].height =  math.floor(characImage[i].height/image_char[i].charac_sph)
-
-        characImage[i]:setReferencePoint( display.BottomCenterReferencePoint)
-        characImage[i].x = (_W/(character_numAll+1))*i
-        characImage[i].y = _H*.27
-        characImage[i].id = i
-        groupGameTop:insert(characImage[i])
-        physics.addBody( characImage[i],"static", { density = 1.0, friction = 0, bounce = 0.2, radius = 20 } )
-
-    end
+    battle = 1
+    battleall = character_numAll
+    characterBattle()
 end
 local function miniIconCharac(event)
+
     local teamNumber = event.params.team
     local friend_id = event.params.friend_id
+--    local friend_id = 1
+--    local teamNumber = 1
 
     local frm_frind = 1
     local img_frind = "img/characterIcon/img/TouTaku-i101.png"
@@ -1142,29 +1807,45 @@ local function miniIconCharac(event)
             datacharcter[m] = {}
             if dataTable.chracter ~= nil then
                 datacharcter[m].imagePicture= dataTable.chracter[m].imgMini
+                datacharcter[m].leader_id= dataTable.chracter[m].leader_id
+                datacharcter[m].skill_id= dataTable.chracter[m].skill_id
                 datacharcter[m].holdcharac_id = tonumber(dataTable.chracter[m].holdcharac_id)
                 datacharcter[m].element = tonumber(dataTable.chracter[m].element)
                 datacharcter[m].team_no = tonumber(dataTable.chracter[m].team_no)
+                datacharcter[m].def = tonumber(dataTable.chracter[m].def)
+                datacharcter[m].atk = tonumber(dataTable.chracter[m].atk)
+                datacharcter[m].hp = tonumber(dataTable.chracter[m].hp)
+--                print("team ,hp,def,atk:",datacharcter[m].holdcharac_id,datacharcter[m].hp,datacharcter[m].def,datacharcter[m].atk)
+                sumHP = sumHP + datacharcter[m].hp
+                sumATK = sumATK + datacharcter[m].atk
+                sumDEF = sumDEF + datacharcter[m].def
             end
             m = m+1
         end
-        print("MMM rowCharac,frm_frind",m,rowCharac,frm_frind)
+
         if m > rowCharac then
-            datacharcter[6] = {}
+            rowCharac = rowCharac + 1
+            datacharcter[m] = {}
             local url = "http://localhost/DYM/holdcharacter.php?charac_id="
             local character =   url..friend_id
             local response = http.request(character)
             local Data_character = json.decode(response)
             if Data_character then
-                datacharcter[6].holdcharac_id =  Data_character[1].holdcharac_id
-                datacharcter[6].imagePicture =  Data_character[1].charac_img_mini
-                datacharcter[6].element =  tonumber(Data_character[1].charac_element)
-                datacharcter[6].teamno  = 6
+                datacharcter[m].holdcharac_id =  Data_character[1].holdcharac_id
+                datacharcter[m].leader_id =  Data_character[1].leader_id
+                datacharcter[m].skill_id =  Data_character[1].skill_id
+                datacharcter[m].imagePicture =  Data_character[1].charac_img_mini
+                datacharcter[m].element =  tonumber(Data_character[1].charac_element)
+                datacharcter[m].team_no  = 6
+                datacharcter[m].def = tonumber(Data_character[1].charac_def)
+                datacharcter[m].atk = tonumber(Data_character[1].charac_atk)
+                datacharcter[m].hp = tonumber(Data_character[1].charac_hp)
+                --print("friend ,hp,def,atk:",datacharcter[m].holdcharac_id,datacharcter[m].hp,datacharcter[m].def,datacharcter[m].atk)
+                sumHP = sumHP + datacharcter[m].hp
+                sumATK = sumATK + datacharcter[m].atk
+                sumDEF = sumDEF + datacharcter[m].def
             end
         end
-
-
-
     end
 
     local function optionIcon(event)
@@ -1183,8 +1864,8 @@ local function miniIconCharac(event)
         imgcharacIcon[i].x,imgcharacIcon[i].y = pointIconx, _H*.31
 
         characIcon[i] = widget.newButton{
-            default = FramElement[datacharcter[i].element] ,
-            over =FramElement[datacharcter[i].element] ,
+            defaultFile = FramElement[datacharcter[i].element] ,
+            overFile =FramElement[datacharcter[i].element] ,
             width = sizeleaderW ,
             height= sizeleaderH,
             onRelease = optionIcon
@@ -1193,27 +1874,10 @@ local function miniIconCharac(event)
         characIcon[i]:setReferencePoint( display.TopLeftReferencePoint )
         characIcon[i].x, characIcon[i].y = pointIconx, _H*.31
         datacharcter[i].poinCenter = imgcharacIcon[i].x + (_W*.08)
+
         groupGameTop:insert(imgcharacIcon[i])
         groupGameTop:insert(characIcon[i])
     end
-
-    imgcharacIcon[rowCharac+1] = display.newImageRect( datacharcter[6].imagePicture , _W*.16, _H*.106 )
-    imgcharacIcon[rowCharac+1]:setReferencePoint( display.TopLeftReferencePoint )
-    imgcharacIcon[rowCharac+1].x,imgcharacIcon[rowCharac+1].y = (tonumber(_W*.166)*5)+_W*.005, _H*.31
-    characIcon[rowCharac+1] = widget.newButton{
-        default = FramElement[datacharcter[6].element] ,
-        over =FramElement[datacharcter[6].element] ,
-        width = sizeleaderW ,
-        height= sizeleaderH,
-        onRelease = optionIcon
-    }
-    characIcon[rowCharac+1].id= countChr
-    characIcon[rowCharac+1]:setReferencePoint( display.TopLeftReferencePoint )
-    characIcon[rowCharac+1].x, characIcon[rowCharac+1].y = pointIconx, _H*.31
-    characIcon[rowCharac+1].x, characIcon[rowCharac+1].y = (tonumber(_W*.166)*5)+_W*.005, _H*.31
-    datacharcter[rowCharac+1].poinCenter = imgcharacIcon[rowCharac+1].x + (_W*.08)
-    groupGameTop:insert(imgcharacIcon[rowCharac+1])
-    groupGameTop:insert(characIcon[rowCharac+1])
 
     textNumber()
 end
@@ -1263,11 +1927,10 @@ local function miniIconCharac_frame(event)
     local sizeleaderH = _H*.106
 
     for i=1,rowCharac,1 do
-        print("datacharcter[m].holdcharac_id",i,datacharcter[i].holdcharac_id)
         pointIconx = (tonumber(_W*.166)*(datacharcter[i].team_no - 1)) + _W*.005
         characIcon[i] = widget.newButton{
-            default = datacharcter[i].imagePicture,
-            over = datacharcter[i].imagePicture ,
+            defaultFile = datacharcter[i].imagePicture,
+            overFile = datacharcter[i].imagePicture ,
             width = sizeleaderW ,
             height= sizeleaderH,
             onRelease = optionIcon
@@ -1278,8 +1941,8 @@ local function miniIconCharac_frame(event)
         groupGameTop:insert(characIcon[i])
     end
     characIcon[rowCharac+1] = widget.newButton{
-        default = img_frind ,
-        over = img_frind ,
+        defaultFile = img_frind ,
+        overFile = img_frind ,
         width = sizeleaderW ,
         height= sizeleaderH,
         onRelease = optionIcon
@@ -1292,120 +1955,19 @@ local function miniIconCharac_frame(event)
 
 end
 
-local function getCharacterCoin(num,pointX,pointY)
-    local FlagPNG
-    local function getCoin()
-        local sheetdata_light = {width = 100, height = 100,numFrames = 40, sheetContentWidth = 500 ,sheetContentHeight = 800 }
-        local image_sheet = {
-            "img/sprite/Item_Effect/coin.png"
-        }
-        local sheet_light = graphics.newImageSheet( image_sheet[1], sheetdata_light )
-        local sequenceData = {
-            { name="sheet", sheet=sheet_light, start=1, count=40, time=2000, loopCount=1 }
-        }
-        local CoinSheet = display.newSprite( sheet_light, sequenceData )
-        CoinSheet:setReferencePoint( display.BottomCenterReferencePoint)
-        CoinSheet.x = pointX
-        CoinSheet.y = _H*.27
+local function sprite_sheet(characterAll,num,color,pointX,pointY,numPoint)
+    local showTextCoin
+    local function Clearlistener()
+        --        display.remove(myAnimationSheet)
+        --        myAnimationSheet = nil
 
-        local function swapSheet()
-            CoinSheet:setSequence( "sheet" )
-            CoinSheet:play()
-            timerIMG = nil
+        display.remove(showTextCoin)
+        showTextCoin = nil
 
-        end
-        timerIMG = timer.performWithDelay( 1000, swapSheet )
+        myCount[numPoint] = 0
 
     end
-    local function getFlag()
-        local sheetdata_light = {width = 100, height = 100,numFrames = 40, sheetContentWidth = 500 ,sheetContentHeight = 800 }
-        local image_sheet = {
-            "img/sprite/Item_Effect/flag.png"
 
-        }
-        local sheet_light = graphics.newImageSheet( image_sheet[1], sheetdata_light )
-        local sequenceData = {
-            { name="sheet", sheet=sheet_light, start=1, count=40, time=2000, loopCount=1 }
-        }
-        local CoinSheet = display.newSprite( sheet_light, sequenceData )
-        CoinSheet:setReferencePoint( display.BottomCenterReferencePoint)
-        CoinSheet.x = pointX
-        CoinSheet.y = _H*.27
-        local function swapSheet()
-            CoinSheet:setSequence( "sheet" )
-            CoinSheet:play()
-        end
-
-        timer.performWithDelay( 1000, swapSheet )
-
-
-    end
-    local function gettreasure()
-        local sheetdata_light = {width = 100, height = 100,numFrames = 40, sheetContentWidth = 500 ,sheetContentHeight = 800 }
-        local image_sheet = {
-            "img/sprite/Item_Effect/treasure.png"
-
-        }
-        local sheet_light = graphics.newImageSheet( image_sheet[1], sheetdata_light )
-        local sequenceData = {
-            { name="sheet", sheet=sheet_light, start=1, count=40, time=2000, loopCount=1 }
-        }
-        local CoinSheet = display.newSprite( sheet_light, sequenceData )
-        CoinSheet:setReferencePoint( display.BottomCenterReferencePoint)
-        CoinSheet.x = pointX
-        CoinSheet.y = _H*.27
-        local function swapSheet()
-            CoinSheet:setSequence( "sheet" )
-            CoinSheet:play()
-        end
-
-        timer.performWithDelay( 1000, swapSheet )
-
-
-    end
-    local function clearCharacter()
-        display.remove(characImage[num])
-        characImage[num] = nil
-
-        character_numAll = character_numAll - 1
-        print("character_numAll",character_numAll)
-    end
-    local function clearFlagPNG()
-        display.remove(FlagPNG)
-        FlagPNG = nil
-    end
-
-    if character_numAll == 1 then
-        FlagPNG = display.newImageRect( "img/sprite/Item_Effect/flagtest.png", _W*.15, _H*.1 )
-        FlagPNG:setReferencePoint( display.BottomCenterReferencePoint )
-        FlagPNG.x, FlagPNG.y = pointX, _H*.27
-    end
-
-    transitionStash.newTransition = transition.to(characImage[num], { time=1000, alpha=0.3,onComplete = clearCharacter} )
---    if character_numAll > 2 then
---        transitionStash.newTransition = transition.to(FlagPNG, { time=100, alpha=0,onComplete = clearFlagPNG} )
---        --getFlag()
---        gettreasure()
---    elseif character_numAll <= 1 then
---        Warning_Animation()
---    else
---
---        getCoin()
---    end
---    if character_numAll < 1 then
---        timer.performWithDelay( 0, Victory_Animation_aura )
---        timer.performWithDelay( 0, Victory_Animation_font )
-
---    end
-
---    Warning_Animation()
-    --BossSprite()
---    transitionStash.newTransition = transition.to(background, { time=1000, alpha=0.3,onComplete = clearCharacter} )
-
---
-end
-local function sprite_sheet(characterAll,num,color,pointX,pointY)
-    print("sprite_sheet")
     local characterAll = characterAll+1
     local sheetdata_light = {
         {width = 512/2, height = 535/2,numFrames = 40, sheetContentWidth =2560/2 ,sheetContentHeight =4280/2 }  ,
@@ -1427,7 +1989,6 @@ local function sprite_sheet(characterAll,num,color,pointX,pointY)
         { name="sheet", sheet=sheet_light, start=1, count=40, time=600, loopCount=1 }
     }
     local poiny = pointY
-
     display.remove(myAnimationSheet)
     myAnimationSheet = nil
 
@@ -1457,19 +2018,36 @@ local function sprite_sheet(characterAll,num,color,pointX,pointY)
         timerIMG = nil
 
     end
-    timerIMG = timer.performWithDelay( 50, swapSheet )
-    getCharacterCoin(num,pointX,pointY)
-    menu_barLight.checkMemory()
+    TimersST.myTimer = timer.performWithDelay( 50, swapSheet )
+
+    showTextCoin = display.newText(myCount[numPoint],0 , 0,native.systemFontBold,25)
+    showTextCoin:setReferencePoint( display.CenterReferencePoint )
+    showTextCoin.x = pointX+_W*.05
+    showTextCoin.y = display.contentHeight*.25
+
+    if color == 1 then
+        showTextCoin:setTextColor(255 ,0 ,0) --red
+    elseif color == 2 then
+        showTextCoin:setTextColor( 0 ,205 ,0)     --green
+    elseif color == 3 then
+        showTextCoin:setTextColor( 0 ,191 ,255) --blue
+    elseif color == 4 then
+        showTextCoin:setTextColor(131 ,111 ,255) --purple
+    elseif color == 5 then
+        showTextCoin:setTextColor( 255 ,255 ,0) --yellow
+    end
+    transitionStash.newTransition  = transition.to( showTextCoin, { time=200,delay=500, xScale=2, yScale=2, alpha=1,onComplete = Clearlistener} )
+
+    groupGameTop:insert ( showTextCoin )
+   checkMemory()
     return true
 end
-local function battleIcon(randI,numcharacter,colercharacter)  --ตำแหน่งที่บอลออก.-ตำแหน่งที่บอลจะไปยิง.-สี
-    print("** battleIcon")
+local function battleIcon(randI,numcharacter,colercharacter,atk,numPoint)  --ตำแหน่งที่บอลออก.-ตำแหน่งที่บอลจะไปยิง.-สี,จำนวน atk
+    print("battleIcon numcharacter = ",numcharacter)
+    local function  runtime_battleIcon()
     local IMGtransition
     local centerImg = (_W*.16)/2
     local img =  "img/element/object.png"
-   -- local randI = math.random(1,6)
-    --    local randI = 6
-    --    colercharacter = 3
     local  battleIconcolor = display.newImageRect( img, 64, 64 )
     if colercharacter == 1 then
         battleIconcolor:setFillColor(255 ,0 ,0) --red
@@ -1486,6 +2064,7 @@ local function battleIcon(randI,numcharacter,colercharacter)  --ตำแหน�
     --battleIconcolor:setFillColor(255,0,0)
     physics.addBody( battleIconcolor, { bounce=0.5, density=1.0 ,friction = 0, radius=14 } )
 
+
     battleIconcolor.x, battleIconcolor.y = (tonumber(_W*.166)*(randI-1)) + _W*.005 + centerImg, _H*.36
     local vx, vy = characImage[numcharacter].x - battleIconcolor.x, -180
     --all icon element in puzzle   vy = -400,transition.to (time = 300)
@@ -1494,109 +2073,262 @@ local function battleIcon(randI,numcharacter,colercharacter)  --ตำแหน�
     battleIconcolor:setLinearVelocity( vx*5,vy*5 )
     groupGameTop:insert(battleIconcolor)
 
-    local function listener()
-        display.remove(battleIconcolor)
-        battleIconcolor = nil
-        IMGtransition = nil
+    local function listenerSprite_sheet()
+        if CountCharacterInBattle >=1 then
+            display.remove(battleIconcolor)
+            battleIconcolor = nil
+            IMGtransition = nil
 
-        local pointX = characImage[numcharacter].x + image_char[numcharacter].charac_spw
-        local pointY = characImage[numcharacter].y
---        require ("alertMassage").sprite_sheet(character_numAll,numcharacter,colercharacter,pointX,pointY)
-        sprite_sheet(character_numAll,numcharacter,colercharacter,pointX,pointY)
-        timer.performWithDelay( 1150)
-        if characImage[numcharacter].id == numcharacter then
-            local function swapSheet()
-                characImage[numcharacter].x = characImage[numcharacter].x + 5
+            local pointX = math.ceil(characImage[numcharacter].x + image_char[battle][numcharacter].charac_spw)
+            local pointY = math.ceil(characImage[numcharacter].y)
+            sprite_sheet(character_numAll,numcharacter,colercharacter,pointX,pointY,numPoint)
+            TimersST.myTimer = timer.performWithDelay( 50)
+            if characImage[numcharacter].id == numcharacter then
+                local function swapSheet()
+                    characImage[numcharacter].x = characImage[numcharacter].x + 5
+                end
+                local function swapSheet2()
+                    characImage[numcharacter].x = characImage[numcharacter].x - 10
+                end
+                TimersST.myTimer = timer.performWithDelay( 50, swapSheet )
+                TimersST.myTimer = timer.performWithDelay( 100, swapSheet2 )
+                TimersST.myTimer = timer.performWithDelay( 150, swapSheet )
             end
-            local function swapSheet2()
-                characImage[numcharacter].x = characImage[numcharacter].x - 10
-            end
-            timer.performWithDelay( 50, swapSheet )
-            timer.performWithDelay( 100, swapSheet2 )
-            timer.performWithDelay( 150, swapSheet )
         end
-
     end
     if battleIconcolor.isSleepingAllowed == true then
-        IMGtransition = transition.to( battleIconcolor, { time=200, xScale=2, yScale=2, alpha=0.1,onComplete = listener} )
+        local m = 2.5
+        transitionStash.newTransition = transition.to( battleIconcolor, { time=200, xScale=2, yScale=m-.5, alpha=0,onComplete = listenerSprite_sheet} )
     end
-    --menu_barLight.checkMemory()
+    return true
+    end
+    checkMemory()
+    TimersST.myTimer = timer.performWithDelay( 200, runtime_battleIcon )
+
+    --cancelAllTransitions()
+end
+function getCharacterCoin(numcharacter)     --ตำแหน่งที่บอลออก.ตำแหน่งที่บอลจะไปยิง.สี,จำนวน atk,ตัวที่
+    --battleIcon(team_no,numcharacter,color,damage,k)  --ตำแหน่งที่บอลออก.-ตำแหน่งที่บอลจะไปยิง.-สี,จำนวน atk
+    local pointX = math.ceil(characImage[numcharacter].x + image_char[battle][numcharacter].charac_spw)
+    local pointY = math.ceil(characImage[numcharacter].y)
+    local character_id = characImage[numcharacter].charac_id
+    local DropGard
+    local function FlagPNGGET()
+        NumFlag = NumFlag+1
+        textFlagImg.text = NumFlag
+        getCharac_id[NumFlag] = character_id
+
+        display.remove(FlagPNG[battle])
+        FlagPNG[battle] = nil
+    end
+    local function getCoin()
+        local sheetdata_light = {width = 100, height = 100,numFrames = 40, sheetContentWidth = 500 ,sheetContentHeight = 800 }
+        local image_sheet = {
+            "img/sprite/Item_Effect/coin.png"
+        }
+        local sheet_light = graphics.newImageSheet( image_sheet[1], sheetdata_light )
+        local sequenceData = {
+            { name="sheet", sheet=sheet_light, start=1, count=40, time=2000, loopCount=1 }
+        }
+        local CoinSheet = display.newSprite( sheet_light, sequenceData )
+        CoinSheet:setReferencePoint( display.BottomCenterReferencePoint)
+        CoinSheet.x = pointX
+        CoinSheet.y = _H*.27
+
+        local function swapSheet()
+            CoinSheet:setSequence( "sheet" )
+            CoinSheet:play()
+            timerIMG = nil
+
+        end
+
+        local function countTime()
+            if CountCharacterInBattle == 0 and battle < battleall then
+
+                if FlagPNG[battle] then
+                    local Nx = flagimg.x
+                    local Ny = flagimg.y
+                    transitionStash.newTransition = transition.to( FlagPNG[battle], { time=1000,delay = 200, x= Nx - FlagPNG[battle].x,y =  Ny - FlagPNG[battle].y ,alpha=0,onComplete = FlagPNGGET} )
+                end
+
+                battle = battle + 1
+
+                TimersST.myTimer = timer.performWithDelay( 1500, swapSheetBackground )
+                if battle == battleall  then
+                    Warning_Animation()
+                else
+                local timebattle = 2000
+                    battle_Animation( timebattle ,battleall,battle..battleall)
+                    TimersST.myTimer = timer.performWithDelay( 4000, characterBattle )
+                end
+
+                isGemTouchEnabled = false
+            elseif battle == battleall and CountCharacterInBattle == 0 then
+
+                isGemTouchEnabled = false
+                if FlagPNG[battle] then
+                    local Nx = flagimg.x
+                    local Ny = flagimg.y
+                    --            transitionStash.newTransition = transition.to( FlagPNG, { time=500, x=Nx - 50,alpha=1,onComplete = FlagPNGGET} )
+                    transitionStash.newTransition = transition.to( FlagPNG[battle], { time=1000, x= Nx - FlagPNG[battle].x,y =  Ny - FlagPNG[battle].y ,alpha=0,onComplete = FlagPNGGET} )
+                end
+                Victory_Animation_aura()
+                TimersST.myTimer = timer.performWithDelay( 2000,Victory_Animation_font)
+
+            end
+
+        end
+        TimersST.myTimer =  timer.performWithDelay( 100, swapSheet )
+        TimersST.myTimer =  timer.performWithDelay( 1000, countTime )
+
+    end
+    local function getFlag()
+        local sheetdata_light = {width = 100, height = 100,numFrames = 40, sheetContentWidth = 500 ,sheetContentHeight = 800 }
+        local image_sheet = {
+            "img/sprite/Item_Effect/flag.png"
+
+        }
+        local sheet_light = graphics.newImageSheet( image_sheet[1], sheetdata_light )
+        local sequenceData = {
+            { name="sheet", sheet=sheet_light, start=1, count=40, time=2000, loopCount=1 }
+        }
+        local CoinSheet = display.newSprite( sheet_light, sequenceData )
+        CoinSheet:setReferencePoint( display.BottomCenterReferencePoint)
+        CoinSheet.x = pointX
+        CoinSheet.y = _H*.27
+        local function swapSheet()
+            CoinSheet:setSequence( "sheet" )
+            CoinSheet:play()
+        end
+
+        TimersST.myTimer = timer.performWithDelay( 1000, swapSheet )
+
+
+    end
+    local function gettreasure()
+        local sheetdata_light = {width = 100, height = 100,numFrames = 40, sheetContentWidth = 500 ,sheetContentHeight = 800 }
+        local image_sheet = {
+            "img/sprite/Item_Effect/treasure.png"
+
+        }
+        local sheet_light = graphics.newImageSheet( image_sheet[1], sheetdata_light )
+        local sequenceData = {
+            { name="sheet", sheet=sheet_light, start=1, count=40, time=2000, loopCount=1 }
+        }
+        local CoinSheet = display.newSprite( sheet_light, sequenceData )
+        CoinSheet:setReferencePoint( display.BottomCenterReferencePoint)
+        CoinSheet.x = pointX
+        CoinSheet.y = _H*.27
+        local function swapSheet()
+            CoinSheet:setSequence( "sheet" )
+            CoinSheet:play()
+        end
+
+        TimersST.myTimer = timer.performWithDelay( 1000, swapSheet )
+        NumCoin = NumCoin + mission_coin
+        textCoinImg.text = string.format(NumCoin)
+
+    end
+    local function clearCharacter()
+
+
+        pointStartEnemy_HP[numcharacter] = nil
+        characImage[numcharacter] = nil
+        Enemy_bar[numcharacter] = nil
+        Enemy_HP[numcharacter] = nil
+        TextCD[numcharacter] = nil
+        local wait ={}
+        if CountCharacterInBattle>1 then
+            for i = numcharacter,CountCharacterInBattle,1 do
+
+                if i < CountCharacterInBattle then
+                    wait[i] =  characImage[i+1]
+                    characImage[i+1] = characImage[i]
+                    characImage[i] = wait[i]
+
+                    wait[i] =  Enemy_bar[i+1]
+                    Enemy_bar[i+1] = Enemy_bar[i]
+                    Enemy_bar[i] = wait[i]
+
+                    wait[i] =  Enemy_HP[i+1]
+                    Enemy_HP[i+1] = Enemy_HP[i]
+                    Enemy_HP[i] = wait[i]
+
+                    wait[i] =  pointStartEnemy_HP[i+1]
+                    pointStartEnemy_HP[i+1] = pointStartEnemy_HP[i]
+                    pointStartEnemy_HP[i] = wait[i]
+
+                    wait[i] =  TextCD[i+1]
+                    TextCD[i+1] = TextCD[i]
+                    TextCD[i] = wait[i]
+
+                else
+                    display.remove(TextCD[CountCharacterInBattle])
+                    TextCD[CountCharacterInBattle] = nil
+
+                    display.remove(characImage[CountCharacterInBattle])
+                    characImage[CountCharacterInBattle] = nil
+
+                    display.remove(Enemy_bar[CountCharacterInBattle])
+                    Enemy_bar[CountCharacterInBattle] = nil
+
+                    display.remove(Enemy_HP[CountCharacterInBattle])
+                    Enemy_HP[CountCharacterInBattle] = nil
+                end
+            end
+        end
+        --display.remove(characImage[CountCharacterInBattle])
+        --display.remove(Enemy_bar[CountCharacterInBattle])
+        --display.remove(Enemy_HP[CountCharacterInBattle])
+        CountCharacterInBattle = CountCharacterInBattle - 1
+
+        textCoinImg.text = string.format(NumCoin)
+        if RandomDrop[battle] ~= 1 then
+
+            DropGard = mRandom(1,3)
+            --DropGard = 1
+            if DropGard == 1 then
+                RandomDrop[battle] = 1
+                getFlag ()
+                FlagPNG[battle] = display.newImageRect( "img/sprite/Item_Effect/flagtest.png", _W*.15, _H*.1 )
+                FlagPNG[battle]:setReferencePoint( display.BottomCenterReferencePoint )
+                FlagPNG[battle].x, FlagPNG[battle].y = pointX, _H*.27
+
+
+            elseif DropGard == 2 then
+                RandomDrop[battle] = 1
+                gettreasure()
+            end
+        end
+
+        getCoin()
+
+    end
+    --damage = 50
+--    hold_atk[numcharacter] = 50
+    characImage[numcharacter].hold_atk =  characImage[numcharacter].hold_atk  - hold_atk[numcharacter]
+    if characImage[numcharacter].hold_atk <= 0  then
+        Enemy_HP[numcharacter].width = 1
+        Enemy_HP[numcharacter]:setReferencePoint( display.TopLeftReferencePoint )
+        Enemy_HP[numcharacter].x = pointStartEnemy_HP[numcharacter]
+        NumCoin = NumCoin+characImage[numcharacter].coin
+
+       transitionStash.newTransition = transition.to(TextCD[numcharacter], { time=1000, alpha=0} )
+       transitionStash.newTransition = transition.to(Enemy_HP[numcharacter], { time=1000, alpha=0} )
+       transitionStash.newTransition = transition.to(Enemy_bar[numcharacter], { time=1000, alpha=0} )
+       transitionStash.newTransition = transition.to(characImage[numcharacter], { time=1000, alpha=0,onComplete = clearCharacter} )
+
+    else
+
+        local hpLine = (lineFULLHP*characImage[numcharacter].hold_atk)/characImage[numcharacter].atk
+        Enemy_HP[numcharacter].width =  hpLine
+        Enemy_HP[numcharacter]:setReferencePoint( display.TopLeftReferencePoint )
+        Enemy_HP[numcharacter].x = pointStartEnemy_HP[numcharacter]
+
+    end
+    checkMemory()
 end
 
-
-local function swapSheet()
-    local IMGtransition
-    local IMGtimer
-    local myAnimation = display.newImageRect( image_sheet[BGsprite] , display.contentWidth, 425 )
-    myAnimation:setReferencePoint( display.CenterReferencePoint )
-    myAnimation.x, myAnimation.y = _W*.5, _H*.2
-    Gdisplay:insert(myAnimation)
-    local k = 1
-    local i = 0
-    local j = 0
-    local function finish()
-        display.remove(myAnimation)
-        myAnimation = nil
-
-        IMGtransition = nil
-        IMGtimer = nil
-    end
-    local function scalTran4()
-        k = k - 0.05
-        j = j + 0.05
-        if k < 0.05 then
-            k = 0
-            j = 1
-        end
-        myAnimation.y = myAnimation.y - math.random(1,3)
-        myAnimation.x = myAnimation.x - math.random(1,3)
-        IMGtransition = transition.to( myAnimation, { time=200, xScale=1.1+i, yScale=1.1+i, alpha=k,y = myAnimation.y ,x = myAnimation.x} )
-        if k == 0 then
-            finish()
-        end
-        BGAnimation.alpha = j
-        i = i +0.01
-
-    end
-    local function scalTran3()
-        k = k - 0.05
-        j = j + 0.05
-        myAnimation.y = myAnimation.y + math.random(1,2)
-        myAnimation.x = myAnimation.x + math.random(1,2)
-        IMGtransition = transition.to( myAnimation, { time=200, xScale=1.1+i, yScale=1.1+i, alpha=k,y = myAnimation.y ,x = myAnimation.x} )
-        IMGtimer = timer.performWithDelay(200, scalTran4)
-        i = i +0.01
-        BGAnimation.alpha = j
-    end
-    local function scalTran2()
-        k = k - 0.05
-        j = j + 0.05
-        myAnimation.y = myAnimation.y - math.random(1,4)
-        myAnimation.x = myAnimation.x - math.random(1,4)
-        IMGtransition = transition.to( myAnimation, { time=200, xScale=1.1+i, yScale=1.1+i, alpha=k,y = myAnimation.y ,x = myAnimation.x} )
-        IMGtimer = timer.performWithDelay(200, scalTran3)
-        i = i +0.01
-        BGAnimation.alpha = j
-    end
-    local function scalTran()
-        k = k - 0.05
-        j = j + 0.05
-        myAnimation.y = myAnimation.y + math.random(1,2)
-        myAnimation.x = myAnimation.x + math.random(1,2)
-        IMGtransition = transition.to( myAnimation, { time=200, xScale=1.1+i, yScale=1.1+i, alpha=k,y = myAnimation.y ,x = myAnimation.x} )
-        IMGtimer = timer.performWithDelay( 200, scalTran2 )
-        i = i +0.01
-        BGAnimation.alpha = j
-    end
-
-    IMGtimer = timer.performWithDelay( 0, scalTran )
-    IMGtimer = timer.performWithDelay( 1000, scalTran )
-    IMGtimer = timer.performWithDelay( 2000, scalTran )
-    IMGtimer = timer.performWithDelay( 3000, scalTran )
-    IMGtimer = timer.performWithDelay( 4000, scalTran )
-    menu_barLight.checkMemory()
-
-end
 local function fncallSprite2()
 
     local sheetdata_light = {width = _W, height = 425,numFrames = 100, sheetContentWidth = _W*10 ,sheetContentHeight = (2125*2) }
@@ -1635,47 +2367,22 @@ local function swapSheet2()
     myAnimation:setSequence( "lightaura" )
     myAnimation:play()
 end
----------------------------------------------------------------------------------------------------
+----------------------------------
 local function createBackButton(event)
-    --loadImage()
-    local gameoption =  event.params
-    if gameoption then
-        mission = gameoption.mission
-        battle = gameoption.battle
-        BGM = gameoption.BGM
-        SFX = gameoption.SFX
-        SKL = gameoption.SKL
-        BTN = gameoption.BTN
-        checkOption = gameoption.checkOption
-    else
-        mission = "ABCDTADA KWANTA"
-        battle = "1/5"
-
-        -- 1 : ON
-        -- 2 : OFF
-        BGM = 1
-        SFX = 1
-        SKL = 1
-        BTN = 1
-        checkOption = 1
-    end
-    -------tada1179.w@gmail.com
-
-
-    --loadImage()
-    -------tada1179.w@gmail.com
-
     local function ButtouMenu(event)
         if (event.phase == "ended" or event.phase == "release") then
             if event.target.id == "Menu"  then
                 local option = {
                     params = {
-                        battle = battle  ,
-                        mission = mission ,
-                        BGM = BGM ,
-                        SFX = SFX ,
-                        SKL = SKL,
-                        BTN = BTN,
+                        mission = mission_name ,
+                        battle = battle.."/"..battleall     ,
+
+                        -- 1 : ON
+                        -- 2 : OFF
+                        BGM = BGM     ,
+                        SFX = SFX  ,
+                        SKL = SKL  ,
+                        BTN = BTN  ,
                         checkOption = checkOption
                     }
                 }
@@ -1691,10 +2398,10 @@ local function createBackButton(event)
 
     end
 
-    local imgMenu ="img/background/button/as_butt_pzl_menu.png"
+    local imgMenu ="img/background/button/as_butt_menu.png"
     backButton = widget.newButton{
-        default = imgMenu,
-        over = imgMenu,
+        defaultFile = imgMenu,
+        overFile = imgMenu,
         width=_W*.12, height= _H*.04,
         onRelease = ButtouMenu	-- event listener function
     }
@@ -1703,40 +2410,62 @@ local function createBackButton(event)
     backButton.alpha = 1
     backButton.x = _W - (_W*.12)
     backButton.y = 0
+
     --groupGameLayer:insert(backButton)
 
-    local imgItem ="img/background/button/as_butt_sell_plus.png"
-    bntItem = widget.newButton{
-        default = imgItem,
-        over = imgItem,
-        width=_W*.12, height= _H*.04,
-        onRelease = ButtouMenu	-- event listener function
-        --        onRelease = loadImage	-- event listener function
-    }
-    bntItem.id = "Item"
-    bntItem:setReferencePoint( display.TopLeftReferencePoint )
-    bntItem.alpha = 1
-    bntItem.x = 0
-    bntItem.y = 0
+    flagimg = display.newImageRect( "img/background/puzzle/FLAG.png", _W*.05, _H*.04 )
+    flagimg:setReferencePoint( display.TopLeftReferencePoint )
+    flagimg.x, flagimg.y = _W*.03, 0
+    groupGameTop:insert(flagimg)
+
+    textFlagImg = display.newText(NumFlag,0 , 0,native.systemFontBold,25)
+    textFlagImg:setReferencePoint( display.TopRightReferencePoint )
+    textFlagImg.x = _W*.15
+    textFlagImg:setTextColor(0, 0 ,139)
+    groupGameTop:insert ( textFlagImg )
+
+
+    local CoinImg = display.newImageRect( "img/background/puzzle/COIN.png", _W*.05, _H*.03 )
+    CoinImg:setReferencePoint( display.TopLeftReferencePoint )
+    CoinImg.x, CoinImg.y = _W*.2, 0
+    groupGameTop:insert(CoinImg)
+
+    textCoinImg = display.newText(NumCoin,0 , 0,native.systemFontBold,25)
+    textCoinImg:setReferencePoint( display.TopLeftReferencePoint )
+    textCoinImg.x = _W*.3
+    textCoinImg:setTextColor(139, 35 ,35)
+    groupGameTop:insert ( textCoinImg )
+--    local imgItem ="img/background/button/as_butt_sell_plus.png"
+--    bntItem = widget.newButton{
+--        defaultFile = imgItem,
+--        overFile = imgItem,
+--        width=_W*.12, height= _H*.04,
+--        onRelease = ButtouMenu	-- event listener function
+--        --        onRelease = loadImage	-- event listener function
+--    }
+--    bntItem.id = "Item"
+--    bntItem:setReferencePoint( display.TopLeftReferencePoint )
+--    bntItem.alpha = 1
+--    bntItem.x = 0
+--    bntItem.y = 0
     --groupGameLayer:insert(bntItem)
 end
 
--------------------------------------------------------------
+---- clear list time,trans ------
 function cancelAllTimers()
     local k, v
-
-    for k,v in pairs(timerStash) do
-        timer.cancel( v )
+    for k,v in pairs(TimersST) do
+        timer.cancel(v )
         v = nil; k = nil
     end
 
-    timerStash = nil
-    timerStash = {}
+
+    TimersST = nil
+    TimersST = {}
 end
 
 function cancelAllTransitions()
     local k, v
-
     for k,v in pairs(transitionStash) do
         transition.cancel( v )
         v = nil; k = nil
@@ -1745,18 +2474,7 @@ function cancelAllTransitions()
     transitionStash = nil
     transitionStash = {}
 end
-
-local function handleLowMemory( event )
-    print( "memory warning received!" )
-end
-Runtime:addEventListener( "??MemoryWarning", handleLowMemory )
-
-local function checkMemory()
-    collectgarbage( "collect" )
-    local memUsage_str = string.format( "MEMORY = %.3f KB", collectgarbage( "count" ) )
-    print( memUsage_str, "TEXTURE = "..(system.getInfo("textureMemoryUsed") / (1024 * 1024) ) )
-end
---checkMemory()
+---------------------------------
 
 local function newGem (i,j)
     local R = mRandom(1,6)
@@ -1817,6 +2535,7 @@ function copyGem(self,event)
 
         copyGemXL[R] = display.newImageRect(picture[gemsTable[rotateR - R][self.j].colorR],sizeGem,sizeGem)
         copyGemXL[R].x, copyGemXL[R].y  = stTableX - (intervalGem * R), gemsTable[gemX][self.j].markY
+
         groupGameLayer:insert( copyGemXR[R] )
         groupGameLayer:insert( copyGemXL[R] )
     end
@@ -1829,6 +2548,7 @@ function copyGem(self,event)
 
         copyGemYD[C] = display.newImageRect(picture[gemsTable[self.i][rotateC - C].colorR],sizeGem,sizeGem)
         copyGemYD[C].x, copyGemYD[C].y  = gemsTable[self.i][gemY].markX, stTableY - (intervalGem * C)
+
         groupGameLayer:insert( copyGemYD[C] )
         groupGameLayer:insert( copyGemYU[C] )
     end
@@ -2091,20 +2811,13 @@ function slideGem(self,event)
                 copyGemYD[posY].y = stTableY - gemsTable[self.i][posY].markY + self.slideEvent
             end
         end
-    else
-        print ("Error SlideGem Func X Y")
     end
 
 end
-local function enableGemTouch()
-    isGemTouchEnabled = true
-    print("isGemTouchEnabled:",isGemTouchEnabled)
-end
-local myNumber = {}
-local myPink
+
 function textNumber()
     local num = 0
-    for k = 1 ,rowCharac+1,1 do
+    for k = 1 ,rowCharac,1 do
         myNumber[k] = display.newText(num,0 , _H*.35,native.systemFontBold, 25)
         myNumber[k].x= datacharcter[k].poinCenter
         myNumber[k]:setTextColor(255, 255, 255)
@@ -2116,23 +2829,101 @@ function textNumber()
     myPink.alpha = 0
 
 end
+
+local function deleteHP_Defense(colercharacter,atk)  --สีของตัวเราที่จะออกไปยิง
+    local E = 2
+    local setP
+    damage = 0
+    point = nil
+    for i = 1,CountCharacterInBattle ,1 do
+        if characImage[i].color == 1 then --red
+            if colercharacter == 2 then  --green
+                setP = 1.25
+            elseif colercharacter == 3 then --blue
+                setP = 0.75
+            else  --seem
+                setP = 1
+            end
+
+        elseif characImage[i].color == 2 then --green
+            if colercharacter == 1 then  --red
+                setP = 0.75
+            elseif colercharacter == 3 then --blue
+                setP = 1.25
+            else  --seem
+                setP = 1
+            end
+        elseif characImage[i].color == 3 then --blue
+            if colercharacter == 2 then  --green
+                setP = 0.75
+            elseif colercharacter == 1 then --red
+                setP = 1.25
+            else  --seem
+                setP = 1
+            end
+        else--purple --yellow
+            setP = 1
+        end
+
+        ------------------------------------------
+        if setP < E then
+            E = setP
+            if i >1 then
+               if characImage[i].hold_atk > characImage[i-1].hold_atk then
+                   point = i
+               else
+                   point = i-1
+               end
+            else
+                point = i
+            end
+        end
+
+    end
+    S = 1
+    R = 0
+    --   {[(A * S) + ΣI] / (E - R)] + {[A * (N / 30)] * [(C + 1) / 2]} = H
+    damage = (((atk* S) +0  ) /(E - R) ) + ((atk * (NN/30)) *((countCombo +1)/2))
+end
 local function ClearNumber()
-    for k = 1 ,rowCharac+1,1 do
+    hold_atk = {0,0,0,0,0}
+    local intBG = 0
+    local groupView = display.newGroup()
+    for k = 1 ,rowCharac,1 do
+        if myNumber[k].team_no and TouchCount~=0 then
+
+            if intBG == 0 then
+                intBG = intBG + 1
+                enablePuzzleTouch(intBG)
+            end
+            deleteHP_Defense(myNumber[k].color,myCount[k])
+            --getCharacterCoin(point,myNumber[k].team_no,myNumber[k].color,damage,k)     --ตำแหน่งที่บอลออก.ตำแหน่งที่บอลจะไปยิง.สี,จำนวน atk,ตัวที่
+            hold_atk[point] = hold_atk[point] + damage
+            battleIcon(myNumber[k].team_no,point,myNumber[k].color,damage,k)  --ตำแหน่งที่บอลออก.-ตำแหน่งที่บอลจะไปยิง.-สี,จำนวน atk
+
+
+        end
         display.remove(myNumber[k])
         myNumber[k] = nil
     end
+    if TouchCount~=0 then
+        TimersST.myTimer = timer.performWithDelay(500,damageAttackEnemy)
+    end
+
+
+    enableGemTouch()
+
     display.remove(myPink)
     myPink = nil
-
     textNumber()
 
 end
-local function clearmyAnimationSheet()
-    display.remove(myAnimationSheet)
-    myAnimationSheet = nil
-end
-local pointStart
 local function PopNumIconCharacter(color,countColor)
+    if NN == 0 then
+        NN = countColor
+    end
+ if   TouchCount~=0 then
+
     if rowCharac then
         local pointIcon = {
             _W*.075 ,
@@ -2142,83 +2933,107 @@ local function PopNumIconCharacter(color,countColor)
             _W*.735 ,
             _W*.90 ,
         }
-        print("PopNumIconCharacter ",color)
-        if color == "PINK" and lifeline_sh.width < fullLineHP then
+
+        if color == "PINK" then
             myPink.alpha = 1
-            myPink.text = string.format("+"..countColor * 50 )
-            myPink:setTextColor(255 ,20, 147)
-            transitionStash.newTransition = transition.to(myPink, { time=700, alpha=1, xScale=2, yScale = 2,onComplete = ClearNumber} )
-            hpPlayer =  hpPlayer + (countColor*5*rowCharac)
-            lifeline_sh.width =  hpPlayer
+            local myCountDEF = math.ceil(sumDEF*(countColor/4)*((countCombo+2)/2) )
+            myPink.text = string.format("+"..myCountDEF)
+            transitionStash.newTransition = transition.to(myPink, { time=700, alpha=1, xScale=1.5, yScale = 1.5} )
+            hpPlayer =  math.ceil(hpPlayer + myCountDEF)
+            local x = math.ceil((fullLineHP *hpPlayer)/hpFull )
+            if hpPlayer >= hpFull then
+                hpPlayer= hpFull
+                lifeline_sh.width =  fullLineHP
+            else
+                lifeline_sh.width =  x
+            end
+
             lifeline_sh:setReferencePoint( display.TopLeftReferencePoint )
             lifeline_sh.x = pointStart
+
+            textHP.text = string.format(hpPlayer.."/"..hpFull )
+            textHP:setReferencePoint( display.TopRightReferencePoint )
+            textHP.x = _W*.95
         else
 
         for i = 1 ,rowCharac,1 do
-            print("MY countColor,element,color",countColor,datacharcter[i].element,color )
             if datacharcter[i].element == 1 and color == "RED" then --RED
 --                print("RED")
                 myNumber[i].alpha = 1
-                myNumber[i].text = string.format(""..countColor * 50 )
+                myNumber[i].color = datacharcter[i].element
+                myNumber[i].team_no = datacharcter[i].team_no
+                myCount[i] = myCount[i] +math.ceil(datacharcter[i].atk * (countColor/4)*((countCombo+2)/2))
+                myNumber[i].text = string.format(myCount[i] )
                 myNumber[i]:setTextColor(255, 0 ,0)
-                transitionStash.newTransition = transition.to( myNumber[i], { time=700, alpha=1, xScale=2, yScale = 2,onComplete = ClearNumber} )
-                battleIcon(datacharcter[i].team_no,i,datacharcter[i].element)
-                clearmyAnimationSheet()
+                transitionStash.newTransition = transition.to( myNumber[i], { time=700, alpha=1,  xScale=1.5, yScale = 1.5} )
 
+                countCombo = countCombo + 1
             elseif datacharcter[i].element == 2 and color == "GREEN" then --GREEN
 --                print("GREEN")
                 myNumber[i].alpha = 1
-                myNumber[i].text = string.format(""..countColor * 5 )
-                myNumber[i]:setTextColor( 0 ,139, 0)
-                transitionStash.newTransition = transition.to( myNumber[i], { time=700, alpha=1, xScale=2, yScale = 2,onComplete = ClearNumber})
-                battleIcon(datacharcter[i].team_no,i,datacharcter[i].element)
-                clearmyAnimationSheet()
+                myNumber[i].color = datacharcter[i].element
+                myNumber[i].team_no = datacharcter[i].team_no
+                myCount[i] = myCount[i] + math.ceil(datacharcter[i].atk * (countColor/4)*((countCombo+2)/2))
+                myNumber[i].text = string.format(myCount[i] )
+                myNumber[i]:setTextColor( 0 ,255, 0)
+                transitionStash.newTransition = transition.to( myNumber[i], { time=700, alpha=1,  xScale=1.5, yScale = 1.5} )
 
+                countCombo = countCombo + 1
             elseif datacharcter[i].element == 3 and color == "BLUE" then --BLUE
 --                print("BLUE")
                 myNumber[i].alpha = 1
-                myNumber[i].text = string.format(""..countColor * 5 )
-                myNumber[i]:setTextColor(0 ,191, 255)
-                transitionStash.newTransition = transition.to( myNumber[i], { time=700, alpha=1, xScale=2, yScale = 2,onComplete = ClearNumber})
-                battleIcon(datacharcter[i].team_no,i,datacharcter[i].element)
-                clearmyAnimationSheet()
+                myNumber[i].color = datacharcter[i].element
+                myNumber[i].team_no = datacharcter[i].team_no
+                myCount[i] = myCount[i] +math.ceil(datacharcter[i].atk * (countColor/4)*((countCombo+2)/2))
+                myNumber[i].text = string.format(myCount[i] )
+--                myNumber[i]:setTextColor(30 ,144 ,255)
+                myNumber[i]:setTextColor(152 ,245, 255)
+                transitionStash.newTransition = transition.to( myNumber[i], { time=700, alpha=1, xScale=1.5, yScale = 1.5} )
 
+                countCombo = countCombo + 1
             elseif datacharcter[i].element == 4 and color == "PURPLE" then --PURPLE
 --                print("PURPLE")
                 myNumber[i].alpha = 1
-                myNumber[i].text = string.format(""..countColor * 5 )
-                myNumber[i]:setTextColor(106, 90, 205)
-                transitionStash.newTransition = transition.to( myNumber[i], { time=700, alpha=1, xScale=2, yScale = 2,onComplete = ClearNumber})
-                battleIcon(datacharcter[i].team_no,i,datacharcter[i].element)
-                clearmyAnimationSheet()
+                myNumber[i].color = datacharcter[i].element
+                myNumber[i].team_no = datacharcter[i].team_no
+                myCount[i] = myCount[i] + math.ceil(datacharcter[i].atk * (countColor/4)*((countCombo+2)/2))
+                myNumber[i].text = string.format(myCount[i] )
+                myNumber[i]:setTextColor(255 ,0 ,255)
+                transitionStash.newTransition = transition.to( myNumber[i], { time=700, alpha=1,  xScale=1.5, yScale = 1.5} )
 
+                countCombo = countCombo + 1
             elseif datacharcter[i].element == 5 and color == "YELLOW" then --YELLOW
 --                print("YELLOW")
                 myNumber[i].alpha = 1
-                myNumber[i].text = string.format(""..countColor * 5 )
+                myNumber[i].color = datacharcter[i].element
+                myNumber[i].team_no = datacharcter[i].team_no
+                myCount[i] = myCount[i] +math.ceil(datacharcter[i].atk * (countColor/4)*((countCombo+2)/2))
+                myNumber[i].text = string.format(myCount[i] )
                 myNumber[i]:setTextColor(255, 255, 0)
-                transitionStash.newTransition = transition.to( myNumber[i], { time=700, alpha=1, xScale=2, yScale = 2,onComplete = ClearNumber})
-                battleIcon(datacharcter[i].team_no,i,datacharcter[i].element)
-                clearmyAnimationSheet()
+                transitionStash.newTransition = transition.to( myNumber[i], { time=700, alpha=1,  xScale=1.5, yScale = 1.5} )
+
+                countCombo = countCombo + 1
             end
 
         end
       end
 
     end
+ end
+
     checkMemory()
 
 
 end
 local function shiftGems ()
-    print ("Shifting Gems")
+--    print ("Shifting Gems")
 
     for i = 1, gemX, 1 do
         if gemsTable[i][1].isMarkedToDestroy then
             gemToBeDestroyed = gemsTable[i][1]
 
             gemsTable[i][1] = newGem(i,1)
-
+            groupGameLayer:insert ( gemsTable[i][1] )
             gemToBeDestroyed:removeSelf()
             gemToBeDestroyed = nil
         end
@@ -2238,16 +3053,17 @@ local function shiftGems ()
 
                 gemsTable[i][1] = newGem(i,1)
 
+                groupGameLayer:insert ( gemsTable[i][1] )
                 gemToBeDestroyed:removeSelf()
                 gemToBeDestroyed = nil
             end
         end
     end
-    timer.performWithDelay( 50, checkdoubleAll )
---    timer.performWithDelay( 1000, enableGemTouch )
+    groupGameLayer:insert(groupGameTop )
+    TimersST.myTimer = timer.performWithDelay( 0, checkdoubleAll )
 end --shiftGems()
 local function destroyGems()
-    print("destroyGems")
+--    print("destroyGems")
     lockGemMutiChk = true
     local color
     local countColor = 0
@@ -2255,7 +3071,6 @@ local function destroyGems()
         for j = 1, gemY, 1 do
 
             if gemsTable[i][j].isMarkedToDestroy  then
-               print("+++ +++ DestroyGems gemsTable[i][j].gemType",i,j,gemsTable[i][j].gemType)
                 color = gemsTable[i][j].gemType
                 countColor = countColor + 1
                 --  print("nameType"..nameType)
@@ -2269,7 +3084,7 @@ local function destroyGems()
         end
     end
     PopNumIconCharacter(color,countColor)
-    timer.performWithDelay( 1000, shiftGems ) -- 3 sce
+    TimersST.myTimer = timer.performWithDelay( 1000, shiftGems ) -- 3 sce
 
     for  pt = 1 , 6 , 1 do
         groupGem[pt] =0
@@ -2280,12 +3095,9 @@ local function destroyGems()
 end
 
 local numcolor = {0,0,0,0,0,0 }
-local function checkPointball(i,j)
-
-end
 
 local function cleanUpGems()
-    print("Cleaning Up Gems")
+--    print("Cleaning Up Gems")
 
     for i = 1, gemX, 1 do
         for j = 1, gemY, 1 do
@@ -2302,6 +3114,8 @@ local function cleanUpGems()
     for  pt = 1, table.getn(picture), 1 do
         groupGem[pt] =0
     end
+
+
 end
 local function markPreDestory (i,j,chkMuti)
     --print("=== > MarkPreDestory :color [i][j]",gemsTable[i][j].gemType,i,j)
@@ -2448,6 +3262,8 @@ end
 
 function chkGruopDel (self,chkMuti)
     self.isMarkedToDestroy = false
+
+
     --print("DELETE ==== >i,j",self.i,self.j)
     if self.i>1 then
         if (gemsTable[self.i-1][self.j]).isMarkedToDestroy == true and  gemsTable[self.i-1][self.j].gemType == self.gemType then
@@ -2601,6 +3417,95 @@ function chkGruopGem2(self)
         groupGemChk[6] = 0
     end
 end
+function chkGruopOnload(self)
+    local limitColor = 3
+    local just
+    if (self.gemType == "RED") then
+        if groupGemChk[1]  >= limitColor then
+            just = gemsTable[self.i][self.j]
+            gemsTable[self.i][self.j] = newGem(self.i,self.j)
+            gemsTable[self.i][self.j].markX = just.markX
+            gemsTable[self.i][self.j].markY = just.markY
+            display.remove(just)
+            just = nil
+            --groupGem[1]= groupGem[1]+groupGemChk[1]
+            --elseif gemsTable[self.i][self.j].isMarkedToDestroy == true and groupGemChk[1] == 0 then
+        else
+            chkGruopDel (self,1)
+        end
+        groupGemChk[1] = 0
+    elseif (self.gemType == "GREEN") then
+        if groupGemChk[2]  >= limitColor then
+            just = gemsTable[self.i][self.j]
+            gemsTable[self.i][self.j] = newGem(self.i,self.j)
+            gemsTable[self.i][self.j].markX = just.markX
+            gemsTable[self.i][self.j].markY = just.markY
+            display.remove(just)
+            just = nil
+            --groupGem[2]= groupGem[2]+groupGemChk[2]
+            --elseif gemsTable[self.i][self.j].isMarkedToDestroy == true and groupGemChk[2] == 0 then
+        else
+            chkGruopDel (self,1)
+        end
+        groupGemChk[2] = 0
+    elseif (self.gemType == "BLUE") then
+        if groupGemChk[3]  >= limitColor then
+            just = gemsTable[self.i][self.j]
+            gemsTable[self.i][self.j] = newGem(self.i,self.j)
+            gemsTable[self.i][self.j].markX = just.markX
+            gemsTable[self.i][self.j].markY = just.markY
+            display.remove(just)
+            just = nil
+            --groupGem[3]= groupGem[3]+groupGemChk[3]
+            --elseif gemsTable[self.i][self.j].isMarkedToDestroy == true and groupGemChk[3] == 0 then
+        else
+            chkGruopDel (self,1)
+        end
+        groupGemChk[3] = 0
+    elseif (self.gemType == "PURPLE") then
+        if groupGemChk[4]  >= limitColor then
+            just = gemsTable[self.i][self.j]
+            gemsTable[self.i][self.j] = newGem(self.i,self.j)
+            gemsTable[self.i][self.j].markX = just.markX
+            gemsTable[self.i][self.j].markY = just.markY
+            display.remove(just)
+            just = nil
+            --groupGem[4]= groupGem[4]+groupGemChk[4]
+            --elseif gemsTable[self.i][self.j].isMarkedToDestroy == true and groupGemChk[4] == 0 then
+        else
+            chkGruopDel (self,1)
+        end
+        groupGemChk[4] = 0
+    elseif (self.gemType == "PINK") then
+        if groupGemChk[5]  >= limitColor then
+            just = gemsTable[self.i][self.j]
+            gemsTable[self.i][self.j] = newGem(self.i,self.j)
+            gemsTable[self.i][self.j].markX = just.markX
+            gemsTable[self.i][self.j].markY = just.markY
+            display.remove(just)
+            just = nil
+            --groupGem[5]= groupGem[5]+groupGemChk[5]
+            --elseif gemsTable[self.i][self.j].isMarkedToDestroy == true and groupGemChk[5] == 0 then
+        else
+            chkGruopDel (self,1)
+        end
+        groupGemChk[5] = 0
+    elseif (self.gemType == "YELLOW") then
+        if groupGemChk[6]  >= limitColor then
+            just = gemsTable[self.i][self.j]
+            gemsTable[self.i][self.j] = newGem(self.i,self.j)
+            gemsTable[self.i][self.j].markX = just.markX
+            gemsTable[self.i][self.j].markY = just.markY
+            display.remove(just)
+            just = nil
+            --groupGem[6]= groupGem[6]+groupGemChk[6]
+            --elseif gemsTable[self.i][self.j].isMarkedToDestroy == true and groupGemChk[6] == 0 then
+        else
+            chkGruopDel (self,1)
+        end
+        groupGemChk[6] = 0
+    end
+end
 function lockGem(self, event)
     -- print("LockGem"..self.i,self.j)
     if( self.chkFtPosit ~= "" ) then
@@ -2641,65 +3546,8 @@ function lockGem(self, event)
                 else
                     self.j = 1
                 end
-            else
-                print("-- not  send chkFtPosit")
             end
 
-            --         --   print("self.i"..self.i.." self.j"..self.j)
-            --              if (self.chkFtPosit=="x") then
-            --                  for stX = 1, gemX, 1 do
-            --                      self.i = stX
-            --                      self.gemType=gemsTable[self.i][self.j].gemType
-            --
-            --                      --print("self.i"..self.i.." self.j"..self.j..self.gemType)
-            --                      markToDestroy(self,0)
-            --
-            --                     local kk = stX -1
-            --                     if(kk > 0) then
-            --                          kk = gemsTable[kk][self.j].gemType
-            --                      else
-            --                          kk = "COLOR FT"
-            --                     end
-            --
-            --                      chkGruopGem(self, kk)
-            --
-            --                      --print("xxx".. self.gemType,numberOfMarkedToDestroy )
-            --                  end
-            --              elseif (self.chkFtPosit=="y" ) then
-            --                  for stY = 1, gemY, 1 do
-            --                      self.j = stY
-            --                      self.gemType=gemsTable[self.i][self.j].gemType
-            --
-            --                      markToDestroy(self,0)
-            --
-            --                     local kk = stY -1
-            --                     if(kk > 0) then
-            --                          kk = gemsTable[self.i][kk].gemType
-            --                     else
-            --                          kk = "COLOR FT"
-            --                     end
-            --
-            --                      chkGruopGem(self,kk)
-            --                     -- print("yyy".. self.gemType,numberOfMarkedToDestroy )
-            --                  end
-            --              else
-            --                  print("not heve self.chkFtPosit")
-            --              end
-
-            --              --print(" - lockGem")
-            --              local  overMin = 0
-            --              for p = 1 , table.getn(picture), 1 do
-            --              --    print(p.." "..groupGem[p])
-            --                  if(groupGem[p] >= limitCountGem) then
-            --                      overMin = limitCountGem
-            --                  end
-            --              end
-            --          --      print("destroy "..numberOfMarkedToDestroy)
-            --              if overMin >= limitCountGem then
-            --                  destroyGems(self)
-            --              else
-            --                  cleanUpGems()
-            --              end
         end
 
     else
@@ -2792,31 +3640,6 @@ function rndLock(self, event)
     else
         print("not heve self.chkFtPosit")
     end
-
-    local  overMin = 0
-    for p = 1 , table.getn(picture), 1 do
-        --    print(p.." "..groupGem[p])
-        if(groupGem[p] >= limitCountGem) then
-            overMin = limitCountGem
-        end
-    end
-    print("destroy "..overMin)
-    if overMin >= limitCountGem then
-        destroyGems()
-        print("----------------------------------------------------")
-        --          for  i = 1 ,gemX, 1 do
-        --               for  j = 1 , gemY, 1 do
-        --                   gemsTable[i][j].colorR = gemsTable[i][j].color   --- - -- - copy gem
-        --               gemsTable[i][j].markX = gemsTable[i][j].x
-        --               gemsTable[i][j].markY = gemsTable[i][j].y
-        --                print("chk "..gemsTable[i][j].i, gemsTable[i][j].j,gemsTable[i][j].color)
-        --               end
-        --           end
-        --       rndLock(self, event)
-    else
-        cleanUpGems()
-    end
-    --
 end
 function test(self)
     -- print("65chk "..gemsTable[1][1].i, gemsTable[1][1].j,gemsTable[1][1].color)
@@ -2825,14 +3648,10 @@ function test(self)
             gemsTable[i][j].colorR = gemsTable[i][j].color   --- - -- - copy gem
             gemsTable[i][j].markX = gemsTable[i][j].x
             gemsTable[i][j].markY = gemsTable[i][j].y
-            print("65chk "..gemsTable[i][j].i, gemsTable[i][j].j,gemsTable[i][j].color)
         end
     end
 end
 
-function formulaMission( randomGem, powerChr)
-    print("formula")
-end
 local y = 403
 local function numberToimg (hp,stHp,si,i)
     number[i] =display.newImageRect("img/other/"..hp..".png",si,25)
@@ -2892,6 +3711,7 @@ local function checkdoubleRight(i,j,RC)
     end
 end
 function checkdoubleAll()
+    isGemTouchEnabled = true
     for i = 1, gemX, 1 do --6
         for j = 1, gemY, 1 do  --5
             if gemsTable[i][j].isMarkedToDestroy == false then
@@ -2902,32 +3722,68 @@ function checkdoubleAll()
         end
     end
 
-    local overMin = 0
+    local overFileMin = 0
     for p = 1 , table.getn(picture), 1 do
-        --print(p.." "..groupGem[p])
         if(groupGem[p] >= limitCountGem) then
-            overMin = limitCountGem
+            overFileMin = limitCountGem
         end
+
     end
-    if overMin >= limitCountGem then
+    if overFileMin >= limitCountGem then
         destroyGems()
+
     else
+       transitionStash.newTransition = transition.to( myNumber[1], { time=500, alpha=0, xScale=2, yScale = 2,onComplete = ClearNumber})
+       enableGemTouch()
+
+        NN = 0
+        countCombo = 0
         cleanUpGems()
     end
-    timer.performWithDelay( 1000, enableGemTouch )
-end
 
+end
+local function checkdoubleOnload()
+    isGemTouchEnabled = true
+    for i = 1, gemX, 1 do --6
+        for j = 1, gemY, 1 do  --5
+            if gemsTable[i][j].isMarkedToDestroy == false then
+                markToDestroy(gemsTable[i][j], 0)
+                chkGruopOnload(gemsTable[i][j])
+            end
+
+        end
+    end
+
+    local overFileMin = 0
+    for p = 1 , table.getn(picture), 1 do
+        if(groupGem[p] >= limitCountGem) then
+            overFileMin = limitCountGem
+        end
+
+    end
+    if overFileMin >= limitCountGem then
+        destroyGems()
+
+    else
+        transitionStash.newTransition = transition.to( myNumber[1], { time=700, alpha=0, xScale=2, yScale = 2,onComplete = ClearNumber})
+        enableGemTouch()
+
+        NN = 0
+        countCombo = 0
+        cleanUpGems()
+
+
+    end
+    battle_Animation(100,battleall,battle..battleall)
+end
 
 function onGemTouch( self, event )	-- was pre-declared
     local stHp, si =590, 20
-
     --if isGemTouchEnabled == true then
 
 
-    if event.phase == "began" and isGemTouchEnabled == true then
-        --     print("2 "..playerDB.charac_def[1])
-        --     print("sss "..table.getn(playerDB.charac_def))
-        --  print("chk "..gemsTable[1][1].i, gemsTable[1][1].j,gemsTable[1][1].color)
+    if event.phase == "began" and isGemTouchEnabled == true and characImage[1].hold_countD >0 and CountCharacterInBattle ~=0 then
+     TouchCount = TouchCount + 1
         for  i = 1 ,gemX, 1 do
             for  j = 1 , gemY, 1 do
                 gemsTable[i][j].colorR = gemsTable[i][j].color   --- - -- - copy gem
@@ -3020,8 +3876,8 @@ function onGemTouch( self, event )	-- was pre-declared
            -- print("end phase".. self.chkFtPosit)
 
             pasteGem(self,event)
-            lockGem(self,event)
-            rndLock(self, event)
+--            lockGem(self,event)
+--            rndLock(self, event)
 
 
             self.chkFtPosit =""
@@ -3035,49 +3891,65 @@ function onGemTouch( self, event )	-- was pre-declared
                 self:setFillColor(150)
             end
 
-            for i = string.len(hpFull) ,1, -1 do
-                if ( string.sub(hpFull, i, i) == "1") then
-                    si =15
-                else
-                    si = 20
-                end
-                stHp = stHp -si
-                numberToimg (string.sub(hpFull, i, i) ,stHp,si,i)
-            end
+            local ch_CD = 0
+            for i=1,CountCharacterInBattle,1 do
 
-            stHp = stHp - si
-            numberBar.Width = si
-            numberBar.x= stHp
+                characImage[i].hold_countD = characImage[i].hold_countD -1
+                TextCD[i].text =  string.format("CD:"..characImage[i].hold_countD)
 
-            for i = string.len(hpPlayer), 1, -1 do
-                if ( string.sub(hpPlayer, i, i) == "1") then
-                    si =15
-                else
-                    si = 20
-                end
-                stHp = stHp -si
-                numberToimg (string.sub(hpPlayer, i, i) ,stHp,si,string.len(hpPlayer)+ string.len(hpFull)-i+1)
             end
+            checkdoubleAll()
 
         end
     end
     return true
    -- end
 end
+local function mission(event)
+
+    local LinkURL = "http://localhost/DYM/mission.php"
+    local URL =  LinkURL.."?mission_id="..mission_id
+    local response = http.request(URL)
+    local dataTable = json.decode(response)
+
+    if dataTable.mission == nil then
+        print("No Dice")
+
+    else
+        image_sheet = dataTable.mission[1].mission_img
+        mission_name = dataTable.mission[1].mission_name
+        mission_exp = dataTable.mission[1].mission_exp
+        chapter_id = dataTable.mission[1].chapter_id
+        chapter_name = dataTable.mission[1].chapter_name
+        print("++++++ chapter_name = ",chapter_name)
+    end
+
+end
+-----------------------clear---------------------------------
 
 function scene:createScene( event )
     --   print("before "..table.getn(playerDB.charac_def))
     ------------------------- connect REST serviced -------------------------
     groupGameLayer = display.newGroup()
     groupGameTop = display.newGroup()
-
+    groupGameTop1 = display.newGroup()
+    --gameoverFile()
     local group = self.view
+    map_id = event.params.map_id
+    mission_id = event.params.mission_id
+    chapter_id = event.params.chapter_id
+
+    Olddiamond = menu_barLight.diamond()
+
+
     local background = display.newImageRect( "img/background/bg_puzzle_test.tga", _W, _H )
     background:setReferencePoint( display.TopLeftReferencePoint )
     background.x, background.y = 0, 0
     groupGameLayer:insert ( background )
+    groupGameTop:insert ( groupGameTop1 )
 
     ------------------------- gemsTable -------------------------
+
     for i = 1, gemX, 1 do --- x
         gemsTable[i] = {}
         for j = 1, gemY, 1 do --- y
@@ -3085,45 +3957,21 @@ function scene:createScene( event )
 
         end
     end
-    --doubleToDestroy(0)
-    checkdoubleAll(event)
+
+    isGemTouchEnabled = false
+
     user_id = menu_barLight.user_id()
-    image_sheet = {
-        "img/sprite/BG_Forest/Autumn/ForestKingdom.jpg"
-        ,"img/sprite/BG_Forest/Spring/ForestKingdom.jpg"
-        ,"img/sprite/BG_Forest/Summer/ForestKingdom.jpg"
-        ,"img/sprite/BG_Forest/War/ForestKingdom.jpg"
-        ,"img/sprite/BG_Forest/Winter/ForestKingdom.jpg"
-
-        ,"img/sprite/BG_Mountain/Autumn/MountainKingdom.jpg"
-        ,"img/sprite/BG_Mountain/Spring/MountainKingdom.jpg"
-        ,"img/sprite/BG_Mountain/Summer/MountainKingdom.jpg"
-        ,"img/sprite/BG_Mountain/War/MountainKingdom.jpg"
-        ,"img/sprite/BG_Mountain/Winter/MountainKingdom.jpg"
-
-        ,"img/sprite/BG_Water/Autumn/WaterKingdom.jpg"
-        ,"img/sprite/BG_Water/Spring/WaterKingdom.jpg"
-        ,"img/sprite/BG_Water/Spring_blue/WaterKingdom.jpg"
-        ,"img/sprite/BG_Water/Summer/WaterKingdom.jpg"
-        ,"img/sprite/BG_Water/War/WaterKingdom.jpg"
-        ,"img/sprite/BG_Water/Winter/WaterKingdom.jpg"
-    }
-
-    BGsprite = 13
-    BGAnimation = display.newImageRect( image_sheet[BGsprite] , display.contentWidth, 425 )
+    mission(event)
+    BGAnimation = display.newImageRect( image_sheet , display.contentWidth, 425 )
     BGAnimation:setReferencePoint( display.CenterReferencePoint )
     BGAnimation.x, BGAnimation.y = _W*.5, _H*.2
-    --Gdisplay:insert(BGAnimation)
     groupGameTop:insert ( BGAnimation )
+    miniIconCharac(event)
 
+    hpPlayer = sumHP
+    hpFull =  sumHP
 
-    hpPlayer =  hpFull
-    if hpPlayer == fullLineHP then
-    else
-    end
-
-
-    lifeline_sh = display.newImageRect( "img/other/life_short.png",hpPlayer,20) -- full 550
+    lifeline_sh = display.newImageRect( "img/other/life_short.png",fullLineHP,20) -- full 550
     lifeline_sh:setReferencePoint( display.TopLeftReferencePoint )
     pointStart = _W*.08
     lifeline_sh.x, lifeline_sh.y =  pointStart, _H*.422
@@ -3133,47 +3981,29 @@ function scene:createScene( event )
     lifeline = display.newImageRect( "img/other/life_line.png", 600, 30) -- 490
     lifeline:setReferencePoint( display.TopLeftReferencePoint )
     lifeline.x, lifeline.y = _W*.05, _H*.418
+    physics.addBody( lifeline,"static", { bounce=0.5, density=1.0 ,friction = 0, shape=5 } )
     groupGameTop:insert ( lifeline )
-    --            -------------------------- HP value -------------------------
-    local stHp, si =590, 20
+--
+    myPink = display.newText("0",0 , _H*.415,native.systemFontBold, 25)
+    myPink.x= _W*.45
+    myPink:setTextColor(255,52,179)
+    myPink.alpha = 0
+                -------------------------- HP value -------------------------
 
-    for i = string.len(hpFull) ,1, -1 do
-        if ( string.sub(hpFull, i, i) == "1") then
-            si =15
-        else
-            si = 20
-        end
-        stHp = stHp -si
-        numberToimg (string.sub(hpFull, i, i) ,stHp,si,i)
-    end
-
-    stHp = stHp - si
-    numberBar =display.newImageRect("img/other/bar.png",si,25)
-    numberBar:setReferencePoint( display.TopLeftReferencePoint )
-    numberBar.x, numberBar.y = stHp, 400
-    groupGameTop:insert ( numberBar )
-
-    for i = string.len(hpPlayer), 1, -1 do
-        if ( string.sub(hpPlayer, i, i) == "1") then
-            si =15
-        else
-            si = 20
-        end
-        stHp = stHp -si
-        numberToimg (string.sub(hpPlayer, i, i) ,stHp,si,string.len(hpPlayer)+ string.len(hpFull)-i+1)
-    end
-
-
+    textHP = display.newText(hpPlayer.."/"..hpFull,0 , _H*.417,native.systemFontBold,24)
+    textHP:setReferencePoint( display.TopRightReferencePoint )
+    textHP.x = _W*.95
+    textHP:setTextColor(0, 255, 255)
+    groupGameTop:insert ( textHP )
 
     createBackButton(event)
     createCharacter(event)
---    miniIconCharac_frame(event)
-    miniIconCharac(event)
 
-    --    groupGameLayer:insert ( lightWigth )
+
+
+    checkdoubleOnload(event)
+
     groupGameTop:insert ( backButton )
-    groupGameTop:insert(bntItem)
-
     groupGameLayer:insert(groupGameTop)
     group:insert(groupGameLayer)
 
@@ -3190,29 +4020,6 @@ end
 
 function scene:destroyScene( event )
     local group = self.view
-end
-------- sample used ------- 
-local function networkListener( event )
-    --        print("address", event.address )
-    --        print("isReachable", event.isReachable )
-    --        print("isConnectionRequired", event.isConnectionRequired)
-    --        print("isConnectionOnDemand", event.isConnectionOnDemand)
-    --        print("IsInteractionRequired", event.isInteractionRequired)
-    --        print("IsReachableViaCellular", event.isReachableViaCellular)
-    --        print("IsReachableViaWiFi", event.isReachableViaWiFi)
-
-    if ( event.isError ) then
-        print ( "Network error1 - download failed" )
-    else
-        print("Connect good")
-        --            event.target.alpha = 0
-        --            transitionStash.newTransition = transition.to( event.target, { alpha = 1.0 } )
-        print ( "RESPONSE: " .. event.response )
-
-        local json = require "json"
-
-        playerDB = json.decode(event.response)
-    end
 end
 
 scene:addEventListener( "createScene", scene )

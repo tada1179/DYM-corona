@@ -109,8 +109,8 @@ local function showFriendRequest(option)
 
     if friend_respont == 0  then
         local ButtonOK = widget.newButton{
-            default= image_btnOK,
-            over=  image_btnOK,
+            defaultFile= image_btnOK,
+            overFile=  image_btnOK,
             width= screenW*.26, height= screenH*.06,
             onRelease = onshowFriend	-- event listener function
         }
@@ -122,8 +122,8 @@ local function showFriendRequest(option)
         gdisplay:insert(ButtonOK)
         -- ******** - -
         local ButtonCancel = widget.newButton{
-            default= image_btncancel,
-            over=  image_btncancel,
+            defaultFile= image_btncancel,
+            overFile=  image_btncancel,
             width= screenW*.24, height= screenH*.06,
             onRelease = onshowFriend	-- event listener function
         }
@@ -135,8 +135,8 @@ local function showFriendRequest(option)
         gdisplay:insert(ButtonCancel)
     else
         local ButtonOK = widget.newButton{
-            default= image_btnOK,
-            over=  image_btnOK,
+            defaultFile= image_btnOK,
+            overFile=  image_btnOK,
             width= screenW*.26, height= screenH*.06,
             onRelease = onshowFriend	-- event listener function
         }
@@ -148,8 +148,8 @@ local function showFriendRequest(option)
         gdisplay:insert(ButtonOK)
 
         local ButtonCancel = widget.newButton{
-            default= image_btncancel,
-            over=  image_btncancel,
+            defaultFile= image_btncancel,
+            overFile=  image_btncancel,
             width= screenW*.24, height= screenH*.06,
             onRelease = onshowFriend	-- event listener function
         }
@@ -234,8 +234,8 @@ local function NoDataInList()
 
     --button ok profile
     local btn_OK = widget.newButton{
-        default=image_ok,
-        over=image_ok,
+        defaultFile=image_ok,
+        overFile=image_ok,
         width=screenW*.2, height=screenH*.05,
         onRelease = onNoDataInList	-- event listener function
     }
@@ -275,8 +275,8 @@ local function requestFriend()
     gdisplay:insert(SmachText)
 
     local  btn_OK = widget.newButton{
-        default=image_ok,
-        over=image_ok,
+        defaultFile=image_ok,
+        overFile=image_ok,
         width=screenW*.3, height=screenH*.06,
         onRelease = onrequestFriend	-- event listener function
     }

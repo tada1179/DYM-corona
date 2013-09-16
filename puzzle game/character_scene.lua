@@ -6,6 +6,7 @@ local scene = storyboard.newScene()
 local widget = require "widget"
 local http = require("socket.http")
 local json = require("json")
+local alertMSN = require("alertMassage")
 local screenW = display.contentWidth
 local screenH = display.contentHeight
 -----------------------------------------------
@@ -28,13 +29,8 @@ function character_powerUP(id,USERID,gplayView)
     local character_id =  id
     local USER_id =  USERID
     local groupView = display.newGroup()
-    local frame = {
-        "img/characterIcon/as_cha_frm01.png",
-        "img/characterIcon/as_cha_frm02.png",
-        "img/characterIcon/as_cha_frm03.png",
-        "img/characterIcon/as_cha_frm04.png",
-        "img/characterIcon/as_cha_frm05.png"
-    }
+    local frame = alertMSN.loadFramElement()
+
     local characterItem = {}
     local characterImg = http.request(LinkURL.."?character="..id.."&user_id="..USER_id)
 
@@ -70,7 +66,7 @@ function character_powerUP(id,USERID,gplayView)
     local image_background = "img/background/background_1.png"
     local image_LVHP = "img/background/character/HP,LV,ATC,DEF_character.png"
 
-    local function onTouchGameOverScreen ( self, event )
+    local function onTouchGameoverFileScreen ( self, event )
 
         if event.phase == "began" then
 
@@ -113,14 +109,14 @@ function character_powerUP(id,USERID,gplayView)
     myRectangle.alpha = .8
     myRectangle:setFillColor(0, 0, 0)
 
-    myRectangle.touch = onTouchGameOverScreen
+    myRectangle.touch = onTouchGameoverFileScreen
     myRectangle:addEventListener( "touch", myRectangle )
     groupView:insert(myRectangle)
 
     --button image profile
     local imageprofile = widget.newButton{
-        default= characterItem[1].ImageCharacter,
-        over= characterItem[1].ImageCharacter,
+        defaultFile= characterItem[1].ImageCharacter,
+        overFile= characterItem[1].ImageCharacter,
         width=screenW/4, height=screenH/5.3,
 --        onRelease = onBtncharacter	-- event listener function
     }
@@ -171,8 +167,8 @@ function character_powerUP(id,USERID,gplayView)
 
     --button cancel profile
     local btn_cancel = widget.newButton{
-        default=image_cancel,
-        over=image_cancel,
+        defaultFile=image_cancel,
+        overFile=image_cancel,
         width=screenW*.23, height=screenH*.06,
         onRelease = onBtncharacter	-- event listener function
     }
@@ -184,8 +180,8 @@ function character_powerUP(id,USERID,gplayView)
 
     --button anyfunction
     local btn_anyfunction = widget.newButton{
-        default= image_anyfun,
-        over= image_anyfun,
+        defaultFile= image_anyfun,
+        overFile= image_anyfun,
         width=screenW*.38, height=screenH*.06,
         onRelease = onBtncharacter	-- event listener function
     }
@@ -197,8 +193,8 @@ function character_powerUP(id,USERID,gplayView)
 
     --button btn_view
     local btn_view = widget.newButton{
-        default= image_viewpro,
-        over= image_viewpro,
+        defaultFile= image_viewpro,
+        overFile= image_viewpro,
         width=screenW*.38, height=screenH*.06,
         onRelease = onBtncharacter	-- event listener function
     }
@@ -223,13 +219,7 @@ function character_unitBox(id,holddteam_no,team_id,USERID)
     local numCoin = nil
     local characterID =  LinkURL.."?character="..id.."&user_id="..USER_id
     local characterImg = http.request(characterID)
-    local frame = {
-        "img/characterIcon/as_cha_frm01.png",
-        "img/characterIcon/as_cha_frm02.png",
-        "img/characterIcon/as_cha_frm03.png",
-        "img/characterIcon/as_cha_frm04.png",
-        "img/characterIcon/as_cha_frm05.png"
-    }
+    local frame = alertMSN.loadFramElement()
 
     if characterImg == nil then
         print("No Dice")
@@ -272,7 +262,7 @@ function character_unitBox(id,holddteam_no,team_id,USERID)
     local image_LVHP = "img/background/character/HP,LV,ATC,DEF_character.png"
 
     local groupView = display.newGroup()
-    local function onTouchGameOverScreen ( self, event )
+    local function onTouchGameoverFileScreen ( self, event )
 
         if event.phase == "began" then
 
@@ -327,15 +317,15 @@ function character_unitBox(id,holddteam_no,team_id,USERID)
     myRectangle.alpha = .8
     myRectangle:setFillColor(0, 0, 0)
 
-    myRectangle.touch = onTouchGameOverScreen
+    myRectangle.touch = onTouchGameoverFileScreen
     myRectangle:addEventListener( "touch", myRectangle )
     --    groupENDView:insert(myRectangle)
     groupView:insert(myRectangle)
 
     --button image profile
     local imageprofile = widget.newButton{
-        default= characterItem[1].ImageCharacter,
-        over= characterItem[1].ImageCharacter,
+        defaultFile= characterItem[1].ImageCharacter,
+        overFile= characterItem[1].ImageCharacter,
         width=screenW/4, height=screenH/5.3,
        -- onRelease = onBtncharacter	-- event listener function
     }
@@ -388,8 +378,8 @@ function character_unitBox(id,holddteam_no,team_id,USERID)
 
     --button cancel profile
     local btn_cancel = widget.newButton{
-        default=image_cancel,
-        over=image_cancel,
+        defaultFile=image_cancel,
+        overFile=image_cancel,
         width=screenW*.23, height=screenH*.06,
         onRelease = onBtncharacter	-- event listener function
     }
@@ -401,8 +391,8 @@ function character_unitBox(id,holddteam_no,team_id,USERID)
 
     --button DISCHARGE
     local btn_anyfunction = widget.newButton{
-        default= image_anyfun,
-        over= image_anyfun,
+        defaultFile= image_anyfun,
+        overFile= image_anyfun,
         width=screenW*.38, height=screenH*.06,
         onRelease = onBtncharacter	-- event listener function
     }
@@ -414,8 +404,8 @@ function character_unitBox(id,holddteam_no,team_id,USERID)
 
     --button btn_view
     local btn_view = widget.newButton{
-        default= image_viewpro,
-        over= image_viewpro,
+        defaultFile= image_viewpro,
+        overFile= image_viewpro,
         width=screenW*.38, height=screenH*.06,
         onRelease = onBtncharacter	-- event listener function
     }
@@ -428,8 +418,8 @@ function character_unitBox(id,holddteam_no,team_id,USERID)
 
     --button btn_view
     local btn_power = widget.newButton{
-        default= image_powerup,
-        over= image_powerup,
+        defaultFile= image_powerup,
+        overFile= image_powerup,
         width=screenW*.38, height=screenH*.06,
         onRelease = onBtncharacter	-- event listener function
     }
@@ -439,7 +429,7 @@ function character_unitBox(id,holddteam_no,team_id,USERID)
     btn_power.y = screenH *.78
     groupView:insert(btn_power)
 
-    groupView.touch = onTouchGameOverScreen
+    groupView.touch = onTouchGameoverFileScreen
     groupView:addEventListener( "touch", groupView )
     return true
 end
@@ -454,13 +444,7 @@ function character(id,holddteam_no,team_id,USERID)
 
     local characterID =  LinkURL.."?character="..id.."&user_id="..USER_id
     local characterImg = http.request(characterID)
-    local frame = {
-        "img/characterIcon/as_cha_frm01.png",
-        "img/characterIcon/as_cha_frm02.png",
-        "img/characterIcon/as_cha_frm03.png",
-        "img/characterIcon/as_cha_frm04.png",
-        "img/characterIcon/as_cha_frm05.png"
-    }
+    local frame = alertMSN.loadFramElement()
     local  characterItem = {}
     if characterImg == nil then
         print("No Dice")
@@ -497,7 +481,7 @@ function character(id,holddteam_no,team_id,USERID)
     local image_LVHP = "img/background/character/HP,LV,ATC,DEF_character.png"
 
     local groupView = display.newGroup()
-    local function onTouchGameOverScreen ( self, event )
+    local function onTouchGameoverFileScreen ( self, event )
 
         if event.phase == "began" then
 
@@ -548,8 +532,8 @@ function character(id,holddteam_no,team_id,USERID)
 
     --button image profile
     local imageprofile = widget.newButton{
-        default= characterItem[1].ImageCharacter,
-        over= characterItem[1].ImageCharacter,
+        defaultFile= characterItem[1].ImageCharacter,
+        overFile= characterItem[1].ImageCharacter,
         width=screenW/4, height=screenH/5.3,
         onRelease = onBtncharacter	-- event listener function
     }
@@ -602,8 +586,8 @@ function character(id,holddteam_no,team_id,USERID)
 
     --button cancel profile
     local btn_cancel = widget.newButton{
-        default=image_cancel,
-        over=image_cancel,
+        defaultFile=image_cancel,
+        overFile=image_cancel,
         width=screenW*.23, height=screenH*.06,
         onRelease = onBtncharacter	-- event listener function
     }
@@ -615,8 +599,8 @@ function character(id,holddteam_no,team_id,USERID)
 
     --button anyfunction
     local btn_anyfunction = widget.newButton{
-        default= image_anyfun,
-        over= image_anyfun,
+        defaultFile= image_anyfun,
+        overFile= image_anyfun,
         width=screenW*.38, height=screenH*.06,
         onRelease = onBtncharacter	-- event listener function
     }
@@ -628,8 +612,8 @@ function character(id,holddteam_no,team_id,USERID)
 
     --button btn_view
     local btn_view = widget.newButton{
-        default= image_viewpro,
-        over= image_viewpro,
+        defaultFile= image_viewpro,
+        overFile= image_viewpro,
         width=screenW*.38, height=screenH*.06,
         onRelease = onBtncharacter	-- event listener function
     }
@@ -640,7 +624,7 @@ function character(id,holddteam_no,team_id,USERID)
     groupView:insert(btn_view)
    -- groupView:insert(groupView)
 
-    groupView.touch = onTouchGameOverScreen
+    groupView.touch = onTouchGameoverFileScreen
     groupView:addEventListener( "touch", groupView )
     checkMemory()
     return true
@@ -672,13 +656,7 @@ function characterFriend_remove(Recharacter,Refriendid,ReUSERID,Nofriend_id)
     local character_id =  Recharacter
     local friend_id =  Refriendid
     local USER_id =  ReUSERID
-    local frame = {
-        "img/characterIcon/as_cha_frm01.png",
-        "img/characterIcon/as_cha_frm02.png",
-        "img/characterIcon/as_cha_frm03.png",
-        "img/characterIcon/as_cha_frm04.png",
-        "img/characterIcon/as_cha_frm05.png"
-    }
+    local frame = alertMSN.loadFramElement()
     local characterID =  LinkURLCharac.."?character="..character_id.."&user_id="..friend_id
     local characterImg = http.request(characterID)
     local characterItem = {}
@@ -723,7 +701,7 @@ function characterFriend_remove(Recharacter,Refriendid,ReUSERID,Nofriend_id)
     local image_LVHP = "img/background/character/HP,LV,ATC,DEF_character.png"
 
     local groupView = display.newGroup()
-    local function onTouchGameOverScreen ( self, event )
+    local function onTouchGameoverFileScreen ( self, event )
 
         if event.phase == "began" then
 
@@ -777,14 +755,14 @@ function characterFriend_remove(Recharacter,Refriendid,ReUSERID,Nofriend_id)
     myRectangle.alpha = .8
     myRectangle:setFillColor(0, 0, 0)
 
-    myRectangle.touch = onTouchGameOverScreen
+    myRectangle.touch = onTouchGameoverFileScreen
     myRectangle:addEventListener( "touch", myRectangle )
     groupView:insert(myRectangle)
 
     --button image profile
     local imageprofile = widget.newButton{
-        default= characterItem[1].ImageCharacter,
-        over= characterItem[1].ImageCharacter,
+        defaultFile= characterItem[1].ImageCharacter,
+        overFile= characterItem[1].ImageCharacter,
         width=screenW/4, height=screenH/5.3,
         onRelease = onBtncharacter	-- event listener function
     }
@@ -852,8 +830,8 @@ function characterFriend_remove(Recharacter,Refriendid,ReUSERID,Nofriend_id)
 
     --button cancel profile
     local btn_cancel = widget.newButton{
-        default=image_cancel,
-        over=image_cancel,
+        defaultFile=image_cancel,
+        overFile=image_cancel,
         width=screenW*.23, height=screenH*.06,
         onRelease = onBtncharacter	-- event listener function
     }
@@ -865,8 +843,8 @@ function characterFriend_remove(Recharacter,Refriendid,ReUSERID,Nofriend_id)
 
     --button anyfunction
     local btn_REMOVE = widget.newButton{
-        default= image_REMOVE,
-        over= image_REMOVE,
+        defaultFile= image_REMOVE,
+        overFile= image_REMOVE,
         width=screenW*.38, height=screenH*.06,
         onRelease = onBtncharacter	-- event listener function
     }
@@ -878,8 +856,8 @@ function characterFriend_remove(Recharacter,Refriendid,ReUSERID,Nofriend_id)
 
     --button btn_view
     local btn_view = widget.newButton{
-        default= image_viewpro,
-        over= image_viewpro,
+        defaultFile= image_viewpro,
+        overFile= image_viewpro,
         width=screenW*.38, height=screenH*.06,
         onRelease = onBtncharacter	-- event listener function
     }
@@ -890,7 +868,7 @@ function characterFriend_remove(Recharacter,Refriendid,ReUSERID,Nofriend_id)
     groupView:insert(btn_view)
     -- groupView:insert(groupView)
 
-    groupView.touch = onTouchGameOverScreen
+    groupView.touch = onTouchGameoverFileScreen
     groupView:addEventListener( "touch", groupView )
     checkMemory()
     return true

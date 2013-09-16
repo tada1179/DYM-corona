@@ -57,8 +57,8 @@ local function createButton()
     local image_freamset = "img/background/powerup/FRAME_SET.png"
 
     local backButton = widget.newButton{
-        default= image_btnback,
-        over= image_btnback,
+        defaultFile= image_btnback,
+        overFile= image_btnback,
         width=display.contentWidth/10, height=display.contentHeight/21,
         onRelease = onBtnonclick	-- event listener function
     }
@@ -70,8 +70,8 @@ local function createButton()
 
     -- button TUNE UP
     local btnTUNEUP = widget.newButton{
-        default= image_btnTUNEUP,
-        over= image_btnTUNEUP,
+        defaultFile= image_btnTUNEUP,
+        overFile= image_btnTUNEUP,
         width=screenW*.2, height=screenH*.045,
         onRelease = onBtnonclick	-- event listener function
     }
@@ -83,8 +83,8 @@ local function createButton()
 
     -- charecter leader
     local btnleader = widget.newButton{
-        default= image_leaderChar,
-        over= image_leaderChar,
+        defaultFile= image_leaderChar,
+        overFile= image_leaderChar,
         width=screenW*.16, height=screenH*.11,
         onRelease = onBtnonclick	-- event listener function
     }
@@ -97,8 +97,8 @@ local function createButton()
     local btnchoose = {}
     for i = 1, 5 ,1 do
         btnchoose[i] = widget.newButton{
-            default= image_freamset,
-            over= image_freamset,
+            defaultFile= image_freamset,
+            overFile= image_freamset,
             width=screenW*.115, height=screenH*.08,
             onRelease = onBtnonclick	-- event listener function
         }
@@ -112,8 +112,8 @@ local function createButton()
 
 
     local character = widget.newButton{
-        default= image_freamset,
-        over= image_freamset,
+        defaultFile= image_freamset,
+        overFile= image_freamset,
         width=screenW*.16, height=screenH*.11,
         onRelease = onBtnonclick	-- event listener function
     }
@@ -127,8 +127,8 @@ local function createButton()
     local image_LSKL = "img/background/button/LSKL.png"
     -- button SKL
     local btnSKL = widget.newButton{
-        default= image_SKL,
-        over= image_SKL,
+        defaultFile= image_SKL,
+        overFile= image_SKL,
         width=screenW*.085, height=screenH*.03,
         onRelease = onBtnonclick	-- event listener function
     }
@@ -142,8 +142,8 @@ local function createButton()
 
 
     local btnLSKL = widget.newButton{
-        default= image_LSKL,
-        over= image_LSKL,
+        defaultFile= image_LSKL,
+        overFile= image_LSKL,
         width=screenW*.085, height=screenH*.03,
         onRelease = onBtnonclick	-- event listener function
     }
@@ -155,8 +155,8 @@ local function createButton()
     --*************************
     -- button SKL
     local btnupSKL = widget.newButton{
-        default= image_SKL,
-        over= image_SKL,
+        defaultFile= image_SKL,
+        overFile= image_SKL,
         width=screenW*.085, height=screenH*.03,
         onRelease = onBtnonclick	-- event listener function
     }
@@ -168,8 +168,8 @@ local function createButton()
 
     -- button LSKL
     local btnupLSKL = widget.newButton{
-        default= image_LSKL,
-        over= image_LSKL,
+        defaultFile= image_LSKL,
+        overFile= image_LSKL,
         width=screenW*.085, height=screenH*.03,
         onRelease = onBtnonclick	-- event listener function
     }

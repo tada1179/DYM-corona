@@ -39,8 +39,8 @@ function scene:createScene( event )
     end
     local img_btnback = "img/background/button/Button_BACK.png"
     local backButton = widget.newButton{
-        default= img_btnback,
-        over= img_btnback,
+        defaultFile= img_btnback,
+        overFile= img_btnback,
         width= screenW/10, height= screenH/21,
         onRelease = BackRelease	-- event listener function
     }

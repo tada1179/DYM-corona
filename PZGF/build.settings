@@ -1,0 +1,49 @@
+-- Supported values for orientation:
+-- portrait, portraitUpsideDown, landscapeLeft, landscapeRight
+
+settings = {
+	
+	orientation = {
+		default = "portrait",
+		supported = { "portrait", }
+	},
+	
+	iphone = {
+		
+		plist = {
+            CFBundleDisplayName = "PZ3KD",
+            UIAppFonts = {
+                "PTF55F.ttf",
+                "AvenirLTStd-Black.otf",
+                "SourceCodePro-Black.ttf"
+            },
+            MinimumOSVersion="6.1",
+            UIStatusBarHidden = false,
+            UIPrerenderedIcon = true,
+            CFBundleIconFile = "Icon.png",
+            UIApplicationExitsOnSuspend = false,
+            
+            CFBundleIconFiles= {
+                "Icon.png", 
+                "Icon-57.png",
+				"Icon@2x.png", 
+				"Icon-72.png", 
+				"Icon-72@2x.png",
+				"Icon-76.png",
+				"Icon-76@2x.png",
+				"Icon-Small.png",
+				"Icon-Small-50.png", 
+                
+                },    
+            }
+	},
+	
+	--[[
+	-- Android permissions
+
+	androidPermissions = {
+  		"android.permission.INTERNET",
+  	},
+
+	]]--
+}

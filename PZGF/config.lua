@@ -1,0 +1,133 @@
+--if ( string.sub( system.getInfo("model"), 1, 4 ) == "iPad" ) then
+--    print("if 3")
+--    application =     --iPad Configuration
+--    {
+--        content =
+--        {
+--            width = 360,
+--            height = 480,
+--            scale = "letterBox",
+--            xAlign = "center",
+--            yAlign = "center",
+--            imageSuffix =
+--            {
+--                ["@2x"] = 1.5,
+--                ["@4x"] = 3.0,
+--            },
+--        },
+--        notification =
+--        {
+--            iphone = {
+--                types = {
+--                    "badge", "sound", "alert"
+--                }
+--            }
+--        }
+--    }
+--elseif ( string.sub( system.getInfo("model"), 1, 2 ) == "iP" and display.pixelHeight > 960 ) then
+--    print("iPhone 5")
+--    application = --iPhone5 Configuration
+--    {
+--        content =
+--        {
+--            width = 320,
+--            height = 568,
+--            scale = "letterBox",
+--            xAlign = "center",
+--            yAlign = "center",
+--            imageSuffix =
+--            {
+--                ["@2x"] = 1.5,
+--                ["@4x"] = 3.0,
+--            },
+--        },
+--        notification =
+--        {
+--            iphone = {
+--                types = {
+--                    "badge", "sound", "alert"
+--                }
+--            }
+--        }
+--    }
+--elseif ( string.sub( system.getInfo("model"), 1, 2 ) == "iP" ) then
+--    print("iPhone 3")
+--    application = --iPhone 3,4 and Older iPod Touch
+--    {
+--        content =
+--        {
+--            width = 640,
+--            height = 960,
+--            scale = "letterBox",
+--            xAlign = "center",
+--            yAlign = "center",
+--            imageSuffix =
+--            {
+--                ["@2x"] = 1.5,
+--                ["@4x"] = 3.0,
+--            },
+--        },
+--        notification =
+--        {
+--            iphone = {
+--                types = {
+--                    "badge", "sound", "alert"
+--                }
+--            }
+--        }
+--    }
+--elseif ( display.pixelHeight / display.pixelWidth > 1.72 ) then
+--    print("Android 3")
+--    application =   --Android, Kindle Fire, and Nook
+--    {
+--        content =
+--        {
+--            width = 320,
+--            height = 570,
+--            scale = "letterBox",
+--            xAlign = "center",
+--            yAlign = "center",
+--            imageSuffix =
+--            {
+--                ["@2x"] = 1.5,
+--                ["@4x"] = 3.0,
+--            },
+--        },
+--        notification =
+--        {
+--            iphone = {
+--                types = {
+--                    "badge", "sound", "alert"
+--                }
+--            }
+--        }
+--    }
+--
+--else
+--    print("else 3")
+--    application =
+--    {
+--        content =
+--        {
+--            width = 320,
+--            height = 512,
+--            scale = "letterBox",
+--            xAlign = "center",
+--            yAlign = "center",
+--            imageSuffix =
+--            {
+--                ["@2x"] = 1.5,
+--                ["@4x"] = 3.0,
+--            },
+--        },
+--        notification =
+--        {
+--            iphone = {
+--                types = {
+--                    "badge", "sound", "alert"
+--                }
+--            }
+--        }
+--    }
+--
+--end

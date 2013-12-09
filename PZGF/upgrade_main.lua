@@ -240,32 +240,36 @@ function scene:createScene( event )
 
 
     local txtcoin = display.newText(strcoin, 0, 0, native.systemFontBold, 18)
-    txtcoin:setTextColor(255, 0, 255)
+    txtcoin:setReferencePoint( display.TopLeftReferencePoint )
+    txtcoin:setFillColor(255, 0, 255)
     txtcoin.x = screenW*.77
     txtcoin.y = screenH*.52
     gdisplay:insert(txtcoin)
 
     -- name character base
     local txtNamecharacter = display.newText(strname, 0, 0, typeFont, sizetextname)
-    txtNamecharacter:setTextColor(0, 0, 255)
+    txtNamecharacter:setFillColor(0, 0, 255)
     txtNamecharacter:setReferencePoint(display.CenterReferencePoint)
     txtNamecharacter.x = screenW*.47
     txtNamecharacter.y = screenH*.38
     gdisplay:insert(txtNamecharacter)
 
     local txttitleName = util.wrappedText( strBasecard, 39, 17, typeFont, {200,0,0} )
+    txttitleName:setReferencePoint( display.TopLeftReferencePoint )
     txttitleName.x = screenW*.45
     txttitleName.y = screenH*.38
     gdisplay:insert(txttitleName)
 
     -- name character upgrade
     local upgradeNamecharacter = display.newText(strUPname, 0, 0, typeFont, sizetextname)
-    upgradeNamecharacter:setTextColor(0, 0, 255)
+    upgradeNamecharacter:setReferencePoint( display.TopLeftReferencePoint )
+    upgradeNamecharacter:setFillColor(0, 0, 255)
     upgradeNamecharacter.x = screenW*.45
     upgradeNamecharacter.y = screenH*.72
     gdisplay:insert(upgradeNamecharacter)
 
     local upgradeName = util.wrappedText( strUpcard, 39, 17, typeFont, {200,0,0} )
+    upgradeName:setReferencePoint( display.TopLeftReferencePoint )
     upgradeName.x = screenW*.45
     upgradeName.y = screenH*.72
     gdisplay:insert(upgradeName)
@@ -289,10 +293,6 @@ function scene:exitScene( event )
     local group = self.view
     storyboard.removeAll ()
     storyboard.purgeAll()
-
-    scene:removeEventListener( "createScene", scene )
-    scene:removeEventListener( "enterScene", scene )
-    scene:removeEventListener( "destroyScene", scene )
 
 end
 

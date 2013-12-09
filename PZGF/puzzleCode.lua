@@ -325,6 +325,7 @@ local function enablePuzzleTouch(obj)
     local groupView = display.newGroup()
     if obj == 1 then
         BGdropPuzzle = display.newRoundedRect(0, _H*.45, _W, _H*.55,0)
+        BGdropPuzzle:setReferencePoint(display.TopLeftReferencePoint)
         BGdropPuzzle.strokeWidth = 0
         BGdropPuzzle.alpha = .8
         BGdropPuzzle:setFillColor(0 ,0 ,0)
@@ -470,6 +471,7 @@ local function gameoverFile_Cancel()
         return true
     end
     local myRectangle = display.newRoundedRect(0, 0, _W, _H,0)
+    myRectangle:setReferencePoint(display.TopLeftReferencePoint)
     myRectangle.strokeWidth = 2
     myRectangle.alpha = .8
     myRectangle:setFillColor(0, 0, 0)
@@ -597,6 +599,7 @@ function gameoverFile()
 
 
         local myRectangle = display.newRoundedRect(0, 0, _W, _H,0)
+        myRectangle:setReferencePoint(display.TopLeftReferencePoint)
         myRectangle.strokeWidth = 2
         myRectangle.alpha = .8
         myRectangle:setFillColor(0, 0, 0)
@@ -741,6 +744,7 @@ local function damageAttackEnemy()
 
             local img =  "img/element/object.png"
             battleIconcolor = display.newImageRect( img, 64, 64 )
+            battleIconcolor:setReferencePoint(display.TopLeftReferencePoint)
             battleIconcolor.x, battleIconcolor.y = characImage[i].x, _H*.2
             physics.addBody( battleIconcolor, { bounce=0.5, density=1.0 ,friction = 0, radius=10 } )
             local vx, vy = -20, 100
@@ -776,6 +780,7 @@ local function battle_Animation(timebattle,all,battleimg)
         menu_barLight.SEtouchPuzzleWalkOnBattle()
         local groupView = display.newGroup()
         local myRectangle = display.newRoundedRect(0, _H*.45, _W, _H*.55,0)
+        myRectangle:setReferencePoint(display.TopLeftReferencePoint)
         myRectangle.strokeWidth = 2
         myRectangle.alpha = .8
         myRectangle:setFillColor(0, 0, 0)
@@ -947,6 +952,7 @@ end
 local function Victory_Animation_aura()
     menu_barLight.SEtouchPuzzleVictory()
     local myRectangle = display.newRoundedRect(0, 0, _W, _H,0)
+    myRectangle:setReferencePoint(display.TopLeftReferencePoint)
     myRectangle.strokeWidth = 0
     myRectangle.alpha = .8
     myRectangle:setFillColor(0 ,0 ,0)
@@ -1187,6 +1193,7 @@ local function Warning_Animation()
    menu_barLight.SEtouchPuzzleWarning()
     local groupView = display.newGroup()
     local myRectangle = display.newRoundedRect(0, _H*.45, _W, _H*.55,0)
+    myRectangle:setReferencePoint(display.TopLeftReferencePoint)
     myRectangle.strokeWidth = 2
     myRectangle.alpha = .8
     myRectangle:setFillColor(0, 0, 0)
@@ -1465,22 +1472,26 @@ local function BonusOption(event)
     local pointnum = _W*.65
 
     local txtcoin = display.newText("Coin", pointtxt, _H*.40, typeFont, sizetext)
+    txtcoin:setReferencePoint(display.TopLeftReferencePoint)
     txtcoin:setTextColor(0, 200, 0)
     txtcoin.text =  string.format("Coin")
     txtcoin.alpha = 1
     groupView:insert(txtcoin)
     local numCoin = display.newText(NumCoin, pointnum, _H*.40, typeFont, sizetext)
+    numCoin:setReferencePoint(display.TopLeftReferencePoint)
     numCoin:setTextColor(0, 200, 0)
     numCoin.text =  string.format(NumCoin)
     numCoin.alpha = 1
     groupView:insert(numCoin)
 
     local txtflag = display.newText("FLAG", pointtxt, _H*.5, typeFont, sizetext)
+    txtflag:setReferencePoint(display.TopLeftReferencePoint)
     txtflag:setTextColor(0, 200, 0)
     txtflag.text =  string.format("FLAG")
     txtflag.alpha = 1
     groupView:insert(txtflag)
     local numFlag = display.newText(NumFlag, pointnum, _H*.5, typeFont, sizetext)
+    numFlag:setReferencePoint(display.TopLeftReferencePoint)
     numFlag:setTextColor(0, 200, 0)
     numFlag.text =  string.format(NumFlag)
     numFlag.alpha = 1
@@ -1749,24 +1760,28 @@ local function GameOption(option)
 
     local pointtxt = _H*.12
     local txtBGM = display.newText("BGM", pointtxt, _H*.4, typeFont, sizetext)
+    txtBGM:setReferencePoint(display.TopLeftReferencePoint)
     txtBGM:setTextColor(0, 200, 0)
     txtBGM.text =  string.format("BGM")
     txtBGM.alpha = 1
     groupView:insert(txtBGM)
 
     local txtSFx = display.newText("SFx", pointtxt, _H*.48, typeFont, sizetext)
+    txtSFx:setReferencePoint(display.TopLeftReferencePoint)
     txtSFx:setTextColor(0, 200, 0)
     txtSFx.text =  string.format("SFx")
     txtSFx.alpha = 1
     groupView:insert(txtSFx)
 
     local txtSkill = display.newText("Skill Confirmation", pointtxt, _H*.56, typeFont, sizetext)
+    txtSkill:setReferencePoint(display.TopLeftReferencePoint)
     txtSkill:setTextColor(0, 200, 0)
     txtSkill.text =  string.format("Skill Confirmation")
     txtSkill.alpha = 1
     groupView:insert(txtSkill)
 
     local txtBattle = display.newText("Battle Notification", pointtxt, _H*.64, typeFont, sizetext)
+    txtBattle:setReferencePoint(display.TopLeftReferencePoint)
     txtBattle:setTextColor(0, 200, 0)
     txtBattle.text =  string.format("Battle Notification")
     txtBattle.alpha = 1
@@ -1819,6 +1834,7 @@ function MenuInPuzzle()
 
     local image_Caution = "img/background/sellBattle_Item/CAUTION_BACKGROUND_LAYOT.png"
     local myRectangle = display.newRoundedRect(0, 0, _W, _H,0)
+    myRectangle:setReferencePoint(display.TopLeftReferencePoint)
     myRectangle.strokeWidth = 2
     myRectangle.alpha = .9
     myRectangle:setFillColor(0, 0, 0)
@@ -1841,12 +1857,14 @@ function MenuInPuzzle()
 
 
     local NameMission = display.newText(battle, pointMission, _H*.35, typeFont, sizetext)
+    NameMission:setReferencePoint(display.TopLeftReferencePoint)
     NameMission:setTextColor(0, 200, 0)
     NameMission.text =  string.format(mission_name)
     NameMission.alpha = 1
     groupView:insert(NameMission)
 
     local  NameBattle = display.newText(battle, _W*.5, _H*.4, typeFont, sizetext)
+    NameBattle:setReferencePoint(display.TopLeftReferencePoint)
     NameBattle:setTextColor(200, 200, 200)
     NameBattle.text =  string.format("BATTLE :"..battle.."/"..battleall)
     NameBattle.alpha = 1
@@ -2039,6 +2057,7 @@ local function sprite_sheet(color,pointX,pointY,numPoint)
     isGemTouchEnabled = false
     imgColor = nil
     local showTextCoin = display.newText(0,0 , 0,native.systemFontBold,25)
+    showTextCoin:setReferencePoint(display.TopLeftReferencePoint)
     showTextCoin.alpha = 0
     menu_barLight.SEtouchPuzzleFight()
 
@@ -2115,6 +2134,7 @@ local function battleIcon(randI,numcharacter,colercharacter,atk,numPoint)
         local centerImg = (_W*.16)/2
         local img =  "img/element/object.png"
         local  battleIconcolor = display.newImageRect( img, 64, 64 )
+        battleIconcolor:setReferencePoint(display.TopLeftReferencePoint)
         if colercharacter == 1 then
             battleIconcolor:setFillColor(255 ,0 ,0) --red
         elseif colercharacter == 2 then
@@ -2526,6 +2546,7 @@ local function newGem (i,j)
 --    newGem = display.newImageRect(picture[R],sizeGem,sizeGem)
     newGem = display.newImageRect(picture[R],sizeGemX,sizeGemY)
 
+--    newGem:setReferencePoint(display.TopLeftReferencePoint)
     newGem.x = i * widthGemX - ballX
     newGem.y = j * widthGemY + ballY
 

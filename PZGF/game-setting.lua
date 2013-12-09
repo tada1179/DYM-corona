@@ -196,6 +196,7 @@ local function scrollViewList()
 
 end
 function scene:createScene( event )
+    native.setActivityIndicator( false )
     local group = self.view
     groupView = display.newGroup()
     groupView:insert(background)
@@ -203,7 +204,7 @@ function scene:createScene( event )
     titleText = display.newText("OTHER", 0, screenH*.3,typeFont, fontsizeHead)
     titleText.x = screenW*.5
     titleText:setReferencePoint( display.TopLeftReferencePoint )
-    titleText:setTextColor(255, 255, 255)
+    titleText:setFillColor(255, 255, 255)
 
 	createBackButton()
     scrollViewList()

@@ -80,9 +80,6 @@ function scene:exitScene( event )
 
     storyboard.removeAll ()
     storyboard.purgeAll()
-    scene:removeEventListener( "createScene", scene )
-    scene:removeEventListener( "enterScene", scene )
-    scene:removeEventListener( "destroyScene", scene )
 end
 
 function scene:destroyScene( event )

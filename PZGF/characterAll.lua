@@ -272,6 +272,7 @@ local function character_choose(id,user_id,countNo,targetX,targetY,lv)--event.ta
     numCharacAll.text = string.format( countCHNo.."/"..numALL )
 
     BLOCK_character[countNo]  =  display.newRect(targetX, targetY, sizeleaderW, sizeleaderH)
+    BLOCK_character[countNo]:setReferencePoint(display.TopLeftReferencePoint)
     BLOCK_character[countNo] .alpha = .8
     BLOCK_character[countNo]:setFillColor(130 ,130, 130)
     backView:insert(BLOCK_character[countNo])
@@ -432,9 +433,9 @@ local function scrollViewList ()
                 textLV:setReferencePoint( display.CenterReferencePoint )
                 if characterItem[countID].level == "MAX" then
                     textLV.x =  LVpointY + screenW*.04
-                    textLV:setTextColor(255 ,215 ,0)
+                    textLV:setFillColor(255 ,215 ,0)
                 else
-                    textLV:setTextColor(255, 255, 255)
+                    textLV:setFillColor(255, 255, 255)
                 end
 
 
@@ -444,13 +445,15 @@ local function scrollViewList ()
                  -- print("HAVE HAVE ==")
                   listCharacter[countID].id = "1179"
                     local backcharacter = display.newRect(LeaderpointY, LeaderpointX, sizeleaderW, sizeleaderH)
+                    backcharacter:setReferencePoint(display.TopLeftReferencePoint)
                     backcharacter.strokeWidth = 0
                     backcharacter.alpha = 0.8
                     backcharacter:setFillColor(0, 0, 0)
                     scrollView:insert(backcharacter)
 
                     local texINUSE = display.newText("In use", InusepointX,InusepointY,typeFont, sizetext)
-                    texINUSE:setTextColor(255, 0, 255)
+                    texINUSE:setReferencePoint(display.TopLeftReferencePoint)
+                    texINUSE:setFillColor(255, 0, 255)
 
                     groupView:insert(backcharacter)
                     groupView.touch = onTouchGameOverScreen
@@ -462,6 +465,7 @@ local function scrollViewList ()
                     if characterItem[countID].use then
                         listCharacter[countID].id = "1179"
                         local backcharacter = display.newRect(LeaderpointY, LeaderpointX, sizeleaderW, sizeleaderH)
+                        backcharacter:setReferencePoint(display.TopLeftReferencePoint)
                         backcharacter.alpha = 0.8
                         backcharacter.id = "1179"
                         backcharacter:setFillColor(0, 0, 0)
@@ -474,7 +478,8 @@ local function scrollViewList ()
                         scrollView:insert(groupView)
 
                         local textInuse = display.newText("In use", InusepointX,InusepointY,typeFont, sizetext)
-                        textInuse:setTextColor(200, 0, 200)
+                        textInuse:setReferencePoint(display.TopLeftReferencePoint)
+                        textInuse:setFillColor(200, 0, 200)
                         groupView:insert(textInuse)
                     end
               end
@@ -557,7 +562,8 @@ function scene:createScene( event )
 
     local numCharac = display.newText(Allcharacter.."/"..unitAll, screenW*.7, screenH*.31,typeFont, sizetext)
     numCharac.text = string.format( Allcharacter.."/"..unitAll )
-    numCharac:setTextColor(205, 170, 125)
+    numCharac:setReferencePoint( display.TopLeftReferencePoint )
+    numCharac:setFillColor(205, 170, 125)
 
     local image_btnback = "img/background/button/Button_BACK.png"
     local backButton = widget.newButton{
@@ -573,15 +579,18 @@ function scene:createScene( event )
     if params then
         groupTapCoin = display.newGroup()
         txtCoin = display.newText(numCoin, screenW*.5, screenH*.763,typeFont, sizetext)
+        txtCoin:setReferencePoint(display.TopLeftReferencePoint)
         txtCoin.text = string.format( numCoin )
-        txtCoin:setTextColor(205, 170, 125)
+        txtCoin:setFillColor(205, 170, 125)
 
         txtUnit = display.newText(numUnit, screenW*.5, screenH*.79,typeFont, sizetext)
+        txtUnit:setReferencePoint(display.TopLeftReferencePoint)
         txtUnit.text = string.format( numUnit )
-        txtUnit:setTextColor(205, 170, 125)
+        txtUnit:setFillColor(205, 170, 125)
 
         numCharacAll = display.newText(numUnit.."/"..unitAll, screenW*.5, screenH*.815,typeFont, sizetext)
-        numCharacAll:setTextColor(205, 170, 125)
+        numCharacAll:setReferencePoint(display.TopLeftReferencePoint)
+        numCharacAll:setFillColor(205, 170, 125)
 
         character_LV = tonumber(params.character_LV)
        -- print("****** ******* character_LV ==== ",character_LV)
@@ -614,6 +623,7 @@ function scene:createScene( event )
 
 
         local BLOCK_BOX =  display.newRect(screenW*.07, screenH*.76, screenW*.86, screenH*.075)
+        BLOCK_BOX:setReferencePoint(display.TopLeftReferencePoint)
         BLOCK_BOX.alpha = .8
         BLOCK_BOX:setFillColor(130 ,130, 130)
         groupTapCoin:insert(BLOCK_BOX)
@@ -631,7 +641,9 @@ function scene:createScene( event )
             top = screenH*.765,
             left = screenW*.085,
             onRelease = PowerUpButtonEvent	-- event listener function
-        }btnreset.id = "reset"
+        }
+        btnreset:setReferencePoint(display.TopLeftReferencePoint)
+        btnreset.id = "reset"
         groupTapCoin:insert(btnreset)
 
         local btnOK = widget.newButton{
@@ -640,16 +652,20 @@ function scene:createScene( event )
             top = screenH*.765,
             left = screenW*.76,
             onRelease = PowerUpButtonEvent	-- event listener function
-        }btnOK.id = "ok"
+        }
+        btnOK:setReferencePoint(display.TopLeftReferencePoint)
+        btnOK.id = "ok"
         groupTapCoin:insert(btnOK)
 
 
         local  backcharacter = display.newRoundedRect(screenW*.76, screenH*.765, screenH*.1, screenW*.1,5)
+        backcharacter:setReferencePoint(display.TopLeftReferencePoint)
         backcharacter.strokeWidth = 0
         backcharacter:setFillColor(0, 0, 0)
         groupTapCoin:insert(backcharacter)
 
         local backreset = display.newRoundedRect(screenW*.085, screenH*.765, screenH*.1, screenW*.1,5)
+        backreset:setReferencePoint(display.TopLeftReferencePoint)
         backreset.strokeWidth = 0
         backreset:setFillColor(0, 0, 0)
         groupTapCoin:insert(backreset)

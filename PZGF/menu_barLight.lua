@@ -93,7 +93,8 @@ local gameTimer = 0
 local timers = {}
 local count = 0
 local gameTimerText = display.newText(0, screenW*.5, 0, typeFont, fontSizeHead)
-gameTimerText:setTextColor(205, 155, 29)
+gameTimerText:setReferencePoint(display.TopLeftReferencePoint)
+gameTimerText:setFillColor(205, 155, 29)
 gameTimerText.alpha = 0
 
 local timers = {}
@@ -450,6 +451,7 @@ function newrequestList()
     --        maxlistFriend = 1
     if maxlistFriend > 0 then
         local backcolor =  display.newRoundedRect(screenW*.642, screenH*.57, screenW*.05, screenH*.033,5)
+        backcolor:setReferencePoint(display.TopLeftReferencePoint)
         backcolor.strokeWidth = 2
         backcolor:setStrokeColor(255,255,255)
         backcolor.alpha = 1
@@ -461,7 +463,8 @@ function newrequestList()
         local pointNum = (screenW*.66)-((maxLenght*sizeMaxfriend)/5)
 
         local Myfriend = display.newText(maxlistFriend, pointNum, screenH*.575, typeFont, sizeMaxfriend)
-        Myfriend:setTextColor(0, 0, 0)
+        Myfriend:setReferencePoint(display.TopLeftReferencePoint)
+        Myfriend:setFillColor(0, 0, 0)
 --         group:insert(Myfriend)
 
     end

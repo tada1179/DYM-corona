@@ -5,6 +5,7 @@ local widget = require "widget"
 local menu_barLight = require ("menu_barLight")
 local http = require("socket.http")
 local json = require("json")
+local alertMassage = require("alertMassage")
 -----------------------------------------------------------------------------------------
 local screenW = display.contentWidth
 local screenH = display.contentHeight
@@ -148,7 +149,7 @@ local function PowerUpButtonEvent(event)
 
     elseif event.target.id == "ok" and countCHNo > 0 then
         menu_barLight.SEtouchButton()
-        local alertMassage = require("alertMassage")
+
        alertMassage.confrimDischarge(countCHNo,characterChoose,numCoin,user_id) --
 
     end
@@ -261,7 +262,7 @@ local function character_choose(id,user_id,countNo,targetX,targetY,lv)--event.ta
     return countCHNo
 end
 local function scrollViewList ()
-    local frame = require("alertMassage").loadFramElement()
+    local frame = alertMassage.loadFramElement()
     local function onTouchUsetouch ( self, event )
         print("touch ",event.phase)
         if event.phase == "begen" then --event.phase == "ended" or
@@ -363,12 +364,14 @@ local function scrollViewList ()
                 scrollView:insert(listCharacter)
 
                 local textLV = display.newText("Lv."..characterItem[countID].level, LVpointY,LVpointX,typeFont, sizetext)
-                textLV:setTextColor(255, 255, 255)
+                textLV:setReferencePoint(display.TopLeftReferencePoint)
+                textLV:setFillColor(255, 255, 255)
                 scrollView:insert(textLV)
                 local txtInuse  = "In-use"
 
                 if characterItem[countID].use == 1 then
                     local backcharacter = display.newRect(LeaderpointY, LeaderpointX, sizeleaderW, sizeleaderH)
+                    backcharacter:setReferencePoint(display.TopLeftReferencePoint)
                     backcharacter.alpha = 0.8
                     backcharacter:setFillColor(0, 0, 0)
                     scrollView:insert(backcharacter)
@@ -381,7 +384,8 @@ local function scrollViewList ()
                     scrollView:insert(groupView)
 
                     local textInuse = display.newText(txtInuse, InusepointY,InusepointX,typeFont, sizetext)
-                    textInuse:setTextColor(200, 0, 200)
+                    textInuse:setReferencePoint(display.TopLeftReferencePoint)
+                    textInuse:setFillColor(200, 0, 200)
                     groupView:insert(textInuse)
                 end
                 countCharac = countCharac + 1
@@ -447,9 +451,11 @@ function scene:createScene( event )
 
     end
     local numCharacAll = display.newText(Allcharacter.."/"..numSlot, screenW*.5, screenH*.815,typeFont, sizetext)
-    numCharacAll:setTextColor(205, 170, 125)
+    numCharacAll:setReferencePoint(display.TopLeftReferencePoint)
+    numCharacAll:setFillColor(205, 170, 125)
 
     local BLOCK_BOX =  display.newRect(screenW*.07, screenH*.76, screenW*.86, screenH*.075)
+    BLOCK_BOX:setReferencePoint(display.TopLeftReferencePoint)
     BLOCK_BOX.alpha = .8
     BLOCK_BOX:setFillColor(130 ,130, 130)
 
@@ -483,12 +489,14 @@ function scene:createScene( event )
     --control button ok,reset
     if countCHNo == 0  then
         local backcharacter = display.newRoundedRect(screenW*.76, screenH*.765, screenH*.1, screenW*.1,8)
+        backcharacter:setReferencePoint(display.TopLeftReferencePoint)
         backcharacter.strokeWidth = 0
         backcharacter.alpha = 0.8
         backcharacter:setFillColor(0, 0, 0)
         grouptab:insert(backcharacter)
 
         local backreset = display.newRoundedRect(screenW*.085, screenH*.765, screenH*.1, screenW*.1,8)
+        backreset:setReferencePoint(display.TopLeftReferencePoint)
         backreset.strokeWidth = 0
         backreset.alpha = 0.8
         backreset:setFillColor(0, 0, 0)
@@ -505,13 +513,13 @@ function scene:createScene( event )
     txtCoin = display.newText(numCoin, screenW*.53, screenH*.763,typeFont, sizetext)
     txtCoin:setReferencePoint( display.TopLeftReferencePoint )
     txtCoin.text = string.format( numCoin )
-    txtCoin:setTextColor(205, 170, 125)
+    txtCoin:setFillColor(205, 170, 125)
     grouptab:insert(txtCoin)
 
     txtUnit = display.newText(countCHNo, screenW*.54, screenH*.79,typeFont, sizetext)
     txtUnit:setReferencePoint( display.TopLeftReferencePoint )
     txtUnit.text = string.format( countCHNo.."/"..numCharacter_up )
-    txtUnit:setTextColor(205, 170, 125)
+    txtUnit:setFillColor(205, 170, 125)
     grouptab:insert(txtUnit)
 
     scrollViewList()
@@ -523,7 +531,7 @@ function scene:createScene( event )
 
     local numCharac = display.newText(Allcharacter.."/"..numSlot, screenW*.7, screenH*.31,typeFont, sizetext)
     numCharac.text = string.format( Allcharacter.."/"..numSlot )
-    numCharac:setTextColor(205, 170, 125)
+    numCharac:setFillColor(205, 170, 125)
 
     gdisplay:insert(background)
     gdisplay:insert(scrollView)

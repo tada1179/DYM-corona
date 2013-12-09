@@ -203,16 +203,19 @@ function new(params)
                 listCharacter[i].alpha = 0
                 scrollView:insert(listCharacter[i])
                 local NameMission = display.newText("name", screenW*.18, pointNameY,typeFont, sizetext)
+                NameMission:setReferencePoint(display.TopLeftReferencePoint)
                 NameMission:setTextColor(255, 0, 255)
                 NameMission.alpha = 0
                 scrollView:insert(NameMission)
 
                 local txtbattle = display.newText("Battle ", screenW*.68, pointbattleY,typeFont, sizetext)
+                txtbattle:setReferencePoint(display.TopLeftReferencePoint)
                 txtbattle:setTextColor(200, 200, 200)
                 txtbattle.alpha = 0
                 scrollView:insert(txtbattle)
 
                 local txtstamina = display.newText("stamina ", screenW*.68, pointNameY,typeFont, sizetext)
+                txtstamina:setReferencePoint(display.TopLeftReferencePoint)
                 txtstamina:setTextColor(0, 0, 255)
                 txtstamina.alpha = 0
                 scrollView:insert(txtstamina)
@@ -241,14 +244,17 @@ function new(params)
                 scrollView:insert(FrmCharacter)
 
                 local showLV = display.newText("Lv."..characterItem[i].level, pointLVX, pointLVY,typeFont, sizetext)
+                showLV:setReferencePoint(display.TopLeftReferencePoint)
                 showLV:setTextColor(255, 0, 255)
                 scrollView:insert(showLV)
 
                 local showName = display.newText(characterItem[i].friend_name, pointNameX, pointNameY,typeFont, sizetext)
+                showName:setReferencePoint(display.TopLeftReferencePoint)
                 showName:setTextColor(255, 255, 255)
                 scrollView:insert(showName)
 
                 local showDate = display.newText(characterItem[i].dateModify, pointDateX, pointDateY,typeFont, sizetext)
+                showDate:setReferencePoint(display.TopLeftReferencePoint)
                 showDate:setTextColor(0, 0, 255)
                 scrollView:insert(showDate)
             end

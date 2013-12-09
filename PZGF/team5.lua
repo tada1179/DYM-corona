@@ -13,7 +13,6 @@ local myImageSheet = graphics.newImageSheet( "chara_icon.png",system.DocumentsDi
 
 local teamInfo = require("team")
 local myImageteam = graphics.newImageSheet( "team.png",system.DocumentsDirectory, teamInfo:getSheet() )
-
 function newTEAM(USERID)
 
     local g = display.newGroup()
@@ -39,7 +38,6 @@ function newTEAM(USERID)
     local frame0 = "img/characterIcon/as_cha_frm00.png"
     local frame =  alertMSN.loadFramElement()
 
-    local image_tapteam = "as_team_icn_team05"
     local image_tapcoler_status = "as_team_status"
     local image_tapstatus = "as_team_icn_teamsta"
     local pointY = screenH *1.1
@@ -57,20 +55,22 @@ function newTEAM(USERID)
 
     local txtLV
     local txtcost
+    local pointYSet = - screenH*.05
 
     local tap_coler = display.newImageRect(myImageteam , teamInfo:getFrameIndex(image_tapcoler_status),screenW*.43,screenH*.13)
     local tap_status = display.newImageRect(myImageteam , teamInfo:getFrameIndex(image_tapstatus),screenW*.78,screenH*.028)
-    local txtHP = display.newText("HP", screenW*0.1, pointY*1.115,typetxt,sizetxt )
-    local txtHPplus = display.newText(All_HP, screenW*0.22,  pointY*1.115, typetxt,sizetxt )
-    local txtgreen = display.newText(ATK_e2,  screenW*0.22, pointY*1.15, typetxt,sizetxt )
-    local txtred = display.newText(ATK_e1, screenW*0.22, pointY*1.19, typetxt,sizetxt )
-    local txtblue = display.newText(ATK_e3, screenW*0.22, pointY*1.23, typetxt,sizetxt )
-    local txtCost = display.newText("COST", screenW*0.45, pointY*1.115, typetxt,sizetxt )
-    local txtCostplus = display.newText(All_Cost, screenW*0.6, pointY*1.115, typetxt,sizetxt )
-    local txtyellow = display.newText(ATK_e5, screenW*0.6, pointY*1.15, typetxt,sizetxt )
-    local txtpurple = display.newText(ATK_e4, screenW*0.6, screenH*1.31, typetxt,sizetxt )
-    local txtpink = display.newText(All_DEF, screenW*0.6, pointY*1.23, typetxt,sizetxt )
-    local txtleader = display.newText("LEADER NAME:", screenW*.16, pointY*1.27, typetxt,sizetxt )
+    local txtHP = display.newText("HP", - screenW*.35, pointYSet,typetxt,sizetxt )
+    local txtHPplus = display.newText(All_HP, -screenW*.25,  pointYSet, typetxt,sizetxt )
+    local txtgreen = display.newText(ATK_e2,  -screenW*0.25, screenH*0, typetxt,sizetxt )
+    local txtred = display.newText(ATK_e1, -screenW*0.25, screenH*0.05, typetxt,sizetxt )
+    local txtblue = display.newText(ATK_e3, -screenW*0.25, screenH*0.1, typetxt,sizetxt )
+    local txtCost = display.newText("COST",0, pointYSet, typetxt,sizetxt )
+    local txtCostplus = display.newText(All_Cost, screenW*0.15, pointYSet, typetxt,sizetxt )
+    local txtyellow = display.newText(ATK_e5, screenW*0.15, screenH*0, typetxt,sizetxt )
+    local txtpurple = display.newText(ATK_e4, screenW*0.15, screenH*0.05, typetxt,sizetxt )
+    local txtpink = display.newText(All_DEF, screenW*0.15, screenH*.1, typetxt,sizetxt )
+    --    local txtleader = display.newText("LEADER NAME:", screenW*.16, screenH*.8, typetxt,sizetxt )
+    local txtleader = display.newText("LEADER NAME:",-screenW*.35, screenH*.15, typetxt,sizetxt )
 
     -- **** connect database
 
@@ -80,7 +80,7 @@ function newTEAM(USERID)
     local response = http.request(URL)
     local json = require("json")
 
-    -- print("response = ",response)
+    --print("response = ",response)
     dataTable = json.decode(response)
     rowCharac = tonumber(dataTable.chrAll)
 
@@ -157,12 +157,14 @@ function newTEAM(USERID)
 
     end
 
-    local poinLVX = screenW*0.03
+    local poinLVX = - screenW*0.32
+    local poinImg1X = - screenW*0.35
     if characterItem[1].team_no== 1 then
-        picture[1] = display.newImageRect(myImageSheet , sheetInfo:getFrameIndex(characterItem[1].imagePicture)  ,sizeleaderW,sizeleaderH)
-        picture[1]:setReferencePoint( display.CenterReferencePoint )
+        picture[1] = display.newImageRect(myImageSheet , sheetInfo:getFrameIndex(characterItem[1].imagePicture),sizeleaderW,sizeleaderH)
+        --        picture[1]:setReferencePoint( display.CenterReferencePoint )
+        picture[1]:setReferencePoint( display.TopLeftReferencePoint )
         g:insert(picture[1])
-        picture[1].x = screenW - (screenW*.93)
+        picture[1].x = poinImg1X
         picture[1].y = pointY
 
         leader[1] = widget.newButton{
@@ -173,17 +175,24 @@ function newTEAM(USERID)
             onRelease = selectLeader
         }
         leader[1].id= 1
-        leader[1]:setReferencePoint( display.CenterReferencePoint )
+        leader[1]:setReferencePoint( display.TopLeftReferencePoint )
         g:insert(leader[1])
-        leader[1].x = screenW - (screenW*.93)
+        --        leader[1].x = screenW - (screenW*.93)
+        --        leader[1].y = pointY
+
+        leader[1].x = poinImg1X
         leader[1].y = pointY
 
-        txtLV = display.newText("Lv."..characterItem[1].holdcharac_lv, poinLVX, pointY*1.03,typetxt,sizetxt )
-        txtLV:setTextColor(255, 255, 255)
+        txtLV = display.newText("Lv."..characterItem[1].holdcharac_lv, poinLVX, pointY*.683,typetxt,sizetxt )
+        --        txtLV:setReferencePoint( display.TopLeftReferencePoint )
+        txtLV:setReferencePoint( display.TopLeftReferencePoint )
+        txtLV:setFillColor(255, 255, 255)
         g:insert(txtLV)
 
-        txtcost = display.newText("cost."..characterItem[1].charac_cost, poinLVX, pointY*1.055,typetxt,sizetxt )
-        txtcost:setTextColor(255, 255, 255)
+        --print("charac_cost[1] =",characterItem[1].charac_cost)
+        txtcost = display.newText("cost."..characterItem[1].charac_cost, poinLVX, pointY*.585,typetxt,sizetxt )
+        txtcost:setReferencePoint( display.TopLeftReferencePoint )
+        txtcost:setFillColor(255, 255, 255)
         g:insert(txtcost)
         poinLVX = poinLVX + (screenW*0.2)
 
@@ -197,20 +206,20 @@ function newTEAM(USERID)
             onRelease = selectLeader
         }
         leader[1].id= 1
-        leader[1]:setReferencePoint( display.CenterReferencePoint )
+        leader[1]:setReferencePoint( display.TopLeftReferencePoint )
         g:insert(leader[1])
-        leader[1].x = screenW - (screenW*.93)
+        leader[1].x = poinImg1X
         leader[1].y = pointY
 
     end
 
 
-    local poinLVX2 = screenW*0.24
-    local poinimg = screenW*0.28
+    local poinLVX2 = -screenW*0.12
+    local poinimg = - screenW*0.15
     for i = 2, maxCharac, 1 do
         if characterItem[itemImg].team_no == i then
-            picture[i] = display.newImageRect(myImageSheet , sheetInfo:getFrameIndex(characterItem[itemImg].imagePicture)  ,sizeleaderW,sizeleaderH)
-            picture[i]:setReferencePoint( display.CenterReferencePoint )
+            picture[i] = display.newImageRect(myImageSheet , sheetInfo:getFrameIndex(characterItem[itemImg].imagePicture),sizeleaderW,sizeleaderH)
+            picture[i]:setReferencePoint( display.TopLeftReferencePoint )
             g:insert(picture[i])
             picture[i].x = poinimg
             picture[i].y = pointY
@@ -223,16 +232,18 @@ function newTEAM(USERID)
                 onRelease = selectLeader
             }
             leader[i].id= i
-            leader[i]:setReferencePoint( display.CenterReferencePoint )
+            leader[i]:setReferencePoint( display.TopLeftReferencePoint )
             g:insert(leader[i])
             leader[i].x = poinimg
             leader[i].y = pointY
-            txtLV = display.newText("Lv."..characterItem[itemImg].holdcharac_lv, poinLVX2, pointY*1.03,typetxt,sizetxt )
-            txtLV:setTextColor(255, 255, 255)
+            txtLV = display.newText("Lv."..characterItem[itemImg].holdcharac_lv, poinLVX2, pointY*.683,typetxt,sizetxt )
+            txtLV:setReferencePoint( display.TopLeftReferencePoint )
+            txtLV:setFillColor(255, 255, 255)
             g:insert(txtLV)
 
-            txtcost = display.newText("cost."..characterItem[itemImg].charac_cost, poinLVX2, pointY*1.055,typetxt,sizetxt )
-            txtcost:setTextColor(255, 255, 255)
+            txtcost = display.newText("cost."..characterItem[itemImg].charac_cost, poinLVX2, pointY*.585,typetxt,sizetxt )
+            txtcost:setReferencePoint( display.TopLeftReferencePoint )
+            txtcost:setFillColor(255, 255, 255)
             g:insert(txtcost)
             poinLVX2 = poinLVX2 + (screenW*0.145)
 
@@ -246,7 +257,7 @@ function newTEAM(USERID)
                 onRelease = selectLeader
             }
             leader[i].id= i
-            leader[i]:setReferencePoint( display.CenterReferencePoint )
+            leader[i]:setReferencePoint( display.TopLeftReferencePoint )
             g:insert(leader[i])
             leader[i].x = poinimg
             leader[i].y = pointY
@@ -256,63 +267,75 @@ function newTEAM(USERID)
     end
 
     g:insert(tap_coler)
-    tap_coler.x = screenW *.305
-    tap_coler.y = pointY * 1.2
+    tap_coler.x = -screenW *.13
+    tap_coler.y = screenH*.05
 
     g:insert(tap_status)
-    tap_status.x = screenW * .38
-    tap_status.y = pointY * 1.095
+    tap_status.x = -screenW * .02
+    tap_status.y = pointY * .3
     -------------------------
 
 
-    txtHP:setTextColor(255, 255, 255)
+    txtHP:setReferencePoint( display.TopLeftReferencePoint )
+    txtHP:setFillColor(255, 255, 255)
     g:insert(txtHP)
 
     txtHPplus.text = All_HP
-    txtHPplus:setTextColor(255, 255, 255)
+    txtHPplus:setReferencePoint( display.TopLeftReferencePoint )
+    txtHPplus:setFillColor(255, 255, 255)
     g:insert(txtHPplus)
 
     txtgreen.text = ATK_e2
-    txtgreen:setTextColor(255, 255, 255)
+    txtgreen:setReferencePoint( display.TopLeftReferencePoint )
+    txtgreen:setFillColor(255, 255, 255)
     g:insert(txtgreen)
 
     txtred.text = ATK_e1
-    txtred:setTextColor(255, 255, 255)
+    txtred:setReferencePoint( display.TopLeftReferencePoint )
+    txtred:setFillColor(255, 255, 255)
     g:insert(txtred)
 
     txtblue.text = ATK_e3
-    txtblue:setTextColor(255, 255, 255)
+    txtblue:setReferencePoint( display.TopLeftReferencePoint )
+    txtblue:setFillColor(255, 255, 255)
     g:insert(txtblue)
 
     ----- *** ------
     txtCost.text = "COST"
-    txtCost:setTextColor(255, 255, 255)
+    txtCost:setReferencePoint( display.TopLeftReferencePoint )
+    txtCost:setFillColor(255, 255, 255)
     g:insert(txtCost)
 
     txtCostplus.text = All_Cost
-    txtCostplus:setTextColor(255, 255, 255)
+    txtCostplus:setReferencePoint( display.TopLeftReferencePoint )
+    txtCostplus:setFillColor(255, 255, 255)
     g:insert(txtCostplus)
 
     txtyellow.text = ATK_e5
-    txtyellow:setTextColor(255, 255, 255)
+    txtyellow:setReferencePoint( display.TopLeftReferencePoint )
+    txtyellow:setFillColor(255, 255, 255)
     g:insert(txtyellow)
 
     txtpurple.text = ATK_e4
-    txtpurple:setTextColor(255, 255, 255)
+    txtpurple:setReferencePoint( display.TopLeftReferencePoint )
+    txtpurple:setFillColor(255, 255, 255)
     g:insert(txtpurple)
 
     txtpink.text = All_DEF
-    txtpink:setTextColor(255, 255, 255)
+    txtpink:setReferencePoint( display.TopLeftReferencePoint )
+    txtpink:setFillColor(255, 255, 255)
     g:insert(txtpink)
 
     txtleader.text = "LEADER NAME: "..characterItem[1].charac_name
-    txtleader:setTextColor(255, 255, 255)
+    txtleader:setReferencePoint( display.TopLeftReferencePoint )
+    txtleader:setFillColor(255, 255, 255)
     g:insert(txtleader)
 
     local lotsOfText = "LEADER SKILL: "..characterItem[1].charac_leader.." \nSKILL: "..characterItem[1].charac_skill
     local txtleaderSkill = require("util").wrappedText( lotsOfText, 39, sizetxt, native.systemFont, {255, 222, 173} )
-    txtleaderSkill.x = screenW*.01
-    txtleaderSkill.y = pointY*1.28
+    txtleaderSkill:setReferencePoint( display.TopLeftReferencePoint )
+    txtleaderSkill.x = -screenW*.35
+    txtleaderSkill.y = screenH *.18
     g:insert(txtleaderSkill)
 
 

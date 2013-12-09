@@ -79,6 +79,7 @@ local function showFriendRequest(option)
         end
     end
     local back_while = display.newRect(0, 0, screenW, screenH)
+    back_while:setReferencePoint( display.TopLeftReferencePoint )
     back_while.strokeWidth =0
     back_while.alpha = .5
     back_while:setFillColor(0, 0, 0)
@@ -92,7 +93,7 @@ local function showFriendRequest(option)
     gdisplay:insert(backgroundCaution)
 
     local txtMSN = display.newText("MSN", screenW*.45, screenH*.4, typeFont, NamesizeFont)
-    txtMSN:setTextColor(255, 255, 255)
+    txtMSN:setFillColor(255, 255, 255)
     txtMSN.text =  string.format(textMSN)
     txtMSN.alpha = 1
     gdisplay:insert(txtMSN)
@@ -166,25 +167,29 @@ local function showFriendRequest(option)
     gdisplay:insert(frmCharacter)
 
     local NameCharacter = display.newText(Friend_name, screenW*.45, screenH*.49, typeFont, NamesizeFont)
-    NameCharacter:setTextColor(218, 165, 32)
+    NameCharacter:setReferencePoint( display.TopLeftReferencePoint )
+    NameCharacter:setFillColor(218, 165, 32)
     NameCharacter.text =  string.format(Friend_name)
     NameCharacter.alpha = 1
     gdisplay:insert(NameCharacter)
 
     local LvCharacter = display.newText(charac_Lv, screenW*.28, screenH*.6, typeFont, sizeFont)
-    LvCharacter:setTextColor(255, 255, 255)
+    LvCharacter:setReferencePoint( display.TopLeftReferencePoint )
+    LvCharacter:setFillColor(255, 255, 255)
     LvCharacter.text =  string.format("Lv."..charac_Lv)
     LvCharacter.alpha = 1
     gdisplay:insert(LvCharacter)
 
     local LvFriend = display.newText(Friend_Lv, screenW*.7, screenH*.49, typeFont, NamesizeFont)
-    LvFriend:setTextColor(255, 255, 255)
+    LvFriend:setReferencePoint( display.TopLeftReferencePoint )
+    LvFriend:setFillColor(255, 255, 255)
     LvFriend.text =  string.format("Lv."..Friend_Lv)
     LvFriend.alpha = 1
     gdisplay:insert(LvFriend)
 
     local DateLogin = display.newText(Friend_date, screenW*.45, screenH*.55, typeFont, sizeFont)
-    DateLogin:setTextColor(255, 0, 255)
+    DateLogin:setReferencePoint( display.TopLeftReferencePoint )
+    DateLogin:setFillColor(255, 0, 255)
     DateLogin.text =  string.format(Friend_date)
     DateLogin.alpha = 1
     gdisplay:insert(DateLogin)
@@ -205,12 +210,14 @@ local function NoDataInList()
     end
 
     local back_while = display.newRect(0, 0, screenW, screenH)
+    back_while:setReferencePoint( display.TopLeftReferencePoint )
     back_while.strokeWidth =0
     back_while.alpha = .5
     back_while:setFillColor(0, 0, 0)
     gdisplay:insert(back_while)
 
     local myRectangle = display.newRoundedRect(screenW*.2, screenH*.4, screenW*.6, screenH*.2,7)
+    myRectangle:setReferencePoint( display.TopLeftReferencePoint )
     myRectangle.strokeWidth = 2
     myRectangle:setStrokeColor(255,255,255)
     myRectangle.alpha = .8
@@ -218,7 +225,8 @@ local function NoDataInList()
     gdisplay:insert(myRectangle)
 
     local SmachText = display.newText("No Friend Request", screenW*.35, screenH *.45,typeFont, sizeFont)
-    SmachText:setTextColor(255, 255, 255)
+    SmachText:setReferencePoint( display.TopLeftReferencePoint )
+    SmachText:setFillColor(255, 255, 255)
     gdisplay:insert(SmachText)
 
     --button ok profile
@@ -248,19 +256,22 @@ local function requestFriend()
     end
 
     local back_while = display.newRect(0, 0, screenW, screenH)
+    back_while:setReferencePoint( display.TopLeftReferencePoint )
     back_while.strokeWidth =0
     back_while.alpha = .5
     back_while:setFillColor(0, 0, 0)
     gdisplay:insert(back_while)
 
     local myRectangle = display.newRoundedRect(screenW*.1, screenH*.4, screenW*.8, screenH*.35,7)
+    myRectangle:setReferencePoint( display.TopLeftReferencePoint )
     myRectangle.strokeWidth = 2
     myRectangle.alpha = .9
     myRectangle:setFillColor(0, 0, 0)
     gdisplay:insert(myRectangle)
 
     local SmachText = display.newText("!!Can't request friend id = your id", screenW*.18, screenH *.45,typeFont, sizeFont)
-    SmachText:setTextColor(0, 200, 0)
+    SmachText:setReferencePoint( display.TopLeftReferencePoint )
+    SmachText:setFillColor(0, 200, 0)
     gdisplay:insert(SmachText)
 
     local  btn_OK = widget.newButton{

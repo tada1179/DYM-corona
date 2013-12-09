@@ -558,16 +558,19 @@ function scene:createScene( event )
     DefNext = math.ceil(characterLEVELUP.DEF +(characterLEVELUP.DEF *((LevelStart-1)/characterLEVELUP.charac_lvmax)+((LevelStart-1)*R)))
 
     local txtNumExpforChoose = display.newText("+"..ExpforChoose, screenW*.45, screenH*.625, typeFont, 30)
-    txtNumExpforChoose:setTextColor(255, 0, 0)
+    txtNumExpforChoose:setReferencePoint(display.TopLeftReferencePoint)
+    txtNumExpforChoose:setFillColor(255, 0, 0)
     gdisplay:insert(txtNumExpforChoose)
 
     local txtNumUseExp = display.newText(ExpLvNext, screenW*.30, screenH*.58, typeFont, 30)
-    txtNumUseExp:setTextColor(255, 0, 255)
+    txtNumUseExp:setReferencePoint(display.TopLeftReferencePoint)
+    txtNumUseExp:setFillColor(255, 0, 255)
     gdisplay:insert(txtNumUseExp)
 
 
     local txtNumHaveExp = display.newText(ExpforUser, screenW*.63, screenH*.58, typeFont, 30)
-    txtNumHaveExp:setTextColor(255, 0, 100)
+    txtNumHaveExp:setReferencePoint(display.TopLeftReferencePoint)
+    txtNumHaveExp:setFillColor(255, 0, 100)
     gdisplay:insert(txtNumHaveExp)
 
     -----
@@ -595,61 +598,66 @@ function scene:createScene( event )
     gdisplay:insert(poweryellow)
 
     local txtcoin = display.newText(NumCoin, screenW*.74, screenH*.628, native.systemFontBold, 20)
-    txtcoin:setTextColor(255, 0, 255)
+    txtcoin:setReferencePoint(display.TopLeftReferencePoint)
+    txtcoin:setFillColor(255, 0, 255)
     gdisplay:insert(txtcoin)
 
     --text name character
     local txtNamecharacter = display.newText(characterLEVELUP.name, screenW*.385, screenH*.385, typeFont, sizetextname)
-    txtNamecharacter:setTextColor(0, 0, 255)
+    txtNamecharacter:setReferencePoint(display.TopLeftReferencePoint)
+    txtNamecharacter:setFillColor(0, 0, 255)
     gdisplay:insert(txtNamecharacter)
 
     local txtsmash = display.newText(characterLEVELUP.type, screenW*.385,  screenH*.415, typeFont, sizetxtHPLV)
-    txtsmash:setTextColor(0, 150, 0)
+    txtsmash:setReferencePoint(display.TopLeftReferencePoint)
+    txtsmash:setFillColor(0, 150, 0)
     gdisplay:insert(txtsmash)
 
 
     local txtLV = display.newText(LevelStart.."/"..characterLEVELUP.charac_lvmax.."    =>        / "..characterLEVELUP.charac_lvmax, 0, screenH*.438, typeFont, sizetxtHPLV)
+    txtLV:setReferencePoint(display.TopLeftReferencePoint)
     txtLV.x = screenW*.61
-    txtLV:setTextColor(255, 255, 255)
+    txtLV:setFillColor(255, 255, 255)
     gdisplay:insert(txtLV)
 
 
     local txtLV_Next = display.newText((characterLEVELUP.LV), 0, screenH*.43, typeFont, 30)
+    txtLV_Next:setReferencePoint(display.TopLeftReferencePoint)
     txtLV_Next.x = txtLV.x + 36
-    txtLV_Next:setTextColor(255, 0, 255)
+    txtLV_Next:setFillColor(255, 0, 255)
     gdisplay:insert(txtLV_Next)
 
     local txtHP = display.newText(characterLEVELUP.HP, 0, screenH*.46, typeFont, sizetxtHPLV)
     txtHP:setReferencePoint(display.TopLeftReferencePoint)
     txtHP.x = screenW*.47
-    txtHP:setTextColor(255, 255, 255)
+    txtHP:setFillColor(255, 255, 255)
     gdisplay:insert(txtHP)
     local txtHPNext = display.newText("=> "..HPNext.."  (+"..   math.ceil(HPNext-characterLEVELUP.HP)..")", 0, screenH*.46, typeFont, sizetxtHPLV)
     txtHPNext:setReferencePoint(display.TopLeftReferencePoint)
     txtHPNext.x = screenW*.57
-    txtHPNext:setTextColor(255, 255, 255)
+    txtHPNext:setFillColor(255, 255, 255)
     gdisplay:insert(txtHPNext)
 
     local txtATK = display.newText(characterLEVELUP.ATK, 0, screenH*.482, typeFont, sizetxtHPLV)
     txtATK:setReferencePoint(display.TopLeftReferencePoint)
-    txtATK:setTextColor(255, 255, 255)
+    txtATK:setFillColor(255, 255, 255)
     txtATK.x =  screenW*.47
     gdisplay:insert(txtATK)
     local txtATKnext = display.newText("=> "..AtkNext.."  (+"..   math.ceil(AtkNext-characterLEVELUP.ATK)..")", 0, screenH*.482, typeFont, sizetxtHPLV)
     txtATKnext:setReferencePoint(display.TopLeftReferencePoint)
     txtATKnext.x =  screenW*.57
-    txtATKnext:setTextColor(255, 255, 255)
+    txtATKnext:setFillColor(255, 255, 255)
     gdisplay:insert(txtATKnext)
 
     local txtDEF = display.newText(characterLEVELUP.DEF, 0, screenH*.504, typeFont, sizetxtHPLV)
     txtDEF:setReferencePoint(display.TopLeftReferencePoint)
     txtDEF.x =  screenW*.47
-    txtDEF:setTextColor(255, 255, 255)
+    txtDEF:setFillColor(255, 255, 255)
     gdisplay:insert(txtDEF)
     local txtDEFnext = display.newText("=> "..DefNext.."  (+"..   math.ceil(DefNext-characterLEVELUP.DEF)..")", 0, screenH*.504, typeFont, sizetxtHPLV)
     txtDEFnext:setReferencePoint(display.TopLeftReferencePoint)
     txtDEFnext.x =  screenW*.57
-    txtDEFnext:setTextColor(255, 255, 255)
+    txtDEFnext:setFillColor(255, 255, 255)
     gdisplay:insert(txtDEFnext)
 
     createButton()

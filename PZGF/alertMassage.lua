@@ -52,6 +52,7 @@ function diamondFail(namepage,params)
         return true
     end
     back_while = display.newRect(0, 0, screenW, screenH)
+    back_while:setReferencePoint(display.TopLeftReferencePoint)
     back_while.strokeWidth = 3
     back_while.alpha = .5
     back_while:setStrokeColor(255,255,255)
@@ -59,6 +60,7 @@ function diamondFail(namepage,params)
     groupView:insert(back_while)
 
     myRectangle = display.newRoundedRect(screenW*.2, screenH*.4, screenW*.6, screenH*.2,7)
+    myRectangle:setReferencePoint(display.TopLeftReferencePoint)
     myRectangle.strokeWidth = 3
     myRectangle:setStrokeColor(255,255,255)
     myRectangle.alpha = .8
@@ -67,7 +69,8 @@ function diamondFail(namepage,params)
 
 
     SmachText = display.newText("You don't have diamond!! ", screenW*.3, screenH *.45,typeFont, sizetextName)
-    SmachText:setTextColor(255, 255, 255)
+    SmachText:setReferencePoint(display.TopLeftReferencePoint)
+    SmachText:setFillColor(255, 255, 255)
     groupView:insert(SmachText)
 
     --button cancel profile
@@ -125,6 +128,7 @@ function staminaFull(namepage)
         return true
     end
     back_while = display.newRect(0, 0, screenW, screenH)
+    back_while:setReferencePoint(display.TopLeftReferencePoint)
     back_while.strokeWidth = 3
     back_while.alpha = .5
     back_while:setStrokeColor(255,255,255)
@@ -132,6 +136,7 @@ function staminaFull(namepage)
     groupView:insert(back_while)
 
     myRectangle = display.newRoundedRect(screenW*.2, screenH*.4, screenW*.6, screenH*.2,7)
+    myRectangle:setReferencePoint(display.TopLeftReferencePoint)
     myRectangle.strokeWidth = 3
     myRectangle:setStrokeColor(255,255,255)
     myRectangle.alpha = .8
@@ -140,7 +145,8 @@ function staminaFull(namepage)
 
 
     SmachText = display.newText("Stamina is full!! ", screenW*.35, screenH *.45,typeFont, sizetextName)
-    SmachText:setTextColor(255, 255, 255)
+    SmachText:setReferencePoint(display.TopLeftReferencePoint)
+    SmachText:setFillColor(255, 255, 255)
     groupView:insert(SmachText)
 
     --button cancel profile
@@ -236,6 +242,7 @@ function addSlot(params)
             return true
         end
         myRectangle_S = display.newRoundedRect(0, 0, screenW, screenH,0)
+        myRectangle_S:setReferencePoint(display.TopLeftReferencePoint)
         myRectangle_S.strokeWidth = 0
         myRectangle_S:setStrokeColor(255,255,255)
         myRectangle_S.alpha = .8
@@ -260,6 +267,7 @@ function addSlot(params)
 
         local numAll= menu_barLight.slot()
         text_S = display.newText("Extend Inventory", screenW*.32, screenH *.4,typeFont, 27)
+        text_S:setReferencePoint(display.TopLeftReferencePoint)
         SmachText_S = util.wrappedText("Extended 5 slots in your inventory\nYou can keep "..numAll.." cards now", screenW*.3, sizetextName,typeFont, {255, 255, 255})
         SmachText_S.x = screenW*.32
         SmachText_S.y = screenH*.45
@@ -338,6 +346,7 @@ function addSlot(params)
     end
 
     back_while = display.newRect(0, 0, screenW, screenH)
+    back_while:setReferencePoint(display.TopLeftReferencePoint)
     back_while.strokeWidth = 3
     back_while.alpha = .5
     back_while:setStrokeColor(255,255,255)
@@ -345,6 +354,7 @@ function addSlot(params)
     groupView:insert(back_while)
 
     myRectangle = display.newRoundedRect(screenW*.14, screenH*.3, screenW*.75, screenH*.35,7)
+    myRectangle:setReferencePoint(display.TopLeftReferencePoint)
     myRectangle.strokeWidth = 3
     myRectangle:setStrokeColor(255,255,255)
     myRectangle.alpha = .8
@@ -360,7 +370,8 @@ function addSlot(params)
     groupView:insert(imgstamina)
 
     SmachText = display.newText("Use 1 diamond to extend 5 slots in lnvontory", screenW*.15, screenH *.48,typeFont, sizetextName)
-    SmachText:setTextColor(255, 255, 255)
+    SmachText:setReferencePoint(display.TopLeftReferencePoint)
+    SmachText:setFillColor(255, 255, 255)
     groupView:insert(SmachText)
 
     --button cancel profile
@@ -478,6 +489,7 @@ function stamina(params)
             return true
         end
         myRectangle_s = display.newRoundedRect(0, 0, screenW, screenH,0)
+        myRectangle_s:setReferencePoint(display.TopLeftReferencePoint)
         myRectangle_s.strokeWidth = 0
         myRectangle_s:setStrokeColor(255,255,255)
         myRectangle_s.alpha = .8
@@ -502,6 +514,7 @@ function stamina(params)
 
         local numAll= menu_barLight.stamina()
         text_s = display.newText("Restore Stamina", screenW*.32, screenH *.4,typeFont, 27)
+        text_s:setReferencePoint(display.TopLeftReferencePoint)
         SmachText_s = util.wrappedText("Stamina is fully restored.\nYou may continue you journey.", screenW*.3, sizetextName,typeFont, {255, 255, 255})
         SmachText_s.x = screenW*.32
         SmachText_s.y = screenH*.45
@@ -584,6 +597,7 @@ function stamina(params)
     end
 
     back_while = display.newRect(0, 0, screenW, screenH)
+    back_while:setReferencePoint(display.TopLeftReferencePoint)
     back_while.strokeWidth = 3
     back_while.alpha = .5
     back_while:setStrokeColor(255,255,255)
@@ -591,6 +605,7 @@ function stamina(params)
     groupView:insert(back_while)
 
     myRectangle = display.newRoundedRect(screenW*.14, screenH*.3, screenW*.75, screenH*.35,7)
+    myRectangle:setReferencePoint(display.TopLeftReferencePoint)
     myRectangle.strokeWidth = 3
     myRectangle:setStrokeColor(255,255,255)
     myRectangle.alpha = .8
@@ -606,7 +621,8 @@ function stamina(params)
     groupView:insert(imgstamina)
 
     SmachText = display.newText("Use 1 diamond to fully restore Stamina", screenW*.2, screenH *.48,typeFont, sizetextName)
-    SmachText:setTextColor(255, 255, 255)
+    SmachText:setReferencePoint(display.TopLeftReferencePoint)
+    SmachText:setFillColor(255, 255, 255)
     groupView:insert(SmachText)
 
     --button cancel profile
@@ -717,6 +733,7 @@ function resetCharacter(id,holddteam_no,team_id,USERID,g)
     end
 
     back_while = display.newRect(0, 0, screenW, screenH)
+    back_while:setReferencePoint(display.TopLeftReferencePoint)
     back_while.strokeWidth = 3
     back_while.alpha = .5
     back_while:setStrokeColor(255,255,255)
@@ -724,6 +741,7 @@ function resetCharacter(id,holddteam_no,team_id,USERID,g)
     groupView:insert(back_while)
 
     myRectangle = display.newRoundedRect(screenW*.2, screenH*.4, screenW*.6, screenH*.2,7)
+    myRectangle:setReferencePoint(display.TopLeftReferencePoint)
     myRectangle.strokeWidth = 3
     myRectangle:setStrokeColor(255,255,255)
     myRectangle.alpha = .8
@@ -732,7 +750,8 @@ function resetCharacter(id,holddteam_no,team_id,USERID,g)
 
 
     SmachText = display.newText("Confirm to Reset your Team?", screenW*.27, screenH *.45,typeFont, sizetextName)
-    SmachText:setTextColor(255, 255, 255)
+    SmachText:setReferencePoint(display.TopLeftReferencePoint)
+    SmachText:setFillColor(255, 255, 255)
     groupView:insert(SmachText)
 
     --button cancel profile
@@ -880,49 +899,34 @@ function confrimDischarge(countCHNo,characterAll,numCoin,user_id,domain)
     local j = 1
 
     back_while = display.newRect(0, 0, screenW, screenH)
+    back_while:setReferencePoint(display.TopLeftReferencePoint)
     back_while.strokeWidth = 3
     back_while.alpha = .5
     back_while:setFillColor(0, 0, 0)
     groupView:insert(back_while)
 
     myRectangle = display.newRoundedRect(screenW*.1, screenH*.35, screenW*.8, screenH*.5,7)
+    myRectangle:setReferencePoint(display.TopLeftReferencePoint)
     myRectangle.strokeWidth = 3
     myRectangle:setStrokeColor(255,255,255)
     myRectangle.alpha = .8
     myRectangle:setFillColor(0, 0, 0)
     groupView:insert(myRectangle)
 
-    local LeaderpointX = 0
-    local LeaderpointY = 0
-    local LeaderpointY2 = 0
+    local LeaderpointX = screenW *.15
+    local LeaderpointX2 = 0
+    local LeaderpointY = screenH*.42
+    local LeaderpointY2 = screenH*.52
 
-    local LVpointX = 0
-    local LVpointY = 0
+    local LVpointX = screenW*.2
+    local LVpointX2 = screenW*.2  - screenW*.14
+    local LVpointY = screenH*.47
 
     local sheetInfo = require("chara_icon")
 --    local myImageSheet = graphics.newImageSheet( "img/character/chara_icon.png", sheetInfo:getSheet() )
     local myImageSheet = graphics.newImageSheet( "chara_icon.png",system.DocumentsDirectory, sheetInfo:getSheet() )
     for i = 1,countCHNo,1 do
         characterChoose[i] = characterAll[i]
-
-        if i > 5 then
-            LeaderpointY2 = LeaderpointY2 + (screenH *.1 +(j*-.115) )
-            LeaderpointX = screenW *.78
-            LeaderpointY = LeaderpointY2
-
-            LVpointX =  LeaderpointX + (screenH*.074)
-            LVpointY =  LeaderpointY + (screenW*.04)
-
-            j = j + 1
-        else
-            LeaderpointY = LeaderpointY + (screenH *.1 +(i*-.115) )
-            LeaderpointX = screenW *.63
-
-            LVpointX =  LeaderpointX + (screenH*.074)
-            LVpointY =  LeaderpointY + (screenW*.04)
-
-        end
-
         local characterID =  LinkOneCharac.."?character="..characterChoose[i].."&user_id="..user_id
         local characterImg = http.request(characterID)
         local characterSelect
@@ -950,37 +954,53 @@ function confrimDischarge(countCHNo,characterAll,numCoin,user_id,domain)
 
             local framImage = display.newImageRect(frame[FrameCharacter] ,sizeleaderW, sizeleaderH)
             framImage:setReferencePoint( display.TopLeftReferencePoint )
-            framImage.x = LeaderpointY
-            framImage.y = LeaderpointX
+            framImage.x = LeaderpointX
+            framImage.y = LeaderpointY
 
             local characImage = display.newImageRect(myImageSheet , sheetInfo:getFrameIndex(ImageCharacter)  ,sizeleaderW, sizeleaderH)
             characImage:setReferencePoint( display.TopLeftReferencePoint )
-            characImage.x = LeaderpointY
-            characImage.y = LeaderpointX
+            characImage.x = LeaderpointX
+            characImage.y = LeaderpointY
             groupView:insert(characImage)
             groupView:insert(framImage)
 
-            local textLV = display.newText("Lv."..character_LV, LVpointY,LVpointX,typeFont, sizetext)
-            textLV:setTextColor(255, 255, 255)
+            local textLV = display.newText("Lv."..character_LV, LVpointX,LVpointY,typeFont, sizetext)
+            textLV:setReferencePoint(display.TopLeftReferencePoint)
+            textLV:setFillColor(255, 255, 255)
             groupView:insert(textLV)
 
         end
 
+        if i > 4 then
+            LeaderpointX2 = LeaderpointX2 + (screenW*.14)
+            LeaderpointX = LeaderpointX2
 
+            LeaderpointY = LeaderpointY2
+            LVpointX2 =  LVpointX2 + (screenW*.14)
+            LVpointX =  LVpointX2
+
+            LVpointY =  screenH*.57
+        else
+            LeaderpointX = LeaderpointX + (screenW*.14)
+            LVpointX =  LVpointX + (screenW*.14)
+        end
     end
 
     SmachText = display.newText("Discharge your Character", screenW*.3, screenH *.38,typeFont, sizetextName)
-    SmachText:setTextColor(255, 255, 255)
+    SmachText:setReferencePoint(display.TopLeftReferencePoint)
+    SmachText:setFillColor(255, 255, 255)
     groupView:insert(SmachText)
 
     local CoinText = display.newText("Confirm", screenW*.45, screenH *.7,typeFont, sizetextName)
     CoinText.text = string.format("Confirm to Discharge your Character?")
-    CoinText:setTextColor(255, 255, 255)
+    CoinText:setReferencePoint(display.TopLeftReferencePoint)
+    CoinText:setFillColor(255, 255, 255)
     groupView:insert(CoinText)
 
     local txtSMS = display.newText("Coin : "..Coin, screenW*.16, screenH *.62,typeFont, sizetextName)
     --    txtSMS.text = string.format("Coin :", Coin )
-    txtSMS:setTextColor(255, 255, 255)
+    txtSMS:setReferencePoint(display.TopLeftReferencePoint)
+    txtSMS:setFillColor(255, 255, 255)
     groupView:insert(txtSMS)
 
     --button cancel profile
@@ -1071,28 +1091,33 @@ function confrimSellItem(option)
     frmitemsell.alpha = 1
 
     local NameItem = display.newText(item_name, screenW*.44, screenH*.49, typeFont, NamesizeFont)
-    NameItem:setTextColor(218, 165, 32)
+    NameItem:setReferencePoint(display.TopLeftReferencePoint)
+    NameItem:setFillColor(218, 165, 32)
     NameItem.text =  string.format(item_name)
     NameItem.alpha = 1
 
     local CoinItem = display.newText(coin_item, screenW*.29, screenH*.68, typeFont, sizeFont)
-    CoinItem:setTextColor(218, 165, 32)
+    CoinItem:setReferencePoint(display.TopLeftReferencePoint)
+    CoinItem:setFillColor(218, 165, 32)
     CoinItem.text =  string.format("COIN : "..coin_item)
     CoinItem.alpha = 1
 
     local amountItem = display.newText(amount, screenW*.52, screenH*.54, typeFont, sizeFont)
-    amountItem:setTextColor(255, 255, 255)
+    amountItem:setReferencePoint(display.TopLeftReferencePoint)
+    amountItem:setFillColor(255, 255, 255)
     amountItem.text =  string.format("AMOUNT : "..amount)
     amountItem.alpha = 1
 
     local txtSELL = display.newText("ITEM SELL", screenW*.25, screenH*.632, typeFont, sizeFont)
-    txtSELL:setTextColor(255, 255, 255)
+    txtSELL:setReferencePoint(display.TopLeftReferencePoint)
+    txtSELL:setFillColor(255, 255, 255)
     txtSELL.text =  string.format("ITEM SELL : ")
     txtSELL.alpha = 1
 
     itemNum = 1
     local ItemNumSELL = display.newText(itemNum, screenW*.59, screenH*.625, typeFont, NamesizeFont)
-    ItemNumSELL:setTextColor(255, 0, 255)
+    ItemNumSELL:setReferencePoint(display.TopLeftReferencePoint)
+    ItemNumSELL:setFillColor(255, 0, 255)
     ItemNumSELL.text =  string.format(itemNum)
     ItemNumSELL.alpha = 1
     --**--
@@ -1308,12 +1333,14 @@ function resetItem(user_id)
     end
 
     back_while = display.newRect(0, 0, screenW, screenH)
+    back_while:setReferencePoint(display.TopLeftReferencePoint)
     back_while.strokeWidth = 3
     back_while.alpha = .5
     back_while:setFillColor(0, 0, 0)
     groupView:insert(back_while)
 
     myRectangle = display.newRoundedRect(screenW*.2, screenH*.4, screenW*.6, screenH*.2,7)
+    myRectangle:setReferencePoint(display.TopLeftReferencePoint)
     myRectangle.strokeWidth = 3
     myRectangle:setStrokeColor(255,255,255)
     myRectangle.alpha = .8
@@ -1322,7 +1349,8 @@ function resetItem(user_id)
 
 
     SmachText = display.newText("Confirm to Reset your Item?", screenW*.27, screenH *.45,typeFont, sizetextName)
-    SmachText:setTextColor(255, 255, 255)
+    SmachText:setReferencePoint(display.TopLeftReferencePoint)
+    SmachText:setFillColor(255, 255, 255)
     groupView:insert(SmachText)
 
     --button cancel profile
@@ -1444,6 +1472,7 @@ function accepFriend(option)
     local NumCoin = nil
     --**--
     local back_while = display.newRect(0, 0, screenW, screenH)
+    back_while:setReferencePoint(display.TopLeftReferencePoint)
     back_while.strokeWidth =0
     back_while.alpha = .5
     back_while:setFillColor(0, 0, 0)
@@ -1458,7 +1487,8 @@ function accepFriend(option)
 
     local textMSN = "You want to respond to a friend."
     local TextMassage = display.newText(textMSN, screenW*.18, screenH*.4, typeFont, NamesizeFont)
-    TextMassage:setTextColor(255, 255, 255)
+    TextMassage:setReferencePoint(display.TopLeftReferencePoint)
+    TextMassage:setFillColor(255, 255, 255)
     TextMassage.text =  string.format(textMSN)
     TextMassage.alpha = 1
     groupView:insert(TextMassage)
@@ -1478,25 +1508,29 @@ function accepFriend(option)
     groupView:insert(frmFriend)
 
     local LVCharacter = display.newText(charac_lv, screenW*.7, screenH*.49, typeFont, NamesizeFont)
-    LVCharacter:setTextColor(200, 200, 200)
+    LVCharacter:setReferencePoint(display.TopLeftReferencePoint)
+    LVCharacter:setFillColor(200, 200, 200)
     LVCharacter.text =  string.format("Lv."..charac_lv)
     LVCharacter.alpha = 1
     groupView:insert(LVCharacter)
 
     local NameFriend = display.newText(friend_name, screenW*.44, screenH*.49, typeFont, NamesizeFont)
-    NameFriend:setTextColor(218, 165, 32)
+    NameFriend:setReferencePoint(display.TopLeftReferencePoint)
+    NameFriend:setFillColor(218, 165, 32)
     NameFriend.text =  string.format(friend_name)
     NameFriend.alpha = 1
     groupView:insert(NameFriend)
 
     local LVFriend = display.newText(friend_lv, screenW*.29, screenH*.6, typeFont, sizeFont)
-    LVFriend:setTextColor(200, 0, 200)
+    LVFriend:setReferencePoint(display.TopLeftReferencePoint)
+    LVFriend:setFillColor(200, 0, 200)
     LVFriend.text =  string.format("Lv."..friend_lv)
     LVFriend.alpha = 1
     groupView:insert(LVFriend)
 
     local dateTime = display.newText(dateModify, screenW*.45, screenH*.55, typeFont, sizeFont)
-    dateTime:setTextColor(200, 100, 200)
+    dateTime:setReferencePoint(display.TopLeftReferencePoint)
+    dateTime:setFillColor(200, 100, 200)
     dateTime.text =  string.format(dateModify)
     dateTime.alpha = 1
     groupView:insert(dateTime)
@@ -1580,12 +1614,14 @@ function Nonetwork(namepage)
     end
 
     local back_while = display.newRect(0, 0, screenW, screenH)
+    back_while:setReferencePoint(display.TopLeftReferencePoint)
     back_while.strokeWidth =0
     back_while.alpha = .5
     back_while:setFillColor(0, 0, 0)
     groupView:insert(back_while)
 
     local myRectangle = display.newRoundedRect(screenW*.2, screenH*.4, screenW*.6, screenH*.2,7)
+    myRectangle:setReferencePoint(display.TopLeftReferencePoint)
     myRectangle.strokeWidth = 2
     myRectangle:setStrokeColor(255,255,255)
     myRectangle.alpha = .8
@@ -1594,7 +1630,8 @@ function Nonetwork(namepage)
 
 
     local SmachText = display.newText("Can't connect to server!", screenW*.31, screenH *.45,typeFont, sizetextName)
-    SmachText:setTextColor(255, 255, 255)
+    SmachText:setReferencePoint(display.TopLeftReferencePoint)
+    SmachText:setFillColor(255, 255, 255)
     groupView:insert(SmachText)
 
     --button ok profile
@@ -1642,12 +1679,14 @@ function NoDataInList()
     end
 
     local back_while = display.newRect(0, 0, screenW, screenH)
+    back_while:setReferencePoint(display.TopLeftReferencePoint)
     back_while.strokeWidth =0
     back_while.alpha = .5
     back_while:setFillColor(0, 0, 0)
     groupView:insert(back_while)
 
     local myRectangle = display.newRoundedRect(screenW*.2, screenH*.4, screenW*.6, screenH*.2,7)
+    myRectangle:setReferencePoint(display.TopLeftReferencePoint)
     myRectangle.strokeWidth = 2
     myRectangle:setStrokeColor(255,255,255)
     myRectangle.alpha = .8
@@ -1656,7 +1695,8 @@ function NoDataInList()
 
 
     local SmachText = display.newText("No Friend Request", screenW*.35, screenH *.45,typeFont, sizetextName)
-    SmachText:setTextColor(255, 255, 255)
+    SmachText:setReferencePoint(display.TopLeftReferencePoint)
+    SmachText:setFillColor(255, 255, 255)
     groupView:insert(SmachText)
 
     --button ok profile
@@ -1704,12 +1744,14 @@ function NohaveCoin()
     end
 
     local back_while = display.newRect(0, 0, screenW, screenH)
+    back_while:setReferencePoint(display.TopLeftReferencePoint)
     back_while.strokeWidth =0
     back_while.alpha = .5
     back_while:setFillColor(0, 0, 0)
     groupView:insert(back_while)
 
     local myRectangle = display.newRoundedRect(screenW*.2, screenH*.4, screenW*.6, screenH*.2,7)
+    myRectangle:setReferencePoint(display.TopLeftReferencePoint)
     myRectangle.strokeWidth = 2
     myRectangle:setStrokeColor(255,255,255)
     myRectangle.alpha = .8
@@ -1718,7 +1760,8 @@ function NohaveCoin()
 
 
     local SmachText = display.newText("No Have Coin Request!", screenW*.35, screenH *.45,typeFont, sizetextName)
-    SmachText:setTextColor(255, 255, 255)
+    SmachText:setReferencePoint(display.TopLeftReferencePoint)
+    SmachText:setFillColor(255, 255, 255)
     groupView:insert(SmachText)
 
     --button ok profile
@@ -1767,12 +1810,14 @@ function NoFriendPoint()
     end
 
     local back_while = display.newRect(0, 0, screenW, screenH)
+    back_while:setReferencePoint(display.TopLeftReferencePoint)
     back_while.strokeWidth =0
     back_while.alpha = .5
     back_while:setFillColor(0, 0, 0)
     groupView:insert(back_while)
 
     local myRectangle = display.newRoundedRect(screenW*.2, screenH*.4, screenW*.6, screenH*.2,7)
+    myRectangle:setReferencePoint(display.TopLeftReferencePoint)
     myRectangle.strokeWidth = 2
     myRectangle:setStrokeColor(255,255,255)
     myRectangle.alpha = .8
@@ -1781,7 +1826,8 @@ function NoFriendPoint()
 
 
     local SmachText = display.newText("Not enough Friend Points", screenW*.30, screenH *.45,typeFont, sizetextName)
-    SmachText:setTextColor(255, 255, 255)
+    SmachText:setReferencePoint(display.TopLeftReferencePoint)
+    SmachText:setFillColor(255, 255, 255)
     groupView:insert(SmachText)
 
     --button ok profile
@@ -1829,12 +1875,14 @@ function NoDiamondPoint()
     end
 
     local back_while = display.newRect(0, 0, screenW, screenH)
+    back_while:setReferencePoint(display.TopLeftReferencePoint)
     back_while.strokeWidth =0
     back_while.alpha = .5
     back_while:setFillColor(0, 0, 0)
     groupView:insert(back_while)
 
     local myRectangle = display.newRoundedRect(screenW*.15, screenH*.35, screenW*.73, screenH*.3,7)
+    myRectangle:setReferencePoint(display.TopLeftReferencePoint)
     myRectangle.strokeWidth = 2
     myRectangle:setStrokeColor(255,255,255)
     myRectangle.alpha = .8
@@ -1842,6 +1890,7 @@ function NoDiamondPoint()
     groupView:insert(myRectangle)
 
     local SmachText_T = util.wrappedText("  Not enoungh Golds.Do you \nwant to buy Golds?", screenW*.28, 30,typeFont, {255, 255, 255})
+    SmachText_T:setReferencePoint(display.TopLeftReferencePoint)
     SmachText_T.x = screenW*.18
     SmachText_T.y = screenH*.40
     groupView:insert(SmachText_T)
@@ -1902,6 +1951,7 @@ function NoHaveSlot(page)
     end
 
     local back_while = display.newRect(0, 0, screenW, screenH)
+    back_while:setReferencePoint(display.TopLeftReferencePoint)
     back_while.strokeWidth =0
     back_while.alpha = .5
     back_while:setFillColor(0, 0, 0)
@@ -1911,6 +1961,7 @@ function NoHaveSlot(page)
     groupView:insert(back_while)
 
     local myRectangle = display.newRoundedRect(screenW*.13, screenH*.35, screenW*.77, screenH*.5,7)
+    myRectangle:setReferencePoint(display.TopLeftReferencePoint)
     myRectangle.strokeWidth = 2
     myRectangle:setStrokeColor(255,255,255)
     myRectangle.touch = ontouchNoDataInList
@@ -1924,7 +1975,7 @@ function NoHaveSlot(page)
     SmachText_1:setReferencePoint( display.CenterReferencePoint )
     SmachText_1.x = screenW*.5
     SmachText_1.y = screenH*.40
-    SmachText_1:setTextColor(255, 255 ,255)
+    SmachText_1:setFillColor(255, 255 ,255)
     groupView:insert(SmachText_1)
 
     local imgslot = display.newImageRect("img/background/shop/slot.png", screenW*.12, screenH*.08 )
@@ -1936,17 +1987,18 @@ function NoHaveSlot(page)
     SmachText_num:setReferencePoint( display.CenterReferencePoint )
     SmachText_num.x = screenW*.45
     SmachText_num.y = screenH*.59
-    SmachText_num:setTextColor(255, 0 ,139)
+    SmachText_num:setFillColor(255, 0 ,139)
     groupView:insert(SmachText_num)
 
     local SmachText_num2 = display.newText("/"..menu_barLight.slot(),0 , 0,native.systemFontBold,28)
     SmachText_num2:setReferencePoint( display.CenterReferencePoint )
     SmachText_num2.x = SmachText_num.x + 60
     SmachText_num2.y = screenH*.6
-    SmachText_num2:setTextColor(255, 255 ,139)
+    SmachText_num2:setFillColor(255, 255 ,139)
     groupView:insert(SmachText_num2)
 
     local SmachText_T = util.wrappedText("Inventory limit reached,unable to enter\nanother battle or get new cards.\nUse 1 diamond to extend 5 slots of inventory", screenW*.28, 20,typeFont, {255, 255, 255})
+    SmachText_T:setReferencePoint(display.TopLeftReferencePoint)
     SmachText_T.x = screenW*.15
     SmachText_T.y = screenH*.65
     groupView:insert(SmachText_T)
@@ -2041,12 +2093,14 @@ function confrimLeaveTicket(option)
     end
 
     local back_while = display.newRect(0, 0, screenW, screenH)
+    back_while:setReferencePoint(display.TopLeftReferencePoint)
     back_while.alpha = .8
     back_while:setFillColor(0, 0, 0)
     groupView:insert(back_while)
 
     --local image_Caution = "img/background/sellBattle_Item/CAUTION_BACKGROUND_LAYOT.png"
     local backcolor =  display.newRoundedRect(screenW*.1, screenH*.4, screenW*.8, screenH*.3,7)
+    backcolor:setReferencePoint(display.TopLeftReferencePoint)
     backcolor.strokeWidth = 2
     backcolor:setStrokeColor(255,255,255)
     backcolor.alpha = .8
@@ -2054,7 +2108,8 @@ function confrimLeaveTicket(option)
     groupView:insert(backcolor)
 
     local txtMSN = display.newText("EXP", screenW*.45, screenH*.45, typeFont, sizetext)
-    txtMSN:setTextColor(0, 200, 0)
+    txtMSN:setReferencePoint(display.TopLeftReferencePoint)
+    txtMSN:setFillColor(0, 200, 0)
     txtMSN.text =  string.format("Comfrim You Retreat?")
     txtMSN.alpha = 1
     groupView:insert(txtMSN)
@@ -2132,12 +2187,14 @@ function teamLock(page)
     local groupView = display.newGroup()
 
     back_while = display.newRect(0, 0, screenW, screenH*.5)
+    back_while:setReferencePoint(display.TopLeftReferencePoint)
     back_while.strokeWidth =0
     back_while.alpha = .5
     back_while:setFillColor(0, 0, 0)
     groupView:insert(back_while)
 
     myRectangle = display.newRoundedRect(screenW*.2, screenH*.4, screenW*.6, screenH*.2,7)
+    myRectangle:setReferencePoint(display.TopLeftReferencePoint)
     myRectangle.strokeWidth = 2
     myRectangle:setStrokeColor(255,255,255)
     myRectangle.alpha = .8
@@ -2146,7 +2203,8 @@ function teamLock(page)
 
 
     SmachText = display.newText(textMSN, screenW*.25, screenH *.45,typeFont, sizetextName)
-    SmachText:setTextColor(255, 255, 255)
+    SmachText:setReferencePoint(display.TopLeftReferencePoint)
+    SmachText:setFillColor(255, 255, 255)
     groupView:insert(SmachText)
 
 

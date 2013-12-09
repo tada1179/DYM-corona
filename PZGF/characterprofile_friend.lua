@@ -161,7 +161,8 @@ function scene:createScene( event )
     gdisplay:insert(background2)
 
     local NameText = display.newText(character_name, pointName, screenH *.3,typeFont, sizetextName)
-    NameText:setTextColor(255, 255, 255)
+    NameText:setReferencePoint(display.TopLeftReferencePoint)
+    NameText:setFillColor(255, 255, 255)
     gdisplay:insert(NameText)
 
     local LVPHtext = display.newImageRect(image_LVPH, screenW*.44, screenH*.07 )
@@ -171,39 +172,48 @@ function scene:createScene( event )
     gdisplay:insert(LVPHtext)
 
     local smashText = display.newText(txtSmach[numsmash], 0, 0,typeFont, sizetext)
-    smashText:setTextColor(255, 255, 255)
+    smashText:setReferencePoint(display.TopLeftReferencePoint)
+    smashText:setFillColor(255, 255, 255)
     smashText.x = screenW *.59
     smashText.y = screenH *.62
     gdisplay:insert(smashText)
 
     -- ***  LV HP ATK DEF  *** --
     local showLV = display.newText(txtLV, screenW *.41, screenH *.59,typeFont, sizetext)
-    showLV:setTextColor(255, 0, 255)
+    showLV:setReferencePoint(display.TopLeftReferencePoint)
+    showLV:setFillColor(255, 0, 255)
     gdisplay:insert(showLV)
     local showHP = display.newText(txtHP, screenW *.41, screenH *.61,typeFont, sizetext)
-    showHP:setTextColor(255, 0, 255)
+    showHP:setReferencePoint(display.TopLeftReferencePoint)
+    showHP:setFillColor(255, 0, 255)
     gdisplay:insert(showHP)
     local showATK = display.newText(txtATK, screenW *.41, screenH *.63,typeFont, sizetext)
-    showATK:setTextColor(255, 0, 255)
+    showATK:setReferencePoint(display.TopLeftReferencePoint)
+    showATK:setFillColor(255, 0, 255)
     gdisplay:insert(showATK)
     local showDEF = display.newText(txtDEF, screenW *.41, screenH *.65,typeFont, sizetext)
-    showDEF:setTextColor(255, 0, 255)
+    showDEF:setReferencePoint(display.TopLeftReferencePoint)
+    showDEF:setFillColor(255, 0, 255)
     gdisplay:insert(showDEF)
 
     -- *** NEXT COST *** --
     local showNEXT = display.newText(txtNEXT, screenW *.58, screenH *.59,typeFont, sizetext)
-    showNEXT:setTextColor(255, 0, 255)
+    showNEXT:setReferencePoint(display.TopLeftReferencePoint)
+    showNEXT:setFillColor(255, 0, 255)
     gdisplay:insert(showNEXT)
     local showCOST = display.newText(txtCOST, screenW *.8, screenH *.59,typeFont, sizetext)
-    showCOST:setTextColor(255, 0, 255)
+    showCOST:setReferencePoint(display.TopLeftReferencePoint)
+    showCOST:setFillColor(255, 0, 255)
     gdisplay:insert(showCOST)
 
     -- *** MASSAGE SKILL L SKILL *** --
     local showMSNL_skill = display.newText(txtL_skill, screenW *.15,  screenH *.70,typeFont, sizetext)
-    showMSNL_skill:setTextColor(255, 0, 255)
+    showMSNL_skill:setReferencePoint(display.TopLeftReferencePoint)
+    showMSNL_skill:setFillColor(255, 0, 255)
     gdisplay:insert(showMSNL_skill)
     local showMSNskill = display.newText(txtskill, screenW *.15,  screenH *.78,typeFont, sizetext)
-    showMSNskill:setTextColor(255, 0, 255)
+    showMSNskill:setReferencePoint(display.TopLeftReferencePoint)
+    showMSNskill:setFillColor(255, 0, 255)
     gdisplay:insert(showMSNskill)
 
 

@@ -177,7 +177,9 @@ local function scrollViewList()
             top = (i*screenH*.085)-(screenH*.085),
             left = (display.contentWidth*.8) - display.contentWidth ,
             onEvent = onButtonEvent	-- event listener function
-        }listCharacter[i].id = holditem_id[i]
+        }
+        listCharacter[i].id = holditem_id[i]
+        listCharacter[i]:setReferencePoint(display.TopLeftReferencePoint)
 
         frameElE[i] = widget.newButton{
             default=  frame[imagefrm[i]],
@@ -186,7 +188,9 @@ local function scrollViewList()
             top = (i*screenH*.085)-(screenH*.085),
             left = (display.contentWidth*.8) - display.contentWidth ,
             onEvent = onButtonEvent	-- event listener function
-        }frameElE[i].id = holditem_id[i]
+        }
+        frameElE[i].id = holditem_id[i]
+        frameElE[i]:setReferencePoint(display.TopLeftReferencePoint)
 
         characELE[i] = display.newImageRect( imagePicture[i],sizeleaderW,sizeleaderH )
         characELE[i] :setReferencePoint( display.CenterReferencePoint )
@@ -194,13 +198,15 @@ local function scrollViewList()
         characELE[i].y =  (i*screenH*.085)-(screenH*.045)
 
         local NameItem = display.newText(item_name[i], screenW*.7, screenH*.5, typeFont, sizeFont)
-        NameItem:setTextColor(255, 255, 255)
+        NameItem:setReferencePoint(display.TopLeftReferencePoint)
+        NameItem:setFillColor(255, 255, 255)
         NameItem.text =  string.format(item_name[i])
         NameItem.x = screenW*.03
         NameItem.y = (i*screenH*.085)-(screenH*.075)
 
         local CountItem = display.newText(holditem_amount[i], screenW*.7, screenH*.5, typeFont, sizeFont)
-        CountItem:setTextColor(255, 255, 255)
+        CountItem:setReferencePoint(display.TopLeftReferencePoint)
+        CountItem:setFillColor(255, 255, 255)
         CountItem.text =  string.format(holditem_amount[i])
         CountItem.x = screenW*.4
         CountItem.y = (i*screenH*.085)-(screenH*.075)

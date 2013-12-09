@@ -233,16 +233,19 @@ function new(params)
                 backButton.alpha = 0
 
                 local NameMission = display.newText("name", screenW*.18, pointNameY,typeFont, 20)
+                NameMission:setReferencePoint(display.TopLeftReferencePoint)
                 NameMission:setTextColor(255, 0, 255)
                 NameMission.alpha = 0
                 scrollView:insert(NameMission)
 
                 local txtbattle = display.newText("Battle ", screenW*.68, pointbattleY,typeFont, 20)
+                txtbattle:setReferencePoint(display.TopLeftReferencePoint)
                 txtbattle:setTextColor(200, 200, 200)
                 txtbattle.alpha = 0
                 scrollView:insert(txtbattle)
 
                 local txtstamina = display.newText("stamina ", screenW*.68, pointNameY,typeFont, 20)
+                txtstamina:setReferencePoint(display.TopLeftReferencePoint)
                 txtstamina:setTextColor(0, 0, 255)
                 txtstamina.alpha = 0
                 scrollView:insert(txtstamina)
@@ -263,17 +266,21 @@ function new(params)
                     width= screenW/10, height= screenH/21,
                     onRelease = onBtnRelease	-- event listener function
                 }
+                backButton:setReferencePoint(display.TopLeftReferencePoint)
                 backButton.id=i
 
                 local NameMission = display.newText(characterItem[i].mission_name, screenW*.18, pointNameY,typeFont, 20)
+                NameMission:setReferencePoint(display.TopLeftReferencePoint)
                 NameMission:setTextColor(255, 0, 255)
                 scrollView:insert(NameMission)
 
                 local txtbattle = display.newText("Battle "..characterItem[i].mission_amount, screenW*.68, pointbattleY,typeFont, 20)
+                txtbattle:setReferencePoint(display.TopLeftReferencePoint)
                 txtbattle:setTextColor(200, 200, 200)
                 scrollView:insert(txtbattle)
 
                 local txtstamina = display.newText("stamina "..characterItem[i].mission_amount, screenW*.68, pointNameY,typeFont, 20)
+                txtstamina:setReferencePoint(display.TopLeftReferencePoint)
                 txtstamina:setTextColor(0, 0, 255)
                 scrollView:insert(txtstamina)
             end

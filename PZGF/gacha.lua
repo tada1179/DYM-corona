@@ -88,6 +88,7 @@ end
 local function Diamond()
     groupView_FriendPoint = display.newGroup()
     local BGbackground = display.newRoundedRect(0,0, screenW, screenH,0)
+    BGbackground:setReferencePoint(display.TopLeftReferencePoint)
     BGbackground.strokeWidth = 0
     BGbackground.alpha = .5
     BGbackground:setFillColor(0 ,0 ,0)
@@ -156,6 +157,7 @@ end
 local function FriendPoint()
     groupView_FriendPoint = display.newGroup()
     local BGbackground = display.newRoundedRect(0,0, screenW, screenH,0)
+    BGbackground:setReferencePoint(display.TopLeftReferencePoint)
     BGbackground.strokeWidth = 0
     BGbackground.alpha = .5
     BGbackground:setFillColor(0 ,0 ,0)
@@ -330,6 +332,7 @@ function GachaRelease(event)
 
 end
 function scene:createScene( event )
+    native.setActivityIndicator( false )
     local group = self.view
 
     myFrientPoint = menu_barLight.FrientPoint()
@@ -391,6 +394,7 @@ function scene:createScene( event )
     local dataFrientPoint = menu_barLight.FrientPoint()
     if dataFrientPoint >= usedataFrientPoint then
         local backcolor =  display.newRoundedRect(screenW*.73, screenH*.38, screenW*.05, screenH*.033,5)
+        backcolor:setReferencePoint(display.TopLeftReferencePoint)
         backcolor.strokeWidth = 2
         backcolor:setStrokeColor(255,255,255)
         backcolor.alpha = 1
@@ -403,7 +407,8 @@ function scene:createScene( event )
         local pointNum = (screenW*.75)-((maxLenght*sizeMaxfriend)/5)
 
         local Myfriend = display.newText(maxFriendPoint, pointNum, screenH*.38, typeFont, sizeMaxfriend)
-        Myfriend:setTextColor(0, 0, 0)
+        Myfriend:setReferencePoint(display.TopLeftReferencePoint)
+        Myfriend:setFillColor(0, 0, 0)
         gdisplay:insert(Myfriend)
 
     end

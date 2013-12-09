@@ -113,6 +113,7 @@ function character_gallery(id,USERID,gplayView,point)
     end
 
     myRectangle = display.newRect(0, 0, screenW, screenH)
+    myRectangle:setReferencePoint(display.TopLeftReferencePoint)
     myRectangle.strokeWidth = 3
     myRectangle.alpha = .8
     myRectangle:setFillColor(0, 0, 0)
@@ -151,27 +152,33 @@ function character_gallery(id,USERID,gplayView,point)
     local pointtextLVHP = screenW*.7
 
     local NameText = display.newText(characterItem[1].character_name, screenW*.55, screenH *.35,typeFont, sizetextName)
-    NameText:setTextColor(0, 255, 255)
+    NameText:setReferencePoint(display.TopLeftReferencePoint)
+    NameText:setFillColor(0, 255, 255)
     groupView:insert(NameText)
 
     local SmachText = display.newText(characterItem[1].character_type.."smach", screenW*.55, screenH *.38,typeFont, sizetextName)
-    SmachText:setTextColor(200, 0, 200)
+    SmachText:setReferencePoint(display.TopLeftReferencePoint)
+    SmachText:setFillColor(200, 0, 200)
     groupView:insert(SmachText)
 
     local LVText = display.newText(characterItem[1].character_LV, pointtextLVHP, screenH *.412,typeFont, sizetext)
-    LVText:setTextColor(0, 255, 255)
+    LVText:setReferencePoint(display.TopLeftReferencePoint)
+    LVText:setFillColor(0, 255, 255)
     groupView:insert(LVText)
 
     local HPText = display.newText(characterItem[1].character_HP, pointtextLVHP, screenH *.44,typeFont, sizetext)
-    HPText:setTextColor(0, 255, 255)
+    HPText:setReferencePoint(display.TopLeftReferencePoint)
+    HPText:setFillColor(0, 255, 255)
     groupView:insert(HPText)
 
     local ATKText = display.newText(characterItem[1].character_ATK, pointtextLVHP, screenH *.468,typeFont, sizetext)
-    ATKText:setTextColor(0, 255, 255)
+    ATKText:setReferencePoint(display.TopLeftReferencePoint)
+    ATKText:setFillColor(0, 255, 255)
     groupView:insert(ATKText)
 
     local DEFText = display.newText(characterItem[1].character_DEF, pointtextLVHP, screenH *.496,typeFont, sizetext)
-    DEFText:setTextColor(0, 255, 255)
+    DEFText:setReferencePoint(display.TopLeftReferencePoint)
+    DEFText:setFillColor(0, 255, 255)
     groupView:insert(DEFText)
 
     --button cancel profile
@@ -289,6 +296,7 @@ function character_powerUP(id,USERID,gplayView,point)
     end
 
     myRectangle = display.newRect(0, 0, screenW, screenH)
+    myRectangle:setReferencePoint(display.TopLeftReferencePoint)
     myRectangle.strokeWidth = 3
     myRectangle.alpha = .8
     myRectangle:setFillColor(0, 0, 0)
@@ -329,27 +337,32 @@ function character_powerUP(id,USERID,gplayView,point)
     local NameText = display.newText(characterItem[1].character_name,0, screenH *.30,typeFont, sizetextName)
     NameText:setReferencePoint( display.CenterReferencePoint )
     NameText.x= screenW*.5
-    NameText:setTextColor(0, 255, 255)
+    NameText:setFillColor(0, 255, 255)
     groupView:insert(NameText)
 
     local SmachText = display.newText(characterItem[1].character_type.."smach", screenW*.55, screenH *.38,typeFont, sizetextName)
-    SmachText:setTextColor(200, 0, 200)
+    SmachText:setReferencePoint(display.TopLeftReferencePoint)
+    SmachText:setFillColor(200, 0, 200)
     groupView:insert(SmachText)
 
     local LVText = display.newText(characterItem[1].character_LV, pointtextLVHP, screenH *.412,typeFont, sizetext)
-    LVText:setTextColor(0, 255, 255)
+    LVText:setReferencePoint(display.TopLeftReferencePoint)
+    LVText:setFillColor(0, 255, 255)
     groupView:insert(LVText)
 
     local HPText = display.newText(characterItem[1].character_HP, pointtextLVHP, screenH *.44,typeFont, sizetext)
-    HPText:setTextColor(0, 255, 255)
+    HPText:setReferencePoint(display.TopLeftReferencePoint)
+    HPText:setFillColor(0, 255, 255)
     groupView:insert(HPText)
 
     local ATKText = display.newText(characterItem[1].character_ATK, pointtextLVHP, screenH *.468,typeFont, sizetext)
-    ATKText:setTextColor(0, 255, 255)
+    ATKText:setReferencePoint(display.TopLeftReferencePoint)
+    ATKText:setFillColor(0, 255, 255)
     groupView:insert(ATKText)
 
     local DEFText = display.newText(characterItem[1].character_DEF, pointtextLVHP, screenH *.496,typeFont, sizetext)
-    DEFText:setTextColor(0, 255, 255)
+    DEFText:setReferencePoint(display.TopLeftReferencePoint)
+    DEFText:setFillColor(0, 255, 255)
     groupView:insert(DEFText)
 
     --button cancel profile
@@ -497,6 +510,7 @@ function character_unitBox(id,holddteam_no,team_id,USERID)
     end
 
     myRectangle = display.newRoundedRect(0, 0, screenW, screenH,0)
+    myRectangle:setReferencePoint(display.TopLeftReferencePoint)
     myRectangle.strokeWidth = 0
     myRectangle.alpha = .8
     myRectangle:setFillColor(0 ,0 ,0)
@@ -537,27 +551,32 @@ function character_unitBox(id,holddteam_no,team_id,USERID)
     local NameText = display.newText(characterItem[1].character_name, 0, screenH *.3,typeFont, sizetextName)
     NameText:setReferencePoint( display.CenterReferencePoint )
     NameText.x = screenW*.5
-    NameText:setTextColor(0, 255, 255)
+    NameText:setFillColor(0, 255, 255)
     groupView:insert(NameText)
 
     local SmachText = display.newText(characterItem[1].character_type.."smach", screenW*.55, screenH *.38,typeFont, sizetextName)
-    SmachText:setTextColor(200, 0, 200)
+    SmachText:setReferencePoint(display.TopLeftReferencePoint)
+    SmachText:setFillColor(200, 0, 200)
     groupView:insert(SmachText)
 
     local LVText = display.newText(characterItem[1].character_LV, pointtextLVHP, screenH *.412,typeFont, sizetext)
-    LVText:setTextColor(0, 255, 255)
+    LVText:setReferencePoint(display.TopLeftReferencePoint)
+    LVText:setFillColor(0, 255, 255)
     groupView:insert(LVText)
 
     local HPText = display.newText(characterItem[1].character_HP, pointtextLVHP, screenH *.44,typeFont, sizetext)
-    HPText:setTextColor(0, 255, 255)
+    HPText:setReferencePoint(display.TopLeftReferencePoint)
+    HPText:setFillColor(0, 255, 255)
     groupView:insert(HPText)
 
     local ATKText = display.newText(characterItem[1].character_ATK, pointtextLVHP, screenH *.468,typeFont, sizetext)
-    ATKText:setTextColor(0, 255, 255)
+    ATKText:setReferencePoint(display.TopLeftReferencePoint)
+    ATKText:setFillColor(0, 255, 255)
     groupView:insert(ATKText)
 
     local DEFText = display.newText(characterItem[1].character_DEF, pointtextLVHP, screenH *.496,typeFont, sizetext)
-    DEFText:setTextColor(0, 255, 255)
+    DEFText:setReferencePoint(display.TopLeftReferencePoint)
+    DEFText:setFillColor(0, 255, 255)
     groupView:insert(DEFText)
 
     --button cancel profile
@@ -696,6 +715,7 @@ function character(id,holddteam_no,team_id,USERID)
     end
 
     local myRectangle = display.newRect(0, 0, screenW, screenH)
+    myRectangle:setReferencePoint(display.TopLeftReferencePoint)
     myRectangle.strokeWidth = 3
     myRectangle.alpha = .8
     myRectangle:setFillColor(0, 0, 0)
@@ -734,27 +754,32 @@ function character(id,holddteam_no,team_id,USERID)
 
     local NameText = display.newText(characterItem[1].character_name, screenW*.3, screenH *.3,typeFont, sizetextName)
     NameText:setReferencePoint( display.CenterReferencePoint )
-    NameText:setTextColor(0, 255, 255)
+    NameText:setFillColor(0, 255, 255)
     groupView:insert(NameText)
 
     local SmachText = display.newText(characterItem[1].character_type.."smach", screenW*.55, screenH *.38,typeFont, sizetextName)
-    SmachText:setTextColor(200, 0, 200)
+    SmachText:setReferencePoint(display.TopLeftReferencePoint)
+    SmachText:setFillColor(200, 0, 200)
     groupView:insert(SmachText)
 
     local LVText = display.newText(characterItem[1].character_LV, pointtextLVHP, screenH *.412,typeFont, sizetext)
-    LVText:setTextColor(0, 255, 255)
+    LVText:setReferencePoint(display.TopLeftReferencePoint)
+    LVText:setFillColor(0, 255, 255)
     groupView:insert(LVText)
 
     local HPText = display.newText(characterItem[1].character_HP, pointtextLVHP, screenH *.44,typeFont, sizetext)
-    HPText:setTextColor(0, 255, 255)
+    HPText:setReferencePoint(display.TopLeftReferencePoint)
+    HPText:setFillColor(0, 255, 255)
     groupView:insert(HPText)
 
     local ATKText = display.newText(characterItem[1].character_ATK, pointtextLVHP, screenH *.468,typeFont, sizetext)
-    ATKText:setTextColor(0, 255, 255)
+    ATKText:setReferencePoint(display.TopLeftReferencePoint)
+    ATKText:setFillColor(0, 255, 255)
     groupView:insert(ATKText)
 
     local DEFText = display.newText(characterItem[1].character_DEF, pointtextLVHP, screenH *.496,typeFont, sizetext)
-    DEFText:setTextColor(0, 255, 255)
+    DEFText:setReferencePoint(display.TopLeftReferencePoint)
+    DEFText:setFillColor(0, 255, 255)
     groupView:insert(DEFText)
 
     --button cancel profile
@@ -924,6 +949,7 @@ function characterFriend_remove(Recharacter,Refriendid,ReUSERID,Nofriend_id)
     end
 
     myRectangle = display.newRect(0, 0, screenW, screenH)
+    myRectangle:setReferencePoint(display.TopLeftReferencePoint)
     myRectangle.strokeWidth = 3
     myRectangle.alpha = .8
     myRectangle:setFillColor(0, 0, 0)
@@ -964,41 +990,50 @@ function characterFriend_remove(Recharacter,Refriendid,ReUSERID,Nofriend_id)
 
     -------*****user
     local txtLV_user = display.newText("Lv."..characterItem[1].user_LV, screenW*.2, screenH *.25,typeFont, sizetextName)
-    txtLV_user:setTextColor(100, 255, 255)
+    txtLV_user:setReferencePoint(display.TopLeftReferencePoint)
+    txtLV_user:setFillColor(100, 255, 255)
     groupView:insert(txtLV_user)
 
 
     local txtNameuser = display.newText(characterItem[1].user_Name, screenW*.2, screenH *.2,typeFont, sizetextName)
-    txtNameuser:setTextColor(200, 200, 200)
+    txtNameuser:setReferencePoint(display.TopLeftReferencePoint)
+    txtNameuser:setFillColor(200, 200, 200)
     groupView:insert(txtNameuser)
 
     local txtID_user = display.newText("ID:[0000000"..characterItem[1].Uuser_id.."]", screenW*.55, screenH *.25,typeFont, sizetextName)
-    txtID_user:setTextColor(0, 255, 255)
+    txtID_user:setReferencePoint(display.TopLeftReferencePoint)
+    txtID_user:setFillColor(0, 255, 255)
     groupView:insert(txtID_user)
     -------*****user
 
     local NameText = display.newText(characterItem[1].character_name, screenW*.55, screenH *.35,typeFont, sizetextName)
-    NameText:setTextColor(0, 255, 255)
+    NameText:setReferencePoint(display.TopLeftReferencePoint)
+    NameText:setFillColor(0, 255, 255)
     groupView:insert(NameText)
 
     local SmachText = display.newText(characterItem[1].character_type.."smach", screenW*.55, screenH *.38,typeFont, sizetextName)
-    SmachText:setTextColor(200, 0, 200)
+    SmachText:setReferencePoint(display.TopLeftReferencePoint)
+    SmachText:setFillColor(200, 0, 200)
     groupView:insert(SmachText)
 
     local LVText = display.newText(characterItem[1].character_LV, pointtextLVHP, screenH *.412,typeFont, sizetext)
-    LVText:setTextColor(0, 255, 255)
+    LVText:setReferencePoint(display.TopLeftReferencePoint)
+    LVText:setFillColor(0, 255, 255)
     groupView:insert(LVText)
 
     local HPText = display.newText(characterItem[1].character_HP, pointtextLVHP, screenH *.44,typeFont, sizetext)
-    HPText:setTextColor(0, 255, 255)
+    HPText:setReferencePoint(display.TopLeftReferencePoint)
+    HPText:setFillColor(0, 255, 255)
     groupView:insert(HPText)
 
     local ATKText = display.newText(characterItem[1].character_ATK, pointtextLVHP, screenH *.468,typeFont, sizetext)
-    ATKText:setTextColor(0, 255, 255)
+    ATKText:setReferencePoint(display.TopLeftReferencePoint)
+    ATKText:setFillColor(0, 255, 255)
     groupView:insert(ATKText)
 
     local DEFText = display.newText(characterItem[1].character_DEF, pointtextLVHP, screenH *.496,typeFont, sizetext)
-    DEFText:setTextColor(0, 255, 255)
+    DEFText:setReferencePoint(display.TopLeftReferencePoint)
+    DEFText:setFillColor(0, 255, 255)
     groupView:insert(DEFText)
 
     --button cancel profile

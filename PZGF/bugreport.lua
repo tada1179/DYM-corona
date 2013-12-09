@@ -72,7 +72,7 @@ function scene:createScene( event )
     titleText  = display.newText("BUG REPORT", 0, screenH*.30,typeFont, fontsizeHead)
     titleText:setReferencePoint( display.CenterReferencePoint )
     titleText.x = screenW*.55
-    titleText:setTextColor(255, 255, 255)
+    titleText:setFillColor(255, 255, 255)
 
 
     local SmachText_s = util.wrappedText(text[1], screenW*.28, fontsize,typeFont, {200, 200, 200})

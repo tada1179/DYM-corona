@@ -13,7 +13,7 @@ local myImageSheet = graphics.newImageSheet( "chara_icon.png",system.DocumentsDi
 
 local teamInfo = require("team")
 local myImageteam = graphics.newImageSheet( "team.png",system.DocumentsDirectory, teamInfo:getSheet() )
--------------------------------------------------------------------------
+-----------------------------------------------------------------
 function newTEAM(id)
 
     local data = {}
@@ -27,12 +27,12 @@ function newTEAM(id)
     local sizetxt =  18
     local imageName = "img/characterIcon/as_cha_frm00.png"
     local frame0 = "img/characterIcon/as_cha_frm00.png"
-    local frame = require("alertMassage").loadFramElement()
+
     local image_tapteam = "as_team_icn_team04"
     local screenW = display.contentWidth
     local screenH = display.contentHeight
 
-    local pointY = display.contentHeight * 1.12
+    local pointY = screenH*.01
     local USERID = includeFUN.USERIDPhone()
 
     local g = display.newGroup()
@@ -91,7 +91,9 @@ function newTEAM(id)
 
     end
 
+
     local function selectLeader(event)
+
         local options =
         {
             effect = "fade",
@@ -114,12 +116,13 @@ function newTEAM(id)
 
     end
 
+    local poinImg1X = - screenW*0.35
     if characterItem[itemImg].teamno == 1 then
 
-        picture[1] = display.newImageRect(myImageSheet , sheetInfo:getFrameIndex(characterItem[itemImg].imgMini)  ,sizeleaderW,sizeleaderH)
+        picture[1] = display.newImageRect(myImageSheet , sheetInfo:getFrameIndex(characterItem[itemImg].imgMini) ,sizeleaderW,sizeleaderH)
         picture[1]:setReferencePoint( display.CenterReferencePoint )
         g:insert(picture[1])
-        picture[1].x = display.contentWidth - (display.contentWidth*.93)
+        picture[1].x = poinImg1X
         picture[1].y = pointY
 
         leader[1] = widget.newButton{
@@ -132,7 +135,7 @@ function newTEAM(id)
         leader[1].id= character_id[1]
         leader[1]:setReferencePoint( display.CenterReferencePoint )
         g:insert(leader[1])
-        leader[1].x = display.contentWidth - (display.contentWidth*.93)
+        leader[1].x = poinImg1X
         leader[1].y = pointY
 
         itemImg = itemImg + 1
@@ -147,7 +150,7 @@ function newTEAM(id)
         leader[1].id= "Character"
         leader[1]:setReferencePoint( display.CenterReferencePoint )
         g:insert(leader[1])
-        leader[1].x = display.contentWidth - (display.contentWidth*.93)
+        leader[1].x = poinImg1X
         leader[1].y = pointY
 
     end
@@ -156,7 +159,7 @@ function newTEAM(id)
 
     for i = 2, maxCharac, 1 do
         if characterItem[itemImg].teamno == i  then
-            picture[i] = display.newImageRect(myImageSheet , sheetInfo:getFrameIndex(characterItem[itemImg].imgMini)  ,sizeleaderW,sizeleaderH)
+            picture[i] = display.newImageRect(myImageSheet , sheetInfo:getFrameIndex(characterItem[itemImg].imgMini) ,sizeleaderW,sizeleaderH)
             picture[i]:setReferencePoint( display.CenterReferencePoint )
             picture[i].x = pointleader +  (screenW*.135)
             picture[i].y = pointY
@@ -193,7 +196,7 @@ function newTEAM(id)
         pointleader = leader[i].x
 
     end
-    picture[maxCharac+1] = display.newImageRect(myImageSheet , sheetInfo:getFrameIndex(characterItem[6].imgMini)  ,sizeleaderW,sizeleaderH)
+    picture[maxCharac+1] = display.newImageRect(myImageSheet , sheetInfo:getFrameIndex(characterItem[6].imgMini) ,sizeleaderW,sizeleaderH)
     picture[maxCharac+1]:setReferencePoint( display.CenterReferencePoint )
     picture[maxCharac+1].x = pointleader +  (screenW*.135)
     picture[maxCharac+1].y = pointY
@@ -215,9 +218,9 @@ function newTEAM(id)
 
     local tap_team = display.newImageRect(myImageteam , teamInfo:getFrameIndex(image_tapteam),screenW*.78,screenH*.028)
     tap_team:setReferencePoint( display.CenterReferencePoint )
+    tap_team.x = -screenW * .02
+    tap_team.y = -screenH * .07
     g:insert(tap_team)
-    tap_team.x = screenW *.38
-    tap_team.y = pointY * .92
     --------------------------------
     --    storyboard.removeAll ()
     --    storyboard.purgeAll()

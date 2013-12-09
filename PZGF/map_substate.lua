@@ -24,7 +24,7 @@ local function onBtnRelease(event)
 
     gdisplay:removeSelf()
     gdisplay = nil
-
+    native.setActivityIndicator( true )
 
     if event.target.id == "back" then -- back button
 --        storyboard.gotoScene( "map" ,"fade", 100 )
@@ -158,7 +158,8 @@ local function scrollViewFN()
             }
             backButton.id=  dataTable[i].chapter_id
             txtbattle = display.newText(dataTable[i].chapter_name, screenW*.1, pointName,typeFont, fontsize)
-            txtbattle:setTextColor(200, 200, 200)
+            txtbattle:setReferencePoint(display.TopLeftReferencePoint)
+            txtbattle:setFillColor(200, 200, 200)
             scrollView:insert(txtbattle)
 
         pointName = pointName + (screenH*.11)
@@ -169,6 +170,7 @@ local function scrollViewFN()
 
 end
 function scene:createScene( event )
+    native.setActivityIndicator( false )
     local group = self.view
     gdisplay = display.newGroup()
 

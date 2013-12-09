@@ -117,7 +117,7 @@ function scene:createScene( event )
     titleText = display.newText("CONTACT US", screenW*.38, screenH*.3,typeFont, fontsizeHead)
 
     titleText:setReferencePoint( display.TopLeftReferencePoint )
-    titleText:setTextColor(255, 255, 255)
+    titleText:setFillColor(255, 255, 255)
 
 	createBackButton()
     groupView:insert(titleText)

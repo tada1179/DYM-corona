@@ -121,6 +121,7 @@ local function list_community()
 end
 
 function scene:createScene( event )
+    native.setActivityIndicator( false )
     local image_text = "img/text/COMMUNITY.png"
     local group = self.view
     gdisplay = display.newGroup()

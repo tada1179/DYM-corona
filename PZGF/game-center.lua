@@ -108,7 +108,7 @@ function scene:createScene( event )
     titleText  = display.newText("GAME CENTER", 0, screenH*.30,typeFont, fontsizeHead)
     titleText:setReferencePoint( display.CenterReferencePoint )
     titleText.x = screenW*.5
-    titleText:setTextColor(255, 255, 255)
+    titleText:setFillColor(255, 255, 255)
 
 	createBackButton()
     groupView:insert(titleText)

@@ -18,6 +18,7 @@ local img_Ribbon = "img/background/Ribbon.png"
 local groupScene
 ------------------------------------
 local function onMapRelease(event)
+    native.setActivityIndicator( true )
     menu_barLight.SEtouchButton()
     if timers.gameTimerUpdate then
         timer.cancel(timers.gameTimerUpdate)
@@ -83,6 +84,7 @@ local function loadmap()
 
 end
 function scene:createScene( event)
+    native.setActivityIndicator( false )
     groupScene = display.newGroup()
     local group = self.view
 

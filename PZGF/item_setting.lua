@@ -334,19 +334,23 @@ function scene:createScene( event )
     local txtITEM_Box = AllItem
 
     local backcharacter = display.newRect(screenW*.1, screenH*.725, screenW*.8, screenH*.07)
+    backcharacter:setReferencePoint(display.TopLeftReferencePoint)
     backcharacter.alpha = 0.8
     backcharacter:setFillColor(130 , 130, 130)
 
     local txtItem = display.newImageRect(image_txtItem, screenW*.16, screenH*.05)
 
+    txtItem:setReferencePoint(display.TopLeftReferencePoint)
     txtItem.x = screenW*.25
     txtItem.y = screenH*.76
 
     local textITEM = display.newText(txtITEM, screenW*.45, screenH*.73, typeFont, sizeFont)
+    textITEM:setReferencePoint(display.TopLeftReferencePoint)
     textITEM:setTextColor(255, 255, 255)
 
 
     local textITEM_Box = display.newText(txtITEM_Box, screenW*.45, screenH*.76, typeFont, sizeFont)
+    textITEM_Box:setReferencePoint(display.TopLeftReferencePoint)
     textITEM_Box:setTextColor(255, 255, 255)
 
 
@@ -373,9 +377,6 @@ end
 function scene:exitScene( event )
     local group = self.view
     storyboard.removeAll ()
-    scene:removeEventListener( "createScene", scene )
-    scene:removeEventListener( "enterScene", scene )
-    scene:removeEventListener( "destroyScene", scene )
 
 end
 

@@ -143,8 +143,9 @@ local function scrollViewList()
         local NameMission = display.newText(text[i], 0, pointListTxtY,typeFont, fontsizeHead)
 
         NameMission:setReferencePoint( display.CenterReferencePoint )
+        NameMission:setReferencePoint(display.TopLeftReferencePoint)
         NameMission.x = screenW*.35
-        NameMission:setTextColor(200, 200, 200)
+        NameMission:setFillColor(200, 200, 200)
         scrollView:insert(NameMission)
 
         pointListTxtY = pointListTxtY + (screenH*.105)
@@ -163,7 +164,7 @@ function scene:createScene( event )
     titleText  = display.newText("GAME TECHNIQUES", 0, screenH*.30,typeFont, fontsizeHead)
     titleText:setReferencePoint( display.CenterReferencePoint )
     titleText.x = screenW*.5
-    titleText:setTextColor(255, 255, 255)
+    titleText:setFillColor(255, 255, 255)
 
     createBackButton()
     scrollViewList()

@@ -72,7 +72,7 @@ local function scrollViewFN()
     gdisplay = display.newGroup()
     scrollView = widget.newScrollView{
         width = screenW *.77,
-        height = screenH * .4,
+        height = screenH * .45,
         top = screenH *.35,
         left = screenW *.14,
         scrollWidth = 0,
@@ -106,6 +106,7 @@ local function scrollViewFN()
                 require("alertMassage").stamina(params)
 
             else
+                native.setActivityIndicator( true )
                 menu_barLight.SEtouchButton()
                     local option = {
 
@@ -179,14 +180,17 @@ local function scrollViewFN()
             backButton.id= i
 
             local NameMission = display.newText(characterItem[i].mission_name, pointNameX, pointNameY,typeFont, fontsizeHead)
+            NameMission:setReferencePoint(display.TopLeftReferencePoint)
             NameMission:setTextColor(200, 200, 200)
             scrollView:insert(NameMission)
 
             local txtbattle = display.newText("Battle : "..characterItem[i].mission_run, screenW*.35, pointbattleY,typeFont, fontsize)
+            txtbattle:setReferencePoint(display.TopLeftReferencePoint)
             txtbattle:setTextColor(147, 112, 219)
             scrollView:insert(txtbattle)
 
             local txtstamina = display.newText("stamina : "..characterItem[i].mission_stamina, screenW*.08, pointbattleY,typeFont, fontsize)
+            txtstamina:setReferencePoint(display.TopLeftReferencePoint)
             txtstamina:setTextColor(173, 255, 47)
             scrollView:insert(txtstamina)
 
@@ -201,6 +205,7 @@ local function scrollViewFN()
 
 end
 function scene:createScene( event )
+    native.setActivityIndicator( false )
     local group = self.view
     local gdisplayScene =  display.newGroup()
     local img_text =  "img/text/MISSION_SELECT.png"

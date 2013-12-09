@@ -120,6 +120,7 @@ local function listMenu()
 
 end
 function scene:createScene( event )
+    native.setActivityIndicator( false )
     local group = self.view
     groupView = display.newGroup()
     groupView:insert(background)

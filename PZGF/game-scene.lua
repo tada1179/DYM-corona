@@ -206,6 +206,7 @@ local function copynewGem (i,j,coler)
     --picture = {"image/RED.png","image/GREEN.png","image/BLUE.png","image/PURPLE.png","image/PINK.png","image/YELLOW.png"}
 
     newGem = display.newImageRect(picture,48,48)
+    newGem:setReferencePoint(display.TopLeftReferencePoint)
     newGem.x = i * 53 - (26+53)
     -- if j == 1 then
     newGem.y = j * 53 + 134
@@ -472,6 +473,7 @@ local function destroyGems()
                     if PINK <= 150 then
 
                         powerBar = display.newImageRect("img/background/bt_p_hpbar.png",PINK,6)
+                        powerBar:setReferencePoint(display.TopLeftReferencePoint)
                         powerBar.x = 90 + PINK
                         powerBar.y =  207
 

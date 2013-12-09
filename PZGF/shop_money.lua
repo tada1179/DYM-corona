@@ -83,6 +83,7 @@ local function onBtnRelease(event)
 end
 
 function scene:createScene( event )
+    native.setActivityIndicator( false )
     gdisplay = display.newGroup()
     local group = self.view
 

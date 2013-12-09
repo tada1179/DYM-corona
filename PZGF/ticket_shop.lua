@@ -25,6 +25,7 @@ local ticket_price = {}
 
 local _pointNextY
 local gdisplay
+local numberTarget = 0
 
 local function onBtnRelease(event)
     local previous_scene_name = storyboard.getPrevious()
@@ -54,13 +55,26 @@ local function onBtnRelease(event)
     return true	-- indicates successful touch
 end
 
+local function onComplete( event )
+    if "clicked" == event.action then
+        print(" numberTarget = ", numberTarget)
+        local i = event.index
+        if 1 == i then --"Buy"
+            -- Do nothing; dialog will simply dismiss
+        elseif 2 == i then  -- "Cencel"
+            system.openURL( "http://www.coronalabs.com" )
+        end
+    end
+end
 
 local function scrollViewList()
     local function onButtonEvent( event )
+        numberTarget = 0
         if event.phase == "begen" then
             event.markX = event.x
             event.markY = event.y
             local scrollBar = self.scrollBar
+
         elseif event.phase == "moved" then
             --local dx = math.abs( event.x - event.xStart )
             local dy = math.abs( event.y - event.yStart )
@@ -70,7 +84,10 @@ local function scrollViewList()
             end
 
         elseif event.phase == "ended" then
+            
             menu_barLight.SEtouchButton()
+            numberTarget = event.target.id
+            local alert = native.showAlert( "Confirm You In-App Purchase", "Do you want to buy Gold for $"..ticket_price[numberTarget], { "Buy", "Cencel" }, onComplete )
         end
 
         return true
@@ -117,7 +134,8 @@ local function scrollViewList()
     for i = 1, maxList , 1 do
         local myticket_price = {}
         myticket_price[i] = display.newText(ticket_price[i].."$", 0, 0, native.systemFontBold, 20)
-        myticket_price[i]:setTextColor(0, 200, 0)
+        myticket_price[i]:setReferencePoint( display.TopLeftReferencePoint )
+        myticket_price[i]:setFillColor(0, 200, 0)
         myticket_price[i].x = screenW*.62
         myticket_price[i].y = pointTicket
 
@@ -140,6 +158,7 @@ local function scrollViewList()
             },
             onEvent = onButtonEvent
         }
+        BtnImage[i]:setReferencePoint( display.TopLeftReferencePoint )
         BtnImage[i].id = i
         --BtnImage[i]:labelColor(0,200,0)
         scrollView:insert( myticket_price[i] )

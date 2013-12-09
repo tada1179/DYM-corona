@@ -39,11 +39,13 @@ function new( imageSet, slideBackground, top, bottom ,pageTeam,pageItem,user_id,
     if slideBackground then
 
         background = display.newImage(slideBackground, 0, 0, true)
+        background:setReferencePoint( display.TopLeftReferencePoint )
+
     else
 --        background = display.newRect( 0, 0, screenW, screenH*.6 )
 --        background:setFillColor(255, 255, 255)
 
-        background = display.newImageRect(image_background, screenW, screenH*.6, true)
+        background = display.newImageRect(image_background, screenW, screenH*.6)
         background:setReferencePoint( display.TopLeftReferencePoint )
         background.x, background.y = 0, 0
     end
@@ -57,11 +59,13 @@ function new( imageSet, slideBackground, top, bottom ,pageTeam,pageItem,user_id,
         local p = require(imageSet[i]).newTEAM(params.friend_id)
        -- print("imageSet", imageSet[i])
         p:setReferencePoint(display.CenterReferencePoint)
+--        p:setReferencePoint(display.TopLeftReferencePoint)
 
         local h = viewableScreenH-(top+bottom)
         if p.width > viewableScreenW or p.height > h then
             if p.width/viewableScreenW > p.height/h then
                 p.xScale = viewableScreenW/p.width
+                p.yScale = viewableScreenW/p.width
                 p.yScale = viewableScreenW/p.width
             else
                 p.xScale = h/p.height
@@ -84,23 +88,25 @@ function new( imageSet, slideBackground, top, bottom ,pageTeam,pageItem,user_id,
     end
 
     local navBar = display.newGroup()
-    g:insert(navBar)
+
     local img_bar = "as_slide_icn_base"
     local img_Show = "as_slide_icn_show"
 
     local navBarGraphic = display.newImageRect(myImageteam , teamInfo:getFrameIndex(img_bar), screenW*.1, screenH*.015, false)
     navBar:insert(navBarGraphic)
-    navBarGraphic.x = viewableScreenW*.8
+    navBarGraphic:setReferencePoint( display.TopLeftReferencePoint )
+    navBarGraphic.x = viewableScreenW*.76
     navBarGraphic.y = viewableScreenH*.6
 
 
     local navBarShow = display.newImageRect(myImageteam , teamInfo:getFrameIndex(img_Show), screenW*.018, screenH*.015, false)
     navBar:insert(navBarShow)
+    navBarShow:setReferencePoint( display.TopLeftReferencePoint )
     navBarShow.x = viewableScreenW*.76
     navBarShow.y = viewableScreenH*.6
 
     navBar.y = math.floor(navBar.height*0.5)
-
+    g:insert(navBar)
     local function onbtnstartBattleBack(event)
         native.setActivityIndicator( true )
 

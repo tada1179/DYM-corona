@@ -102,7 +102,8 @@ local gameTimer = 0
 local timers = {}
 local count = 0
 local gameTimerText = display.newText(0, screenW*.5, 0, typeFont, fontSizeHead)
-gameTimerText:setTextColor(205, 155, 29)
+gameTimerText:setReferencePoint(display.TopLeftReferencePoint)
+gameTimerText:setFillColor(205, 155, 29)
 gameTimerText.alpha = 0
 
 local timers = {}
@@ -476,6 +477,7 @@ function newrequestList()
     --        maxlistFriend = 1
     if maxlistFriend > 0 then
         local backcolor =  display.newRoundedRect(screenW*.642, screenH*.57, screenW*.05, screenH*.033,5)
+        backcolor:setReferencePoint(display.TopLeftReferencePoint)
         backcolor.strokeWidth = 2
         backcolor:setStrokeColor(255,255,255)
         backcolor.alpha = 1
@@ -487,7 +489,8 @@ function newrequestList()
         local pointNum = (screenW*.66)-((maxLenght*sizeMaxfriend)/5)
 
         local Myfriend = display.newText(maxlistFriend, pointNum, screenH*.575, typeFont, sizeMaxfriend)
-        Myfriend:setTextColor(0, 0, 0)
+        Myfriend:setReferencePoint(display.TopLeftReferencePoint)
+        Myfriend:setFillColor(0, 0, 0)
         --         group:insert(Myfriend)
 
     end
@@ -656,23 +659,28 @@ end
 
 
     Myname = display.newText(dataName, pointName, screenH*.05, typeFont, sizetextname)
-    Myname:setTextColor(255, 255, 255)
+    Myname:setReferencePoint(display.TopLeftReferencePoint)
+    Myname:setFillColor(255, 255, 255)
 
 
     MyDiamond = display.newText(dataDiamond, pointDiamond, screenH*.116, typeFont, sizeCoinDiamond)
-    MyDiamond:setTextColor(205, 38, 38)
+    MyDiamond:setReferencePoint(display.TopLeftReferencePoint)
+    MyDiamond:setFillColor(205, 38, 38)
 
 
     MyCoin = display.newText(dataCoin, pointCoin, screenH*.17, typeFont, sizeCoinDiamond)
-    MyCoin:setTextColor(205, 155, 29)
+    MyCoin:setReferencePoint(display.TopLeftReferencePoint)
+    MyCoin:setFillColor(205, 155, 29)
 
 
     MyLV = display.newText("Lv."..dataLV, screenW*.28, screenH*.11, typeFont, sizeCoinDiamond)
-    MyLV:setTextColor(255, 255, 255)
+    MyLV:setReferencePoint(display.TopLeftReferencePoint)
+    MyLV:setFillColor(255, 255, 255)
 
 
     MyStamina = display.newText(powerSTAMINA.."/"..maxpowerSTAMINA, screenW*.28, screenH*.16, typeFont, sizeCoinDiamond)
-    MyStamina:setTextColor(255, 255, 255)
+    MyStamina:setReferencePoint(display.TopLeftReferencePoint)
+    MyStamina:setFillColor(255, 255, 255)
     maxpowerSTAMINA = stamina()
 
 
@@ -722,6 +730,7 @@ end
 
     local function onBtnnewMenuRelease(event)
         SEtouchButton()
+        native.setActivityIndicator( true )
         ------------------------------------
 --        if event.target.id == "battle" and previous_scene_name ~= "map" then
         if event.target.id == "battle"  then
@@ -853,6 +862,7 @@ local imgAll = {
     local MyfriendFN
     if maxlistFriend > 0 then
         backcolorFN=  display.newRoundedRect(screenW*.845, screenH*.823, screenW*.05, screenH*.033,5)
+        backcolorFN:setReferencePoint(display.TopLeftReferencePoint)
         backcolorFN.strokeWidth = 2
         backcolorFN:setStrokeColor(255,255,255)
         backcolorFN.alpha = 1
@@ -864,7 +874,8 @@ local imgAll = {
         local pointNum = (screenW*.865)-((maxLenght*sizeMaxfriend)/5)
 
         MyfriendFN = display.newText(maxlistFriend, pointNum, screenH*.827, typeFont, sizeMaxfriend)
-        MyfriendFN:setTextColor(0, 0, 0)
+        MyfriendFN:setReferencePoint(display.TopLeftReferencePoint)
+        MyfriendFN:setFillColor(0, 0, 0)
 --        group:insert(backcolorFN)
 --        group:insert(MyfriendFN)
     end
@@ -874,6 +885,7 @@ local imgAll = {
     local backcolor
     if dataFrientPoint >= usedataFrientPoint then
         backcolor =  display.newRoundedRect(screenW*.68, screenH*.823, screenW*.05, screenH*.033,5)
+        backcolor:setReferencePoint(display.TopLeftReferencePoint)
         backcolor.strokeWidth = 2
         backcolor:setStrokeColor(255,255,255)
         backcolor.alpha = 1
@@ -885,7 +897,8 @@ local imgAll = {
         local pointNum = (screenW*.70)-((maxLenght*sizeMaxfriend)/5)
 
         Myfriend = display.newText(maxFriendPoint, pointNum, screenH*.827, typeFont, sizeMaxfriend)
-        Myfriend:setTextColor(0, 0, 0)
+        Myfriend:setReferencePoint(display.TopLeftReferencePoint)
+        Myfriend:setFillColor(0, 0, 0)
 --        group:insert(backcolor)
 --        group:insert(Myfriend)
 

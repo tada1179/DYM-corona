@@ -47,7 +47,8 @@ function new( imageSet, slideBackground, top, bottom ,page,USERID,USERLV)
 
     for i = 1,#imageSet do
         local p = require(imageSet[i]).newTEAM(USERID)
-        p:setReferencePoint(display.CenterReferencePoint)
+        p:setReferencePoint(display.TopLeftReferencePoint)
+--        p:setReferencePoint(display.CenterReferencePoint)
 
         local h = viewableScreenH-(top+bottom)
         if p.width > viewableScreenW or p.height > h then
@@ -69,22 +70,26 @@ function new( imageSet, slideBackground, top, bottom ,page,USERID,USERLV)
         else
             p.x = screenW*.5
         end
+
+--        p.x = screenW*.1
+--        p.y = h*.1
         p.y = h*.6
         images[i] = p
 
-
+         print(i.."p.x = ",p.x,"p.y = ",p.y)
     end
 
     local navBar = display.newGroup()
-    g:insert(navBar)
-
     local imgBar = "as_slide_page_00"
-    local navBarGraphic = display.newImageRect(myImageteam , teamInfo:getFrameIndex(imgBar), screenW*.25, screenH*.03, false)
-    navBar:insert(navBarGraphic)
+    local navBarGraphic = display.newImageRect(myImageteam , teamInfo:getFrameIndex(imgBar), screenW*.25, screenH*.03)
+    navBarGraphic:setReferencePoint( display.TopLeftReferencePoint )
     navBarGraphic.x = viewableScreenW*.75
-    navBarGraphic.y = viewableScreenH*.75
+    navBarGraphic.y = screenH*.68
+    navBar:insert(navBarGraphic)
 
-    local poinlock =  viewableScreenW*.648 -- number 2  vsw*.75
+    local poinlock =  screenW*.75 -- number 2  vsw*.75
+    local poinlockYY =  screenH*.68 --viewableScreenH*.75
+    local poinlockYYLC =  screenH*.683 --viewableScreenH*.75
     local myCircle = {}
     local lockteam
     local numlock = 0
@@ -94,12 +99,14 @@ function new( imageSet, slideBackground, top, bottom ,page,USERID,USERLV)
         local teamNumber = math.floor(USERLV/10) + 1
         if i <= teamNumber then
            if i ~= page then
-               myCircle[i] = display.newCircle(poinlock, viewableScreenH*.75, 15)
+               myCircle[i] = display.newCircle(poinlock,poinlockYY , 15)
+               myCircle[i]:setReferencePoint( display.TopLeftReferencePoint )
                myCircle[i] :setFillColor(128,128,128)
                myCircle[i] .alpha = .8
                navBar:insert(myCircle[i] )
            else
-               myCircle[i] = display.newCircle(poinlock, viewableScreenH*.75, 15)
+               myCircle[i] = display.newCircle(poinlock, poinlockYY, 15)
+               myCircle[i]:setReferencePoint( display.TopLeftReferencePoint )
                myCircle[i] :setFillColor(128,128,128)
                myCircle[i] .alpha = .1
                navBar:insert(myCircle[i] )
@@ -107,15 +114,17 @@ function new( imageSet, slideBackground, top, bottom ,page,USERID,USERLV)
 
         else
             numlock = numlock + 1
-            myCircle[i]  = display.newCircle(poinlock, viewableScreenH*.75, 15)
+            myCircle[i]  = display.newCircle(poinlock, poinlockYY, 15)
+            myCircle[i]:setReferencePoint( display.TopLeftReferencePoint )
             myCircle[i] :setFillColor(128,128,128)
             myCircle[i] .alpha = .8
             myCircle[i] .id = "lock"
             navBar:insert(myCircle[i])
 
-            lockteam = display.newImageRect(myImageteam , teamInfo:getFrameIndex(img_close), screenW*.06, screenH*.03, false)
+            lockteam = display.newImageRect(myImageteam , teamInfo:getFrameIndex(img_close), screenW*.06, screenH*.03)
+            lockteam:setReferencePoint( display.TopLeftReferencePoint )
             lockteam.x = poinlock
-            lockteam.y = viewableScreenH*.753
+            lockteam.y = poinlockYYLC
             navBar:insert(lockteam)
         end
 
@@ -123,6 +132,7 @@ function new( imageSet, slideBackground, top, bottom ,page,USERID,USERLV)
     end
     navBar.y = math.floor(navBar.height-viewableScreenW*.635)
     navBar.x = math.floor(navBar.width-viewableScreenH*.5)
+    g:insert(navBar)
     function onbtnreset(event)
         if event.target.id == "back" then
             require("menu_barLight").SEtouchButtonBack()

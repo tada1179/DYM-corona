@@ -81,10 +81,11 @@ function scene:createScene( event )
     titleText  = display.newText(textHead, 0, screenH*.30,typeFont, fontsizeHead)
     titleText:setReferencePoint( display.CenterReferencePoint )
     titleText.x = screenW*.5
-    titleText:setTextColor(255, 255, 255)
+    titleText:setFillColor(255, 255, 255)
 
 
     local SmachText_s = util.wrappedText(text[num], screenW*.28, fontsize,typeFont, {200, 200, 200})
+    SmachText_s:setReferencePoint(display.TopLeftReferencePoint)
     SmachText_s.x = screenW*.1
     SmachText_s.y = screenH*.38
     createBackButton()

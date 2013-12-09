@@ -189,6 +189,7 @@ local function scrollViewList()
         }
 
         listCharacter[i].id = "listCharacter"..i
+        listCharacter[i]:setReferencePoint(display.TopLeftReferencePoint)
         scrollView:insert(listCharacter[i])
         pointListY = pointListY + (screenH*.11)
 

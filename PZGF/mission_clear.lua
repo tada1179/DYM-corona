@@ -370,7 +370,6 @@ function scene:createScene( event )
 
     local titleText = display.newImageRect(image_text,screenW*.356,screenH*.028)--contentWidth contentHeight
     titleText:setReferencePoint(display.CenterReferencePoint)-- setReferencePoint( display.TopLeftReferencePoint )
-    titleText:setReferencePoint(display.CenterReferencePoint)-- setReferencePoint( display.TopLeftReferencePoint )
     titleText.x = display.contentWidth*.5
     titleText.y = display.contentHeight*.325
     group:insert(titleText)
@@ -409,27 +408,29 @@ function scene:createScene( event )
 
     local txt_LV = display.newText("Lv."..user_lv.." ( "..NumPer.."% )", 0, 0, typeFont, 20)
     txt_LV:setReferencePoint(display.TopLeftReferencePoint)
-    txt_LV:setTextColor(255, 255, 255)
+    txt_LV:setFillColor(255, 255, 255)
     txt_LV.x = screenW*.21
     txt_LV.y = screenH*.58
     group:insert(txt_LV)
 
     local txt_ExpAll = display.newText(myexp.."/"..mission_expNext.." Exp", 0, 0, typeFont, 20)
     txt_ExpAll:setReferencePoint(display.TopRightReferencePoint)
-    txt_ExpAll:setTextColor(255, 255, 255)
+    txt_ExpAll:setFillColor(255, 255, 255)
     txt_ExpAll.x = screenW*.8
     txt_ExpAll.y = screenH*.58
     group:insert(txt_ExpAll)
 
     --text name mission
     local txtNamemission = display.newText(mission_name, 0, 0, typeFont, 23)
-    txtNamemission:setTextColor(255, 255, 255)
+    txtNamemission:setReferencePoint(display.TopLeftReferencePoint)
+    txtNamemission:setFillColor(255, 255, 255)
     txtNamemission.x = screenW*.48
     txtNamemission.y = screenH*.42
     group:insert(txtNamemission)
 
     local txtNameChapter = display.newText(chapter_name, 0, 0, typeFont, 30)
-    txtNameChapter:setTextColor(255, 255, 255)
+    txtNameChapter:setReferencePoint(display.TopLeftReferencePoint)
+    txtNameChapter:setFillColor(255, 255, 255)
     txtNameChapter.x = screenW*.48
     txtNameChapter.y = screenH*.38
     group:insert(txtNameChapter)
@@ -447,7 +448,8 @@ function scene:createScene( event )
     group:insert(NumExpCoin)
 
     local txt_flag = display.newText("FLAG", 0, 0, typeFont, 20)
-    txt_flag:setTextColor(255, 255, 255)
+    txt_flag:setReferencePoint(display.TopLeftReferencePoint)
+    txt_flag:setFillColor(255, 255, 255)
     txt_flag.x = screenW*.15
     txt_flag.y = screenH*.67
 

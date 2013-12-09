@@ -101,6 +101,7 @@ local function createBackButton()
 
     requestID = native.newTextField( screenW*.2, screenH*.56, stringfLenght, sizeField )
 --    requestID.text = ""
+    requestID:setReferencePoint(display.TopLeftReferencePoint)
     requestID.font = textFont
     requestID.size = sizeStringInput
     requestID.inputType = "number"
@@ -144,6 +145,7 @@ function scene:createScene( event )
     gdisplay:insert(freamyouID)
 
     local yourID =  display.newText(user_id,pointcenterID, screenH*.43,textFont,sizeString)
+    yourID:setReferencePoint(display.TopLeftReferencePoint)
     gdisplay:insert(yourID)
 
     createBackButton()

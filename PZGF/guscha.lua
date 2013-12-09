@@ -35,7 +35,8 @@ local bottomBoundary = display.screenOriginY
 local scrollView = scrollView.new{ top=topBoundary, bottom=bottomBoundary }
 
 local myText = display.newText("Move Up to Scroll", 0, 0, native.systemFontBold, 16)
-myText:setTextColor(255, 0, 0)
+myText:setReferencePoint(display.TopLeftReferencePoint)
+myText:setFillColor(255, 0, 0)
 myText.x = math.floor(display.contentWidth*0.5)
 myText.y = 150
 scrollView:insert(myText)
@@ -45,6 +46,7 @@ local screenOffsetW, screenOffsetH = display.contentWidth -  display.viewableCon
 local detailScreen = display.newGroup()
 
 local detailBg = display.newRect(0,0,display.contentWidth,display.contentHeight-display.screenOriginY)
+detailBg:setReferencePoint(display.TopLeftReferencePoint)
 detailBg:setFillColor(0,200,255)
 detailScreen:insert(detailBg)
 
@@ -53,7 +55,8 @@ detailScreen:insert(detailBg)
 --detailScreen:insert(gacha)
 
 detailScreenText = display.newText("You tapped item", 0, 0, native.systemFontBold, 20)
-detailScreenText:setTextColor(0, 0, 0)
+detailScreenText:setReferencePoint(display.TopLeftReferencePoint)
+detailScreenText:setFillColor(0, 0, 0)
 detailScreen:insert(detailScreenText)
 
 
@@ -159,7 +162,7 @@ local dataTable = {}
         width=200, height=40,
         callback=function(row)
             local t = display.newText(row, 0, 0, native.systemFontBold, 16)
-            t:setTextColor(200, 0 ,200)
+            t:setFillColor(200, 0 ,200)
             t.x = math.floor(t.width/2)
             t.y = 60
             return t
@@ -173,6 +176,7 @@ local dataTable = {}
     scrollView:insert(frog)
 
 	local scrollBackground = display.newImageRect( "img/background/listItemBg.png", 100,210 )
+    scrollBackground:setReferencePoint(display.TopLeftReferencePoint)
     scrollBackground.x = 100
     scrollBackground.y = math.floor(myText.y + myText.height) + (i*40)
     scrollView:insert( scrollBackground )

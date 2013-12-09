@@ -32,7 +32,7 @@ function newTEAM(id)
     local screenW = display.contentWidth
     local screenH = display.contentHeight
 
-    local pointY = display.contentHeight * 1.12
+    local pointY = screenH*.01
     local USERID = includeFUN.USERIDPhone()
 
     local g = display.newGroup()
@@ -116,12 +116,13 @@ function newTEAM(id)
 
     end
 
+    local poinImg1X = - screenW*0.35
     if characterItem[itemImg].teamno == 1 then
 
         picture[1] = display.newImageRect(myImageSheet , sheetInfo:getFrameIndex(characterItem[itemImg].imgMini) ,sizeleaderW,sizeleaderH)
         picture[1]:setReferencePoint( display.CenterReferencePoint )
         g:insert(picture[1])
-        picture[1].x = display.contentWidth - (display.contentWidth*.93)
+        picture[1].x = poinImg1X
         picture[1].y = pointY
 
         leader[1] = widget.newButton{
@@ -134,7 +135,7 @@ function newTEAM(id)
         leader[1].id= character_id[1]
         leader[1]:setReferencePoint( display.CenterReferencePoint )
         g:insert(leader[1])
-        leader[1].x = display.contentWidth - (display.contentWidth*.93)
+        leader[1].x = poinImg1X
         leader[1].y = pointY
 
         itemImg = itemImg + 1
@@ -149,7 +150,7 @@ function newTEAM(id)
         leader[1].id= "Character"
         leader[1]:setReferencePoint( display.CenterReferencePoint )
         g:insert(leader[1])
-        leader[1].x = display.contentWidth - (display.contentWidth*.93)
+        leader[1].x = poinImg1X
         leader[1].y = pointY
 
     end
@@ -217,9 +218,9 @@ function newTEAM(id)
 
     local tap_team = display.newImageRect(myImageteam , teamInfo:getFrameIndex(image_tapteam),screenW*.78,screenH*.028)
     tap_team:setReferencePoint( display.CenterReferencePoint )
+    tap_team.x = -screenW * .02
+    tap_team.y = -screenH * .07
     g:insert(tap_team)
-    tap_team.x = screenW *.38
-    tap_team.y = pointY * .92
     --------------------------------
     --    storyboard.removeAll ()
     --    storyboard.purgeAll()

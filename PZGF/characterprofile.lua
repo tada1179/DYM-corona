@@ -118,6 +118,7 @@ local function createButton()
     local myImageSheet = graphics.newImageSheet( "chara_full.png",system.DocumentsDirectory, sheetInfo:getSheet() )
 
     local imageFream = display.newImage(frame[characterItem[1].FrameCharacter],true)
+    imageFream:setReferencePoint(display.TopLeftReferencePoint)
     imageFream.x = screenW*.2
     imageFream.y = screenH*.11
     local imageprofile = display.newImage(myImageSheet , sheetInfo:getFrameIndex(characterItem[1].ImageCharacterFull))
@@ -163,40 +164,48 @@ function scene:createScene( event )
     background2.x, background2.y = 0, 0
 
     local NameText = display.newText(characterItem[1].character_name, pointName, screenH *.08,typeFont, fontsizeHead)
-    NameText:setTextColor(255, 255, 255)
+    NameText:setReferencePoint(display.TopLeftReferencePoint)
+    NameText:setFillColor(255, 255, 255)
     local TEXTLV1 = "LV : \nHP : \nATK : "
     local LVPHtext1 = util.wrappedText(TEXTLV1, screenW*.28, sizetextName,typeFont, {200, 200, 200})
+    LVPHtext1:setReferencePoint(display.TopLeftReferencePoint)
     LVPHtext1.x = screenW*.1
     LVPHtext1.y = screenH*.68
 
     local TEXTLV2 = characterItem[1].txtLV.."\n"..characterItem[1].txtHP .."\n"..characterItem[1].txtATK
     local LVPHtext2 = util.wrappedText(TEXTLV2, screenW*.28, sizetextName,typeFont, {200, 200, 200})
+    LVPHtext2:setReferencePoint(display.TopLeftReferencePoint)
     LVPHtext2.x = screenW*.25
     LVPHtext2.y = screenH*.68
 
     local TEXTLV1 = "LV MAX : \nDEF : \nTYPE : "
     local LVPHtext3 = util.wrappedText(TEXTLV1, screenW*.28, sizetextName,typeFont, {200, 200, 200})
+    LVPHtext3:setReferencePoint(display.TopLeftReferencePoint)
     LVPHtext3.x = screenW*.4
     LVPHtext3.y = screenH*.68
 
     local TEXTLV2 = characterItem[1].charac_lvmax.."      COST : "..characterItem[1].charac_cost.."\n"..characterItem[1].txtDEF.."\n"..characterItem[1].charac_type
     local LVPHtext4 = util.wrappedText(TEXTLV2, screenW*.28, sizetextName,typeFont, {200, 200, 200})
+    LVPHtext4:setReferencePoint(display.TopLeftReferencePoint)
     LVPHtext4.x = screenW*.56
     LVPHtext4.y = screenH*.68
 
     local skill = "LEADER : \n\n\nSKILL : \n"
     local LVPHtext5 = util.wrappedText(skill, screenW*.28, sizetextName,typeFont, {0, 255, 0})
+    LVPHtext5:setReferencePoint(display.TopLeftReferencePoint)
     LVPHtext5.x = screenW*.1
     LVPHtext5.y = screenH*.78
 
     local skill = characterItem[1].charac_leader.."\n\n\n"..characterItem[1].charac_skill
     local LVPHtext = util.wrappedText(skill, screenW*.28, sizetextName,typeFont, {200, 200, 200})
+    LVPHtext:setReferencePoint(display.TopLeftReferencePoint)
     LVPHtext.x = screenW*.3
     LVPHtext.y = screenH*.78
 
 
     local skill = leaderline1.."\n"..leaderline2.."\n\n"..skillline1.."\n"..skillline2
     local LVPHtext6 = util.wrappedText(skill, screenW*.28, sizetextName,typeFont, {200, 200, 200})
+    LVPHtext6:setReferencePoint(display.TopLeftReferencePoint)
     LVPHtext6.x = screenW*.11
     LVPHtext6.y = screenH*.81
 

@@ -197,7 +197,7 @@ local function scrollViewList (event)
 
                     local textLV = display.newText("no."..characterItem[countID].charac_no, LVpointY,LVpointX,typeFont, sizetext)
                     textLV:setReferencePoint( display.CenterReferencePoint )
-                    textLV:setTextColor(255, 255, 255)
+                    textLV:setFillColor(255, 255, 255)
                     scrollView:insert(textLV)
 
                 else
@@ -221,7 +221,7 @@ local function scrollViewList (event)
 
                     local textLV = display.newText("no."..characterItem[countID].charac_no, LVpointY,LVpointX,typeFont, sizetext)
                     textLV:setReferencePoint( display.CenterReferencePoint )
-                    textLV:setTextColor(255, 255, 255)
+                    textLV:setFillColor(255, 255, 255)
                     scrollView:insert(textLV)
 
                     local backcharacter = display.newRect(LeaderpointY, LeaderpointX, sizeleaderW, sizeleaderH)
@@ -284,11 +284,12 @@ function scene:createScene( event )
     local titleText  = display.newText("GALLERY", 0, screenH*.30,typeFont, fontsizeHead)
     titleText:setReferencePoint( display.CenterReferencePoint )
     titleText.x = screenW*.5
-    titleText:setTextColor(255, 255, 255)
+    titleText:setFillColor(255, 255, 255)
 
     local numCharac = display.newText(AllcharacterUse.."/"..Allcharacter, screenW*.7, screenH*.31,typeFont, sizetext)
     numCharac.text = string.format( AllcharacterUse.."/"..Allcharacter )
-    numCharac:setTextColor(205, 170, 125)
+    numCharac:setReferencePoint(display.TopLeftReferencePoint)
+    numCharac:setFillColor(205, 170, 125)
 
     local image_btnback = "img/background/button/Button_BACK.png"
     local backButton = widget.newButton{

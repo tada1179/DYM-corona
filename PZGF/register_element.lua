@@ -120,6 +120,7 @@ function scene:createScene( event )
         loadCharacter()
         if Allcharacter == nil then
             local txtleader = display.newText("ERROR !! can't connect to server", screenW*.12, screenH*.5, native.systemFontBold,30 )
+            txtleader:setReferencePoint( display.TopLeftReferencePoint )
             txtleader:setTextColor(255, 255, 255)
             gdisplay:insert(txtleader)
 

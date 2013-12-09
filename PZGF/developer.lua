@@ -80,13 +80,13 @@ local function scrollviewFN()
     titleText  = display.newText("DYM (THAILAND) CO.,LTD", 0, 0,typeFont, fontsizeHead)
     titleText:setReferencePoint( display.CenterReferencePoint )
     titleText.x = screenW*.35
-    titleText:setTextColor(255, 255, 255)
+    titleText:setFillColor(255, 255, 255)
     scrollView:insert(titleText)
 
     titleText  = display.newText("Programmer", 0, screenH*.18,typeFont, fontsizeHead)
     titleText:setReferencePoint( display.CenterReferencePoint )
     titleText.x = screenW*.35
-    titleText:setTextColor(255, 255, 255)
+    titleText:setFillColor(255, 255, 255)
     scrollView:insert(titleText)
 
     local text ="Mr.Eric Hlaing \n Ms.Kwanta Yusoh"
@@ -99,7 +99,7 @@ local function scrollviewFN()
     titleText  = display.newText("Graphics Design", 0, screenH*.32,typeFont, fontsizeHead)
     titleText:setReferencePoint( display.CenterReferencePoint )
     titleText.x = screenW*.35
-    titleText:setTextColor(255, 255, 255)
+    titleText:setFillColor(255, 255, 255)
     scrollView:insert(titleText)
 
     local text ="Mr.Cheewin Tasaso \n Mr.Purich Pidroo \n Ms.Arina Arskaya"
@@ -112,7 +112,7 @@ local function scrollviewFN()
     titleText  = display.newText("Adviser", 0, screenH*.05,typeFont, fontsizeHead)
     titleText:setReferencePoint( display.CenterReferencePoint )
     titleText.x = screenW*.35
-    titleText:setTextColor(255, 255, 255)
+    titleText:setFillColor(255, 255, 255)
     scrollView:insert(titleText)
 
     local text ="Mr.Takehiro Torii "
@@ -132,7 +132,7 @@ function scene:createScene( event )
     local titleText = display.newText("DEVELOPER", screenW*.38, screenH*.3,typeFont, fontsizeHead)
 
     titleText:setReferencePoint( display.TopLeftReferencePoint )
-    titleText:setTextColor(255, 255, 255)
+    titleText:setFillColor(255, 255, 255)
     groupView:insert(titleText)
 
     createBackButton()

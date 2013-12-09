@@ -194,7 +194,8 @@ local function scrollViewList()
         gdisplay:insert(imgFrame)
 
         textName = display.newText(characterItem[i].friend_name, screenW*.3, pointNameY,typeFont, sizetextName)
-        textName:setTextColor(255, 0, 255)
+        textName:setReferencePoint(display.TopLeftReferencePoint)
+        textName:setFillColor(255, 0, 255)
         gdisplay:insert(textName)
 
         local txtFriendMark
@@ -207,23 +208,28 @@ local function scrollViewList()
             friendPoint[i] = 5
         end
         textmyFriend = display.newText(txtFriendMark, screenW*.5, pointNameY+(screenH*.055),typeFont, sizetext)
-        textmyFriend:setTextColor(200, 200, 0)
+        textmyFriend:setReferencePoint(display.TopLeftReferencePoint)
+        textmyFriend:setFillColor(200, 200, 0)
         gdisplay:insert(textmyFriend)
 
         textfriendLV = display.newText("Lv."..characterItem[i].friend_Lv, screenW*.73, pointNameY,typeFont, sizetext)
-        textfriendLV:setTextColor(200, 200, 200)
+        textfriendLV:setReferencePoint(display.TopLeftReferencePoint)
+        textfriendLV:setFillColor(200, 200, 200)
         gdisplay:insert(textfriendLV)
 
         textCharacLV = display.newText("Lv."..characterItem[i].charac_lv, screenW*.3, pointNameY+(screenH*.055),typeFont, sizetext)
-        textCharacLV:setTextColor(100, 255, 255)
+        textCharacLV:setReferencePoint(display.TopLeftReferencePoint)
+        textCharacLV:setFillColor(100, 255, 255)
         gdisplay:insert(textCharacLV)
 
         textdate = display.newText(characterItem[i].friend_date, screenW*.3, pointNameY+(screenH*.035),typeFont, sizetext)
-        textdate:setTextColor(100, 255, 255)
+        textdate:setReferencePoint(display.TopLeftReferencePoint)
+        textdate:setFillColor(100, 255, 255)
         gdisplay:insert(textdate)
 
         textPointData = display.newText("Point:"..friendPoint[i], screenW*.71, pointNameY+(screenH*.035),typeFont, sizetext)
-        textPointData:setTextColor(100, 0, 255)
+        textPointData:setReferencePoint(display.TopLeftReferencePoint)
+        textPointData:setFillColor(100, 0, 255)
         gdisplay:insert(textPointData)
 
         pointNameY = pointNameY + (screenH*.098)
@@ -247,6 +253,7 @@ local function scrollViewList()
 end
 
 function scene:createScene( event )
+    native.setActivityIndicator( false )
     gdisplay = display.newGroup()
     local group = self.view
      user_id = event.params.user_id

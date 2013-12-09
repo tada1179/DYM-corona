@@ -146,7 +146,7 @@ local function scrollViewList()
 
         NameMission:setReferencePoint( display.CenterReferencePoint )
         NameMission.x = screenW*.35
-        NameMission:setTextColor(200, 200, 200)
+        NameMission:setFillColor(200, 200, 200)
         scrollView:insert(NameMission)
 
         pointListTxtY = pointListTxtY + (screenH*.105)
@@ -165,7 +165,7 @@ function scene:createScene( event )
     titleText  = display.newText("CHARACTER RULES", 0, screenH*.30,typeFont, fontsizeHead)
     titleText:setReferencePoint( display.CenterReferencePoint )
     titleText.x = screenW*.5
-    titleText:setTextColor(255, 255, 255)
+    titleText:setFillColor(255, 255, 255)
 
     createBackButton()
     scrollViewList()

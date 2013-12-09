@@ -107,9 +107,6 @@ end
 function scene:exitScene( event )
     local group = self.view
     storyboard.removeAll ()
-    scene:removeEventListener( "createScene", scene )
-    scene:removeEventListener( "enterScene", scene )
-    scene:removeEventListener( "destroyScene", scene )
 end
 
 function scene:destroyScene( event )

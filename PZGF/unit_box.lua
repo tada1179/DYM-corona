@@ -133,7 +133,6 @@ local function scrollViewList ()
         if event.phase == "begen" then
             event.markX = event.x
             event.markY = event.y
-            local scrollBar = self.scrollBar
         elseif event.phase == "moved" then
             local dy = math.abs( event.y - event.yStart )
             if  dy > 5 then
@@ -197,11 +196,13 @@ local function scrollViewList ()
                 scrollView:insert(listCharacter)
 
                 local textLV = display.newText("Lv."..characterItem[countID].level, LVpointY,LVpointX,typeFont, sizetext)
-                textLV:setTextColor(255, 255, 255)
+                textLV:setReferencePoint( display.TopLeftReferencePoint )
+                textLV:setFillColor(255, 255, 255)
                 scrollView:insert(textLV)
 
                 if characterItem[countID].use then
                     local backcharacter = display.newRect(LeaderpointY, LeaderpointX, sizeleaderW, sizeleaderH)
+                    backcharacter:setReferencePoint( display.TopLeftReferencePoint )
                     backcharacter.alpha = 0.8
                     backcharacter.id = "1179"
                     backcharacter:setFillColor(0, 0, 0)
@@ -214,7 +215,8 @@ local function scrollViewList ()
                     scrollView:insert(groupView)
 
                     local textInuse = display.newText(txtInuse, InusepointY,InusepointX,typeFont, sizetext)
-                    textInuse:setTextColor(200, 0, 200)
+                    textInuse:setReferencePoint( display.TopLeftReferencePoint )
+                    textInuse:setFillColor(200, 0, 200)
                     groupView:insert(textInuse)
                 end
 
@@ -295,26 +297,27 @@ function scene:createScene( event )
     end
 
     local colorBLOCK_BOX = display.newRect(screenW*.115, screenH*.745, screenW*.76, screenH*.07)
+    colorBLOCK_BOX:setReferencePoint( display.TopLeftReferencePoint )
     colorBLOCK_BOX.alpha = 0.8
     colorBLOCK_BOX.touch = onTouchGameUnitBox
     colorBLOCK_BOX:setFillColor(181, 181, 181)
     colorBLOCK_BOX:addEventListener( "touch", colorBLOCK_BOX )
 
     local unitText = display.newText("UNIT", screenW*.15, screenH *.75,typeFont, 18)
-    unitText:setTextColor(0, 0, 0)
-    unitText:setTextColor(255, 255, 255)
+    unitText:setReferencePoint( display.TopLeftReferencePoint )
+    unitText:setFillColor(255, 255, 255)
     local unitTextNumber = display.newText("UNIT", screenW*.4, screenH *.75,typeFont, 18)
-    unitTextNumber:setTextColor(0, 0, 0)
-    unitTextNumber:setTextColor(255, 255, 255)
+    unitTextNumber:setFillColor(0, 0, 0)
+    unitTextNumber:setFillColor(255, 255, 255)
     unitTextNumber.text = Allcharacter
 
     local unitAllText = display.newText("BOX CONTAIN", screenW*.15, screenH *.78,typeFont, 18)
-    unitAllText:setTextColor(0, 0, 0)
-    unitAllText:setTextColor(255, 255, 255)
+    unitAllText:setReferencePoint( display.TopLeftReferencePoint )
+    unitAllText:setFillColor(255, 255, 255)
 
     local unitAllTextNumber = display.newText("BOX CONTAIN", screenW*.335, screenH *.78,typeFont, 18)
-    unitAllTextNumber:setTextColor(0, 0, 0)
-    unitAllTextNumber:setTextColor(255, 255, 255)
+    unitAllTextNumber:setReferencePoint( display.TopLeftReferencePoint )
+    unitAllTextNumber:setFillColor(255, 255, 255)
     unitAllTextNumber.text = unitAll
 
     local slot = menu_barLight.slot()

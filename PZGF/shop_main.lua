@@ -87,6 +87,7 @@ function scene:createScene( event )
     local group = self.view
 
     stamshop = display.newImageRect( image_stam, screenW*.05, screenH*.6 )
+    stamshop:setReferencePoint( display.TopLeftReferencePoint )
     stamshop.x = screenW *.5
     stamshop.y = screenH*.65
 
@@ -126,21 +127,6 @@ end
 
 function scene:destroyScene( event )
     local group = self.view
-
-    display.remove(btnshopcoin)
-    btnshopcoin = nil
-
-    display.remove(btnshopmoney)
-    btnshopmoney = nil
-
-    display.remove(stamshop)
-    stamshop = nil
-
-    display.remove(titleText)
-    titleText= nil
-
-    display.remove(gdisplay)
-    gdisplay = nil
 end
 
 scene:addEventListener( "createScene", scene )

@@ -176,12 +176,14 @@ local function scrollViewList ()
             scrollView:insert(listCharacter[countID])
 
             local textLV = display.newText("Lv."..characterItem[countID].level, LVpointY,LVpointX,typeFont, sizetext)
+            textLV:setReferencePoint(display.TopLeftReferencePoint)
             textLV:setTextColor(255, 255, 255)
             scrollView:insert(textLV)
 
             if characterItem[countID].use then
                 local backcharacter = display.newRect(LeaderpointY, LeaderpointX, sizeleaderW, sizeleaderH)
                 backcharacter.alpha = 0.8
+                backcharacter:setReferencePoint(display.TopLeftReferencePoint)
                 backcharacter:setFillColor(0, 0, 0)
                 scrollView:insert(backcharacter)
 
@@ -191,6 +193,7 @@ local function scrollViewList ()
                 scrollView:insert(groupView)
 
                 local textInuse = display.newText(txtInuse, InusepointY,InusepointX,typeFont, sizetext)
+                textInuse:setReferencePoint(display.TopLeftReferencePoint)
                 textInuse:setTextColor(200, 0, 200)
                 groupView:insert(textInuse)
             end

@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_Recordset1" value="name:Vocab_id;datatype:int,name:Thai_Vocab;datatype:string,name:Arab_Vocab;datatype:string,name:Pronounce;datatype:string,name:Sound;datatype:string,name:Cate_id;datatype:int" />
+</info>

@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_Category" value="name:Cate_id;datatype:int,name:Cate_name;datatype:string" />
+	<infoitem key="UD_CategorySet" value="name:Cate_id;datatype:int,name:Cate_name;datatype:string" />
+	<infoitem key="UD_ShowCatrgory" value="name:Cate_id;datatype:int,name:Cate_name;datatype:string" />
+	<infoitem key="UD_ShowCategory" value="name:Cate_id;datatype:int,name:Cate_name;datatype:string" />
+</info>

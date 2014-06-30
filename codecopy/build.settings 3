@@ -1,0 +1,73 @@
+settings = {
+	
+    orientation =
+        {
+            default = "portrait",
+            supported = { "portrait", "portraitUpsideDown"}
+        },
+    android =
+        {
+            usesExpansionFile = true,
+            usesPermissions =
+            {
+                "android.permission.INTERNET",
+                "com.android.vending.CHECK_LICENSE",
+                "android.permission.WRITE_EXTERNAL_STORAGE",
+                "com.android.vending.BILLING",
+            },
+        },
+
+    iphone =
+    	{
+    		plist =
+    		{
+    			CFBundleIconFile = "Icon.png",
+    			CFBundleIconFiles =
+    			{
+                    "Icon.png",
+                    "Icon@2x.png",
+                    "Icon-60.png",
+                    "Icon-60@2x.png",
+                    "Icon-72.png",
+                    "Icon-72@2x.png",
+                    "Icon-76.png",
+                    "Icon-76@2x.png",
+                    "Icon-Small.png",
+                    "Icon-Small@2x.png",
+                    "Icon-Small-40.png",
+                    "Icon-Small-40@2x.png",
+                    "Icon-Small-50.png",
+                    "Icon-Small-50@2x.png",
+    			},
+            UIApplicationExitsOnSuspend = false,
+            FacebookAppID = "1431907720377477",  --replace XXXXXXXXXX with your Facebook App ID
+            CFBundleURLTypes = {
+                {
+                CFBundleURLSchemes = { "fb1431907720377477", }  --replace XXXXXXXXXX with your Facebook App ID
+                }
+            },
+
+            ["URL types"] = {
+                item = {
+                    ["URL Schemes"] =
+                        { ["Item 0"] = "fb1431907720377477" },  --replace XXXXXXXXXX with your Facebook App ID
+                },
+            },
+    		}
+    	},
+
+    -- enable the admob plugin
+    plugins =
+    {
+        ["CoronaProvider.ads.admob"] =
+        {
+            publisherId = "com.coronalabs"
+        },
+
+        ["CoronaProvider.native.popup.social"] =
+        {
+            --required
+            publisherId = "com.coronalabs",
+        },
+    },
+}

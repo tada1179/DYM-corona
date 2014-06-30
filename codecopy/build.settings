@@ -1,0 +1,47 @@
+settings =
+{
+		--[[orientation =
+	{
+		default = "landscapeRight",
+		supported = { "landscapeLeft", "landscapeRight" }
+	},]]--
+
+    orientation =
+    	{
+    		default = "portrait",
+    		supported = { "portrait", "portrait" }
+    	},
+    	 -- BUS lua
+
+
+	--[[ iphone =
+	{
+		plist =
+		{
+			UIStatusBarHidden = true,
+			CFBundleIconFile = "Icon.png",
+			CFBundleIconFiles =
+			{
+				"Icon.png", 
+				"Icon@2x.png", 
+				"Icon-72.png", 
+				"Icon-72@2x.png", 
+			},
+		},
+	},]]--
+
+    android =
+    {
+        largeHeap = true,
+        usesExpansionFile = true,
+        versionCode = "11",
+        usesPermissions =
+        {
+            "android.permission.INTERNET",
+            "android.permission.WRITE_EXTERNAL_STORAGE",
+            "android.permission.ACCESS_FINE_LOCATION",
+            "android.permission.ACCESS_COURSE_LOCATION",
+        },
+    },
+
+}
